@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Add Bcryt Password">
+    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Add Bcryt Jar">
+      <change afterPath="$PROJECT_DIR$/src/main/Models/Group.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatApplication.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ChatApplication.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ulities/PasswordEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ulities/PasswordEncoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/DataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Data/DataStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Group.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/PrivateGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/PrivateGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/PublicGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/PublicGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ulities/PasswordEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Ulities/PasswordEncoder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -49,9 +55,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Models/User.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Ulities/PasswordEncoder.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Models/User.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Ulities/PasswordEncoder.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -87,19 +93,35 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="test" />
       <recent name="Models" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Application">
-    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Application.Application" />
+  <component name="RunManager" selected="JUnit.PasswordEncoderTest">
+    <configuration name="main.Application.Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.Application.Application" />
       <module name="ChatApplication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Application.*" />
+          <option name="PATTERN" value="main.Application.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PasswordEncoderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="test.PasswordEncoderTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -108,7 +130,7 @@
       <module name="ChatApplication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Models.*" />
+          <option name="PATTERN" value="main.Models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -122,10 +144,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.PasswordEncoderTest" />
+        <item itemvalue="Application.main.Application.Application" />
         <item itemvalue="JUnit.UserTest.testCreateUser" />
         <item itemvalue="JUnit.UserTest.testCreateUser" />
-        <item itemvalue="Application.Application" />
+        <item itemvalue="Application.main.Application.Application" />
       </list>
     </recent_temporary>
   </component>
@@ -173,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658032051511</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add Bcryt Jar">
+      <created>1658033636906</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1658033636906</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,21 +221,7 @@
     <MESSAGE value="CREATE" />
     <MESSAGE value="test branch" />
     <MESSAGE value="Add Bcryt Password" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Bcryt Password" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Models/User.java</url>
-          <line>40</line>
-          <properties class="Models.User" method="getFullName">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Add Bcryt Jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Bcryt Jar" />
   </component>
 </project>
