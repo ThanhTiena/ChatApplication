@@ -1,4 +1,4 @@
-package Ulities;
+package main.Ulities;
 
 import org.mindrot.BCrypt;
 
@@ -11,7 +11,7 @@ public class PasswordEncoder {
 
     public boolean checkPassword(String plainTextPassword, String hashedPassword) {
         if (null == hashedPassword || !hashedPassword.startsWith("$2a$")) {
-            throw new RuntimeException("Hashed password is invalid");
+            throw new RuntimeException("Password is invalid");
         }
         return BCrypt.checkpw(plainTextPassword, hashedPassword);
     }

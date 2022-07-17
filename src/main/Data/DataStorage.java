@@ -1,4 +1,4 @@
-package Data;
+package main.Data;
 
 public class DataStorage {
     private static DataStorage instance = new DataStorage();
