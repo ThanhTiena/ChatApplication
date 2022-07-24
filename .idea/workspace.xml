@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Add Test for PasswordEncoder">
+    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Add Enum Class">
+      <change afterPath="$PROJECT_DIR$/src/main/Models/Enums/GroupType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Models/Enums/RequestStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_7_14_2022_10_32_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_7_14_2022_10_32_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_14_2022_10_33_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_14_2022_10_33_PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Data/DataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Data/DataStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Enums/FileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Enums/FileType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Group.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658037182223</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update User Service">
+      <created>1658106602551</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1658106602551</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -236,6 +251,8 @@
     <MESSAGE value="Add Bcryt Password" />
     <MESSAGE value="Add Bcryt Jar" />
     <MESSAGE value="Add Test for PasswordEncoder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Test for PasswordEncoder" />
+    <MESSAGE value="Update User Service" />
+    <MESSAGE value="Add Enum Class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Enum Class" />
   </component>
 </project>

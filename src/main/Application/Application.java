@@ -1,5 +1,6 @@
 package main.Application;
 
+import main.Data.DataStorage;
 import main.Models.File;
 import main.Models.Group;
 import main.Models.User;
@@ -11,23 +12,7 @@ import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
-        PasswordEncoder passwordEncoder = new PasswordEncoder();
-        String hashPassword = passwordEncoder.hashPassword("Helllllllllllo");
-
-//        Map<String, Object> data = new HashMap<String, Object>();
-//
-//        data.put("groups", new HashMap<String, Group>());
-//        data.put("files", new HashMap<String, File>());
-        User user = new User();
-        user.setFirstName("tien");
-        user.setHashPassword(passwordEncoder.hashPassword("123"));
-
-        try {
-            UserService userService = new UserService(user);
-            userService.Login("asdasd","asdfasdfa");
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+        DataStorage dataStorage = DataStorage.getInstance();
 
     }
 }
