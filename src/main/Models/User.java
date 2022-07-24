@@ -9,6 +9,7 @@ public class User {
     private String hashPassword;
     private String gender;
     private Date dateOfBirth;
+    private boolean isAdmin;
 
     public User(String firstName, String lastName, String fullName, String hashPassword, String gender, Date dateOfBirth) {
         this.firstName = firstName;
