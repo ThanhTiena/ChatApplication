@@ -17,6 +17,7 @@ public class UserService {
         if(!password.equals(user.getHashPassword())){
             throw new Exception("Password invalid");
         }
+        System.out.println("afjksdhnfklajhsbfajkhlds");
         return true;
     }
 }
