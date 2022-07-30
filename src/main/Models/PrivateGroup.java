@@ -1,8 +1,13 @@
 package main.Models;
 
-public class PrivateGroup extends Group{
+import main.Models.Enums.GroupType;
 
-    private User admin;
+import java.util.ArrayList;
+
+public class PrivateGroup extends Group{
+    public PrivateGroup(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String accessCode, String status) {
+        super(memberList, admin, groupName, groupType, accessCode, status);
+    }
 
     @Override
     public void showMessage() {
