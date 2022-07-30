@@ -10,7 +10,7 @@ public abstract class Group {
     private User admin;
     private String groupName;
     private GroupType groupType;
-    private String accessCode;
+    private String groupCode;
     //status: active, disband
     private String status;
 
@@ -19,7 +19,7 @@ public abstract class Group {
         this.admin = admin;
         this.groupName = groupName;
         this.groupType = groupType;
-        this.accessCode = accessCode;
+        this.groupCode = accessCode;
         this.status = status;
     }
 
@@ -48,7 +48,7 @@ public abstract class Group {
     }
 
     public String getAccessCode() {
-        return accessCode;
+        return groupCode;
     }
 
     public ArrayList<User> getMemberList() {
