@@ -13,6 +13,7 @@ public class User {
     private String hashPassword;
     private String gender;
     private Date dateOfBirth;
+    private boolean isAdmin;
 
     /* User Status */
     private boolean isOnline;

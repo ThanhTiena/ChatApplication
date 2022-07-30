@@ -3,8 +3,8 @@ package main.Data;
 import main.Models.Group;
 import main.Models.User;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.swing.text.html.parser.Entity;
+import java.util.*;
 
 public class DataStorage {
     private Map<String, User> users = new HashMap<String, User>();
@@ -27,6 +27,5 @@ public class DataStorage {
             System.out.println(id + " " + users.get(id).getFullName());
         }
         return users.size();
-    }
 }
 
