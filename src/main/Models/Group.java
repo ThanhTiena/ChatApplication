@@ -10,17 +10,17 @@ public abstract class Group {
     private User admin;
     private String groupName;
     private GroupType groupType;
-    private String accessCode;
+    private String groupCode;
     //status: active, disband
-    private String status;
+    private String groupStatus;
 
-    public Group(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String accessCode, String status) {
+    public Group(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String groupCode, String groupStatus) {
         this.memberList = memberList;
         this.admin = admin;
         this.groupName = groupName;
         this.groupType = groupType;
-        this.accessCode = accessCode;
-        this.status = status;
+        this.groupCode = groupCode;
+        this.groupStatus = groupStatus;
     }
 
     public User getAdmin() {
@@ -38,6 +38,13 @@ public abstract class Group {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+    public String getGroupStatus() {
+        return groupStatus;
+    }
+
+    public void setGroupStatus(String groupStatus) {
+        this.groupStatus = groupStatus;
+    }
 
     public GroupType getGroupType() {
         return groupType;
@@ -47,20 +54,12 @@ public abstract class Group {
         this.groupType = groupType;
     }
 
-    public String getAccessCode() {
-        return accessCode;
-    }
-
     public ArrayList<User> getMemberList() {
         return memberList;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public String getGroupCode() {
+        return groupCode;
     }
 
     public void showMessage() {
