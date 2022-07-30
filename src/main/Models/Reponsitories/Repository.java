@@ -11,12 +11,9 @@ public class Repository<TEntity> implements IRepository<TEntity> {
     private List<TEntity> entity = new ArrayList<TEntity>();
     private Predicate<TEntity> predicate;
     @Override
-    public Iterator<Entity> get(Predicate<TEntity> pre, Function<TEntity,Boolean> filter) {
+    public List<TEntity> get(Predicate<TEntity> pre, Function<TEntity,Boolean> filter) {
         this.predicate = pre;
-        ;
-
-        entity.stream().filter(this.predicate).sorted(Comparator.comparing(filter));
-        return null;
+        return entity.stream().filter(this.predicate).sorted(Comparator.comparing(filter)).toList();
     }
 
     @Override
@@ -32,7 +29,7 @@ public class Repository<TEntity> implements IRepository<TEntity> {
 
     @Override
     public void update(Object o) {
-
+        
     }
 
     @Override

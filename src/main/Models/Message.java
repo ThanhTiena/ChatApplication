@@ -11,7 +11,6 @@ public class Message {
     private String groupId;
     private String content;
     private Date sentAt;
-
     private User sender, receiver;
     private Group group;
     private List<File> files;
