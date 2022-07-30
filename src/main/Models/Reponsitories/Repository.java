@@ -1,13 +1,13 @@
 package main.Models.Reponsitories;
 
-import main.Models.Interfaces.RepositoryInterface;
+import main.Models.Interfaces.IRepository;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Repository<TEntity> implements RepositoryInterface<TEntity> {
+public class Repository<TEntity> implements IRepository<TEntity> {
     private List<TEntity> entity = new ArrayList<TEntity>();
     private Predicate<TEntity> predicate;
     @Override

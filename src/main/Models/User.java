@@ -10,9 +10,12 @@ public class User {
     private String firstName;
     private String lastName;
     private String fullName;
-    private String hashPassword;
     private String gender;
     private Date dateOfBirth;
+
+    /* User Account Information*/
+    private String userName;
+    private String hashPassword;
 
     /* User Status */
     private boolean isOnline;
@@ -68,6 +71,14 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getHashPassword() {
