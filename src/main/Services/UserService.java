@@ -4,22 +4,21 @@ import main.Data.DataStorage;
 import main.Models.User;
 import main.Ulities.UserException;
 
+import java.util.function.Predicate;
+
 public class UserService {
 
     private User user;
-
-    public UserService(User user){
-        this.user = user;
+    private DataStorage dataStorage;
+    public UserService(){
+        this.dataStorage = DataStorage.getInstance();
     }
     public boolean Login(String username , String password) throws Exception {
 
-        if(!username.equals(user.getFirstName())){
-            throw new Exception("Username invalid");
-        }
-        if(!password.equals(user.getHashPassword())){
-            throw new Exception("Password invalid");
-        }
+        Predicate<User> predicate = user -> user.getFirstName().equals("") && user.getFullName().equals("");
+        this.user = dataStorage.users.find(predicate); /* The return type is a USER */
 
-        return true;
+        return this.user != null ? true : false;
     }
+
 }
