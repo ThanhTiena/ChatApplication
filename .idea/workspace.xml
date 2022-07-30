@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Add Enum Class">
+    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Application/ChatMediator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/ChatMediator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Data/DataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Data/DataStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,13 +50,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/ChatApplication.iml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Models/File.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/Models/User.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/Ulities/PasswordEncoder.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/test/PasswordEncoderTest.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -161,8 +155,8 @@
         <item itemvalue="Application.main.Application.Application" />
         <item itemvalue="JUnit.UserTest.testCreateUser" />
         <item itemvalue="JUnit.PasswordEncoderTest" />
-        <item itemvalue="JUnit.UserTest.testCreateUser" />
         <item itemvalue="Application.Application" />
+        <item itemvalue="Application.main.Application.Application" />
       </list>
     </recent_temporary>
   </component>
@@ -231,7 +225,21 @@
       <option name="project" value="LOCAL" />
       <updated>1658106602551</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="UPDATE DATA STORAGE">
+      <created>1658678519345</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1658678519345</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Test">
+      <created>1658728698882</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1658728698882</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -253,6 +261,8 @@
     <MESSAGE value="Add Test for PasswordEncoder" />
     <MESSAGE value="Update User Service" />
     <MESSAGE value="Add Enum Class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Enum Class" />
+    <MESSAGE value="UPDATE DATA STORAGE" />
+    <MESSAGE value="Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test" />
   </component>
 </project>

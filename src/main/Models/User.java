@@ -10,14 +10,18 @@ public class User {
     private String firstName;
     private String lastName;
     private String fullName;
-    private String hashPassword;
     private String gender;
     private Date dateOfBirth;
-    private boolean isAdmin;
+
+    /* User Account Information*/
+    private String userName;
+    private String hashPassword;
 
     /* User Status */
     private boolean isOnline;
     private boolean isActivated;
+    private boolean isAdmin;
+
     private Map<String, Boolean> isSendRequests;
 
     /* Can change  */
@@ -67,6 +71,14 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getHashPassword() {
@@ -125,4 +137,11 @@ public class User {
         isActivated = activated;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }
