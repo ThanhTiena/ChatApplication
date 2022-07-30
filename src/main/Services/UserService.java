@@ -1,9 +1,11 @@
 package main.Services;
 
+import main.Data.DataStorage;
 import main.Models.User;
 import main.Ulities.UserException;
 
 public class UserService {
+
     private User user;
 
     public UserService(User user){
@@ -17,7 +19,7 @@ public class UserService {
         if(!password.equals(user.getHashPassword())){
             throw new Exception("Password invalid");
         }
-        System.out.println("afjksdhnfklajhsbfajkhlds");
+
         return true;
     }
 }

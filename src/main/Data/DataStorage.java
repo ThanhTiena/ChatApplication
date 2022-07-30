@@ -1,23 +1,32 @@
 package main.Data;
 
 import main.Models.Group;
+import main.Models.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class DataStorage {
-    private Map<String,Object> data = new HashMap<>(){
-        {
-            put("GROUPS", new HashMap<String, Group >());
-        }
-    };
+    private Map<String, User> users = new HashMap<String, User>();
     private static DataStorage instance = new DataStorage();
 
     private DataStorage() {
     }
 
-    public static DataStorage getInstance(){
+    public static DataStorage getInstance() {
         return instance;
+    }
+
+    public void addUser(User user) {
+        users.put(user.getUserId(), user);
+
+    }
+
+    public int getTotalUser() {
+        for (String id : users.keySet()) {
+            System.out.println(id + " " + users.get(id).getFullName());
+        }
+        return users.size();
     }
 }
 
