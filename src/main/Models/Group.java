@@ -21,6 +21,7 @@ public abstract class Group {
         this.groupType = groupType;
         this.groupCode = groupCode;
         this.groupStatus = groupStatus;
+
     }
 
     public User getAdmin() {
