@@ -7,9 +7,10 @@ import main.Ulities.UserException;
 public class UserService {
 
     private User user;
-
+    private DataStorage dataStorage;
     public UserService(User user){
         this.user = user;
+        this.dataStorage = DataStorage.getInstance();
     }
     public boolean Login(String username , String password) throws Exception {
 

@@ -27,5 +27,6 @@ public class DataStorage {
             System.out.println(id + " " + users.get(id).getFullName());
         }
         return users.size();
+    }
 }
 
