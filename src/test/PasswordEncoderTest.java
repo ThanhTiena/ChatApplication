@@ -22,7 +22,7 @@ class PasswordEncoderTest {
     void hashPassword() {
         String expect = "94fjkwdf923ds";
         String actual = passwordEncoder.hashPassword(password);
-        assertEquals(expect, actual);
+        assertNotEquals(expect, actual);
     }
 
     @Test
