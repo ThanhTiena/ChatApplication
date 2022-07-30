@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Building Reponsitory">
-      <change afterPath="$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Data/DataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Data/DataStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Reponsitories/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +17,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -247,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659147917163</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Building Reponsitory">
+      <created>1659150144740</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1659150144740</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

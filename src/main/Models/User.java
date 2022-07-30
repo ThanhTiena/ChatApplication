@@ -13,11 +13,12 @@ public class User {
     private String hashPassword;
     private String gender;
     private Date dateOfBirth;
-    private boolean isAdmin;
 
     /* User Status */
     private boolean isOnline;
     private boolean isActivated;
+    private boolean isAdmin;
+
     private Map<String, Boolean> isSendRequests;
 
     /* Can change  */
@@ -125,4 +126,11 @@ public class User {
         isActivated = activated;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }
