@@ -7,27 +7,25 @@ import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 public class DataStorage {
-    private Map<String,Object> data = new HashMap<>(){
-        {
-            put("GROUPS", new HashMap<String, Group >());
-            put("USER", new HashMap<String, User>());
-        }
-    };
-    private List<Entity> dataList = new ArrayList<>();
+    private Map<String, User> users = new HashMap<String, User>();
     private static DataStorage instance = new DataStorage();
 
     private DataStorage() {
     }
 
-    public static DataStorage getInstance(){
+    public static DataStorage getInstance() {
         return instance;
     }
 
-    public List<User> find(){
-        return null;
+    public void addUser(User user) {
+        users.put(user.getUserId(), user);
+
     }
-    public Entity get(){
-        return null;
-    }
+
+    public int getTotalUser() {
+        for (String id : users.keySet()) {
+            System.out.println(id + " " + users.get(id).getFullName());
+        }
+        return users.size();
 }
 
