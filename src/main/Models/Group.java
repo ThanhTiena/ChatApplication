@@ -9,12 +9,12 @@ public abstract class Group {
     private ArrayList<User> memberList = new ArrayList<User>();
     private User admin;
     private String groupName;
-    private GroupType groupType;
+    private String groupType;
     private String groupCode;
     //status: active, disband
     private String groupStatus;
 
-    public Group(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String groupCode, String groupStatus) {
+    public Group(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {
         this.memberList = memberList;
         this.admin = admin;
         this.groupName = groupName;
@@ -47,11 +47,11 @@ public abstract class Group {
         this.groupStatus = groupStatus;
     }
 
-    public GroupType getGroupType() {
+    public String getGroupType() {
         return groupType;
     }
 
-    public void setGroupType(GroupType groupType) {
+    public void setGroupType(String groupType) {
         this.groupType = groupType;
     }
 

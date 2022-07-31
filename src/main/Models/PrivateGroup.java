@@ -5,7 +5,7 @@ import main.Models.Enums.GroupType;
 import java.util.ArrayList;
 
 public class PrivateGroup extends Group{
-    public PrivateGroup(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String groupCode, String groupStatus) {
+    public PrivateGroup(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {
         super(memberList, admin, groupName, groupType, groupCode, groupStatus);
     }
 
