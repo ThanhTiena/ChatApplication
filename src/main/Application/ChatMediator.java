@@ -10,7 +10,7 @@ public class ChatMediator {
     public ChatMediator(){
         dataStorage = DataStorage.getInstance();
     }
-// Danh lam
+
     public void openConversation(){
 
     }
@@ -44,6 +44,7 @@ public class ChatMediator {
             }
         } while (choice != 3);
     }
+
     private void doLogin() {
         System.out.println("Login is loading");
     }

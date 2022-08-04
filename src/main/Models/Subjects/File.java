@@ -1,4 +1,4 @@
-package main.Models;
+package main.Models.Subjects;
 
 import main.Models.Enums.FileType;
 
