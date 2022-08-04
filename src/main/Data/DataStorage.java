@@ -1,12 +1,9 @@
 package main.Data;
 
-import main.Models.File;
-import main.Models.Group;
+import main.Models.Subjects.File;
+import main.Models.Subjects.Group;
 import main.Models.Reponsitories.Repository;
-import main.Models.User;
-
-import javax.swing.text.html.parser.Entity;
-import java.util.*;
+import main.Models.Subjects.User;
 
 public class DataStorage {
 

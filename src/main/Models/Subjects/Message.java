@@ -1,4 +1,4 @@
-package main.Models;
+package main.Models.Subjects;
 
 import main.Ulities.GenerateNumber;
 
@@ -15,8 +15,11 @@ public class Message {
     private Group group;
     private List<File> files;
 
-    public Message(){
+    public Message(String senderId,String content, String receiverId){
         this.messageId = GenerateNumber.generateMessageId();
+        this.senderId = senderId;
+        this.content = content;
+        this.receiverId = receiverId;
     }
 
     public String getMessageId() {

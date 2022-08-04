@@ -1,4 +1,4 @@
-package main.Models;
+package main.Models.Subjects;
 
 import main.Ulities.GenerateNumber;
 
@@ -20,8 +20,7 @@ public class User {
     /* User Status */
     private boolean isOnline;
     private boolean isActivated;
-    private boolean isAdmin;
-
+    private Map<String,String> roleInGroupChats;
     private Map<String, Boolean> isSendRequests;
 
     /* Can change  */
@@ -35,6 +34,10 @@ public class User {
         this.hashPassword = hashPassword;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+
+        this.isActivated = true;
+        this.isOnline = true;
+        this.roleInGroupChats = new HashMap<>();
     }
 
     public User() {
@@ -44,10 +47,10 @@ public class User {
     public String getUserId() {
         return userId;
     }
-    /* May uncomment if necessary */
-//    public void setUserId(String userId) {
-//        this.userId = userId;
-//    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -137,11 +140,11 @@ public class User {
         isActivated = activated;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public Map<String, String> getRoleInGroupChats() {
+        return roleInGroupChats;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setRoleInGroupChats(Map<String, String> roleInGroupChats) {
+        this.roleInGroupChats = roleInGroupChats;
     }
 }

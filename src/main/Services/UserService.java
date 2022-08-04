@@ -1,72 +1,89 @@
 package main.Services;
 
 import main.Data.DataStorage;
-import main.Models.User;
+import main.Models.Subjects.Message;
+import main.Models.Subjects.User;
 import main.Ulities.BryctEncoder;
 import main.Ulities.UserException;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Predicate;
 
 public class UserService {
 
     private User user;
     private final DataStorage dataStorage;
-    public UserService(){
+
+    public UserService() {
         this.dataStorage = DataStorage.getInstance();
     }
 
-    public User getUserExisted(User user){
-        return dataStorage.users.find((Predicate<User>)u -> u.getUserName().equals(user.getUserName()));
+    public User getUserExisted(User user) {
+        return dataStorage.users.find((Predicate<User>) u -> u.getUserName().equals(user.getUserName()));
     }
+
     public boolean addUser(User user) throws UserException {
-        if(getUserExisted(user) != null){
+        if (getUserExisted(user) != null) {
             throw new UserException("This User have existed!");
         }
         dataStorage.users.insert(user);
         return true;
     }
-    public boolean removeUser(User user) throws UserException{
-        if(getUserExisted(user) == null){
+
+    public boolean removeUser(User user) throws UserException {
+        if (getUserExisted(user) == null) {
             throw new UserException("This user is not existed in the system!");
         }
         dataStorage.users.delete(user);
         return true;
     }
-    public boolean Login(String username , String password) {
+
+    public boolean login(String username, String password) {
         String passwordHashed = BryctEncoder.hashPassword(password);
         Predicate<User> predicate = user -> user.getUserName().equals(username) && user.getHashPassword().equals(passwordHashed);
-        this.user = dataStorage.users.find(predicate); /* The return type is a USER */
 
-        return this.user != null;
+        return dataStorage.users.find(predicate) != null;
+    }
+
+    public void addRoleGroupChat(String groupId, String role) {
+        Map<String, String> roleInGroups = this.user.getRoleInGroupChats();
+        if (roleInGroups.containsKey(groupId) && roleInGroups.get(groupId).equalsIgnoreCase(role)) {
+            roleInGroups.replace(groupId, role);
+        } else {
+            roleInGroups.put(groupId, role);
+        }
+        this.user.setRoleInGroupChats(roleInGroups);
+
+        /* Need to update user in data storage factory */
     }
 
     /*In method findFriendsByKeyWordInName, we just find friends have the name contained the keyword, and we find with the 3rd layer.
     Example: Find in your friendlist -> friends' friendlist -> friends' friendlist of friends who are have friendship with your friends */
-    public ArrayList<User> findFriendsByKeyWordInName(User user, String keyword, ArrayList<String> checkedUserId, Integer depth){
+    public ArrayList<User> findFriendsByKeyWordInName(User user, String keyword, ArrayList<String> checkedUserId, Integer depth) {
         ArrayList<User> results = new ArrayList<User>();
 
-        Map<String,User> friendList = user.getFriends();
-        friendList.forEach((k,v)->{
-           if(!checkedUserId.contains(k)){
-               checkedUserId.add(k);
-               if(v.getFullName().contains(keyword)){
-                   results.add(v);
-               }
+        Map<String, User> friendList = user.getFriends();
+        friendList.forEach((k, v) -> {
+            if (!checkedUserId.contains(k)) {
+                checkedUserId.add(k);
+                if (v.getFullName().contains(keyword)) {
+                    results.add(v);
+                }
 
-               if(depth < 3){
-                  results.addAll(findFriendsByKeyWordInName(v,keyword,checkedUserId,depth +1));
-               }
-
-           }
+                if (depth < 3) {
+                    results.addAll(findFriendsByKeyWordInName(v, keyword, checkedUserId, depth + 1));
+                }
+            }
         });
         return results;
     }
 
     /* Send Message */
+    public boolean sendMessage(String senderId, String content, String receiverId) {
+        Message message = new Message(senderId, content, receiverId);
+        return false;
+    }
 
     /* Send Invitation */
 
