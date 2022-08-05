@@ -1,7 +1,9 @@
 package main.Services;
 
 import main.Data.DataStorage;
+import main.Models.Subjects.Group;
 import main.Models.Subjects.Message;
+import main.Models.Subjects.File;
 import main.Models.Subjects.User;
 import main.Ulities.BryctEncoder;
 import main.Ulities.UserException;
@@ -80,12 +82,42 @@ public class UserService {
     }
 
     /* Send Message */
-    public boolean sendMessage(String senderId, String content, String receiverId) {
-        Message message = new Message(senderId, content, receiverId);
-        return false;
+    public boolean sendMessageToUser(String senderId, String content, String receiverId) {
+        Message message = new Message(senderId, content);
+        if (receiverId == null) {
+            return false;
+        }
+        message.setReceiverId(receiverId);
+        return true;
+    }
+    public boolean sendMessageToGroup(String senderId, String content, String receiverGroupId) {
+        Message message = new Message(senderId, content);
+        if (receiverGroupId == null) {
+            return false;
+        }
+        message.setGroupId(receiverGroupId);
+        return true;
     }
 
+    /* Send File */
+    public boolean sendFileToUser(String senderId, File file, String receiverId) {
+        if (receiverId == null) {
+            return false;
+        }
+        file.setReceiverId(receiverId);
+        return true;
+    }
+    public boolean sendFileToGroup(String senderId, File file, String receiverGroupId) {
+        if (receiverGroupId == null) {
+            return false;
+        }
+        file.setGroupId(receiverGroupId);
+        return true;
+    }
     /* Send Invitation */
+    public boolean sendInvitation() {
+        return true;
+    }
 
     /* Send Code */
 }
