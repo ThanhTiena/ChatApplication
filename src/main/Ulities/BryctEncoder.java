@@ -2,6 +2,8 @@ package main.Ulities;
 
 import org.mindrot.BCrypt;
 
+import java.util.function.Predicate;
+
 public class BryctEncoder {
 
     public static String hashPassword(String plainTextPassword) {
@@ -14,5 +16,8 @@ public class BryctEncoder {
             throw new RuntimeException("Password is invalid");
         }
         return BCrypt.checkpw(plainTextPassword, hashedPassword);
+    }
+    public static String hashNumber(Integer number){
+        return BCrypt.hashpw(String.valueOf(number),"-1");
     }
 }

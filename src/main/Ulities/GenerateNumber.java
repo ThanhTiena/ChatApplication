@@ -33,4 +33,7 @@ public class GenerateNumber {
     public static String generateFileId() {
         return "FILE-" + new Random().nextInt(1000);
     }
+    public static String generateProtocolId(){
+        return BryctEncoder.hashNumber(new Random().nextInt(1000));
+    }
 }

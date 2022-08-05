@@ -1,5 +1,6 @@
 package main.Models.Subjects;
 
+import main.Models.Stuff.Protocol;
 import main.Ulities.GenerateNumber;
 
 import java.util.*;
@@ -20,8 +21,8 @@ public class User {
     /* User Status */
     private boolean isOnline;
     private boolean isActivated;
-    private Map<String,String> roleInGroupChats;
-    private Map<String, Boolean> isSendRequests;
+    private Map<String, String> roleInGroupChats;
+    private Map<String, Protocol> actions;
 
     /* Can change  */
     private Map<String, User> friends;
@@ -116,12 +117,12 @@ public class User {
         isOnline = online;
     }
 
-    public Map<String, Boolean> getIsSendRequests() {
-        return isSendRequests;
+    public Map<String, Protocol> getActions() {
+        return actions;
     }
 
-    public void setIsSendRequests(Map<String, Boolean> isSendRequests) {
-        this.isSendRequests = isSendRequests;
+    public void setActions(Map<String, Protocol> actions) {
+        this.actions = actions;
     }
 
     public Map<String, User> getFriends() {

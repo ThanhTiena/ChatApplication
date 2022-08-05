@@ -3,11 +3,12 @@ package main.Models.Subjects;
 import main.Models.Enums.GroupStatus;
 import main.Models.Enums.GroupType;
 import main.Models.Enums.RoleGroupChat;
+import main.Models.Interfaces.IGroup;
 import main.Ulities.GenerateNumber;
 
 import java.util.*;
 
-public abstract class Group {
+public abstract class Group implements IGroup {
     private String groupId;
     private String groupName;
     private GroupType groupType;
@@ -18,9 +19,9 @@ public abstract class Group {
     private ArrayList<Message> messages = new ArrayList<>();
 
     /* Because in a group chat there may be more than an admin */
-    /* So change to List contain userId which is defined as an admin*/
+    /* So change to List contain user which is defined as an admin*/
     // private User admin;
-    private List<String> adminIds = new ArrayList<>();
+    private List<User> admins = new ArrayList<User>();
 
     public Group(User admin, String groupName) {
         this.groupId = GenerateNumber.generateGroupId();
@@ -28,7 +29,7 @@ public abstract class Group {
         this.groupCode = GenerateNumber.generateGroupCode();
         this.groupStatus = GroupStatus.Active;
 
-        this.adminIds.add(admin.getUserId());
+        this.admins.add(admin);
         this.members.add(admin);
     }
 
@@ -89,12 +90,12 @@ public abstract class Group {
         this.members = members;
     }
 
-    public List<String> getAdminIds() {
-        return adminIds;
+    public List<User> getAdmins() {
+        return admins;
     }
 
-    public void setAdminIds(List<String> adminIds) {
-        this.adminIds = adminIds;
+    public void setAdmins(List<User> admins) {
+        this.admins = admins;
     }
 
     public ArrayList<File> getFiles() {

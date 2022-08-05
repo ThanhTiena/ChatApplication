@@ -1,5 +1,8 @@
 package main.Models.Interfaces.GroupActions;
 
+import main.Models.Stuff.Protocol;
+import main.Models.Subjects.User;
+
 public interface SendGroupCodeAction {
-    abstract boolean sendGroupCode(String userId);
+    abstract Protocol sendGroupCode(User sender, User receiver);
 }
