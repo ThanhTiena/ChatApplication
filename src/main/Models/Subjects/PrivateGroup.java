@@ -32,11 +32,12 @@ public class PrivateGroup extends Group implements RemoveMembers, JoinGroupActio
     }
 
     @Override
-    public void removeMember(User user) {
+    public boolean removeMember(User user) {
         if(user == null || !super.getMembers().contains(user)){
-            return;
+            return false;
         }
         super.getMembers().remove(user);
+        return true;
     }
 
     @Override

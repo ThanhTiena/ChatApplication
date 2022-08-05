@@ -7,7 +7,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public interface IRepository<TEntity> {
-
+    List<TEntity> findAll();
     List<TEntity> get(Predicate<TEntity> predicate, Function<TEntity,Boolean> filter);
     TEntity find(Predicate<TEntity> predicate);
 

@@ -9,17 +9,20 @@ import java.util.function.Predicate;
 
 public class Repository<TEntity> implements IRepository<TEntity> {
     private List<TEntity> entity = new ArrayList<TEntity>();
-    private Predicate<TEntity> predicate;
+
     @Override
-    public List<TEntity> get(Predicate<TEntity> pre, Function<TEntity,Boolean> filter) {
-        this.predicate = pre;
-        return entity.stream().filter(this.predicate).sorted(Comparator.comparing(filter)).toList();
+    public List<TEntity> findAll() {
+        return this.entity;
     }
 
     @Override
-    public TEntity find(Predicate pre) {
-        this.predicate = pre;
-        return entity.stream().filter(x -> x.equals(this.predicate)).findFirst().get();
+    public List<TEntity> get(Predicate<TEntity> pre, Function<TEntity,Boolean> filter) {
+        return entity.stream().filter(pre).sorted(Comparator.comparing(filter)).toList();
+    }
+
+    @Override
+    public TEntity find(Predicate<TEntity> pre) {
+        return entity.stream().filter(pre).findFirst().get();
     }
 
     @Override
