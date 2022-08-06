@@ -15,11 +15,10 @@ public class Message {
     private Group group;
     private List<File> files;
 
-    public Message(String senderId,String content, String receiverId){
+    public Message(String senderId,String content){
         this.messageId = GenerateNumber.generateMessageId();
         this.senderId = senderId;
         this.content = content;
-        this.receiverId = receiverId;
     }
 
     public String getMessageId() {
