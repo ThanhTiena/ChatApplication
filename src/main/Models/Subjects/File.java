@@ -14,8 +14,8 @@ public class File {
     private String receiverId;
     private String filePath;
     
-    public File(String id, String fileName, Date createdAt, String receiverId, String senderId, String filePath) {
-        this.id = id;
+    public File( String fileName, Date createdAt, String receiverId, String senderId, String filePath) {
+        this.id = GenerateNumber.generateFileId();
         this.fileName = fileName;
         this.createdAt = createdAt;
         this.filePath = filePath;

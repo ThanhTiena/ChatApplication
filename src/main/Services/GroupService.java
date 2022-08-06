@@ -18,19 +18,20 @@ public class GroupService {
 
     public GroupService() {
         this.dataStorage = DataStorage.getInstance();
+        this.userService = new UserService();
     }
 
     public Group findGroupByGroupId(String groupId) {
         return dataStorage.groups.find(group -> group.getGroupId().equals(groupId));
     }
 
-    public boolean createChat(User admin, String groupName, String groupType) throws GroupException {
+    public Group createChat(User admin, String groupName, String groupType) throws GroupException {
         try {
             /* group name can be same, so do not check */
             Group group = initGroupChat(admin, groupName, groupType);
             userService.addRoleGroupChat(admin.getUserId(),group.getGroupId(), RoleGroupChat.ADMIN.toString());
             dataStorage.groups.insert(group);
-            return true;
+            return group;
         } catch (GroupException exception) {
             throw new GroupException("Create Group Chat Fail");
         }
