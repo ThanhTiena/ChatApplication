@@ -1,20 +1,19 @@
 package test;
 
-import main.Ulities.PasswordEncoder;
-import org.junit.jupiter.api.BeforeAll;
+import main.Ulities.BryctEncoder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PasswordEncoderTest {
-    private PasswordEncoder passwordEncoder;
+    private BryctEncoder passwordEncoder;
     private String password;
     private String hashPassword;
 
     @BeforeEach
     void setUp(){
-        passwordEncoder = new PasswordEncoder();
+        passwordEncoder = new BryctEncoder();
         password = "testPassword#@11";
         hashPassword = passwordEncoder.hashPassword(password);
     }
@@ -23,7 +22,7 @@ class PasswordEncoderTest {
     void hashPassword() {
         String expect = "94fjkwdf923ds";
         String actual = passwordEncoder.hashPassword(password);
-        assertEquals(expect, actual);
+        assertNotEquals(expect, actual);
     }
 
     @Test

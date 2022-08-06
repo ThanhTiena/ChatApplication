@@ -1,33 +1,28 @@
 package main.Data;
 
-import main.Models.Group;
-import main.Models.User;
-
-import javax.swing.text.html.parser.Entity;
-import java.util.*;
+import main.Models.Subjects.File;
+import main.Models.Subjects.Group;
+import main.Models.Reponsitories.Repository;
+import main.Models.Subjects.Message;
+import main.Models.Subjects.User;
 
 public class DataStorage {
-    private Map<String,Object> data = new HashMap<>(){
-        {
-            put("GROUPS", new HashMap<String, Group >());
-            put("USER", new HashMap<String, User>());
-        }
-    };
-    private List<Entity> dataList = new ArrayList<>();
+
+    public Repository<User> users;
+    public Repository<Group> groups;
+    public Repository<File> files;
+    public Repository<Message> messages;
     private static DataStorage instance = new DataStorage();
 
     private DataStorage() {
+        users = new Repository<User>();
+        groups = new Repository<Group>();
+        files = new Repository<File>();
+        messages = new Repository<Message>();
     }
 
-    public static DataStorage getInstance(){
-        return instance;
-    }
-
-    public List<User> find(){
-        return null;
-    }
-    public Entity get(){
-        return null;
+    public static DataStorage getInstance() {
+        return instance != null? instance : new DataStorage();
     }
 }
 
