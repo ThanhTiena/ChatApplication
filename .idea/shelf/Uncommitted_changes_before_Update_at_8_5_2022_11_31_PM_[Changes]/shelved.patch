@@ -1,0 +1,294 @@
+Index: src/main/Models/Subjects/File.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Models.Subjects;\r\n\r\nimport main.Models.Enums.FileType;\r\n\r\nimport java.util.Date;\r\n\r\npublic class File {\r\n    private String id;\r\n    private String fileName;\r\n    private FileType fileType;\r\n    private Date createdAt;\r\n\r\n    public File(String id, String fileName, FileType fileType, Date createdAt) {\r\n        this.id = id;\r\n        this.fileName = fileName;\r\n        this.fileType = fileType;\r\n        this.createdAt = createdAt;\r\n    }\r\n\r\n    public String getFileName() {\r\n        return fileName;\r\n    }\r\n\r\n    public String getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setFileName(String fileName) {\r\n        this.fileName = fileName;\r\n    }\r\n\r\n    public FileType getFileType() {\r\n        return fileType;\r\n    }\r\n\r\n    public void setFileType(FileType fileType) {\r\n        this.fileType = fileType;\r\n    }\r\n\r\n    public Date getCreatedAt() {\r\n        return createdAt;\r\n    }\r\n\r\n    public void setCreatedAt(Date createdAt) {\r\n        this.createdAt = createdAt;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/Models/Subjects/File.java b/src/main/Models/Subjects/File.java
+--- a/src/main/Models/Subjects/File.java	(revision fc3861e467aa1eff215740c24feb283bfdde30a9)
++++ b/src/main/Models/Subjects/File.java	(date 1659714318801)
+@@ -1,6 +1,7 @@
+ package main.Models.Subjects;
+ 
+ import main.Models.Enums.FileType;
++import main.Ulities.GenerateNumber;
+ 
+ import java.util.Date;
+ 
+@@ -9,9 +10,12 @@
+     private String fileName;
+     private FileType fileType;
+     private Date createdAt;
++    private String senderId;
++    private String receiverId;
++    private String groupId;
+ 
+-    public File(String id, String fileName, FileType fileType, Date createdAt) {
+-        this.id = id;
++    public File(String fileName, FileType fileType, Date createdAt) {
++        this.id = GenerateNumber.generateFileId();
+         this.fileName = fileName;
+         this.fileType = fileType;
+         this.createdAt = createdAt;
+@@ -44,4 +48,27 @@
+     public void setCreatedAt(Date createdAt) {
+         this.createdAt = createdAt;
+     }
++    public String getSenderId() {
++        return senderId;
++    }
++
++    public void setSenderId(String senderId) {
++        this.senderId = senderId;
++    }
++
++    public String getReceiverId() {
++        return receiverId;
++    }
++
++    public void setReceiverId(String receiverId) {
++        this.receiverId = receiverId;
++    }
++
++    public String getGroupId() {
++        return groupId;
++    }
++
++    public void setGroupId(String groupId) {
++        this.groupId = groupId;
++    }
+ }
+Index: src/main/Services/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Services;\r\n\r\nimport main.Data.DataStorage;\r\nimport main.Models.Subjects.Message;\r\nimport main.Models.Subjects.User;\r\nimport main.Ulities.BryctEncoder;\r\nimport main.Ulities.UserException;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Map;\r\nimport java.util.function.Predicate;\r\n\r\npublic class UserService {\r\n\r\n    private User user;\r\n    private final DataStorage dataStorage;\r\n\r\n    public UserService() {\r\n        this.dataStorage = DataStorage.getInstance();\r\n    }\r\n\r\n    public User getUserExisted(User user) {\r\n        return dataStorage.users.find((Predicate<User>) u -> u.getUserName().equals(user.getUserName()));\r\n    }\r\n\r\n    public boolean addUser(User user) throws UserException {\r\n        if (getUserExisted(user) != null) {\r\n            throw new UserException(\"This User have existed!\");\r\n        }\r\n        dataStorage.users.insert(user);\r\n        return true;\r\n    }\r\n\r\n    public boolean removeUser(User user) throws UserException {\r\n        if (getUserExisted(user) == null) {\r\n            throw new UserException(\"This user is not existed in the system!\");\r\n        }\r\n        dataStorage.users.delete(user);\r\n        return true;\r\n    }\r\n\r\n    public boolean login(String username, String password) {\r\n        String passwordHashed = BryctEncoder.hashPassword(password);\r\n        Predicate<User> predicate = user -> user.getUserName().equals(username) && user.getHashPassword().equals(passwordHashed);\r\n\r\n        return dataStorage.users.find(predicate) != null;\r\n    }\r\n\r\n    public void addRoleGroupChat(String groupId, String role) {\r\n        Map<String, String> roleInGroups = this.user.getRoleInGroupChats();\r\n        if (roleInGroups.containsKey(groupId) && roleInGroups.get(groupId).equalsIgnoreCase(role)) {\r\n            roleInGroups.replace(groupId, role);\r\n        } else {\r\n            roleInGroups.put(groupId, role);\r\n        }\r\n        this.user.setRoleInGroupChats(roleInGroups);\r\n\r\n        /* Need to update user in data storage factory */\r\n    }\r\n\r\n    /*In method findFriendsByKeyWordInName, we just find friends have the name contained the keyword, and we find with the 3rd layer.\r\n    Example: Find in your friendlist -> friends' friendlist -> friends' friendlist of friends who are have friendship with your friends */\r\n    public ArrayList<User> findFriendsByKeyWordInName(User user, String keyword, ArrayList<String> checkedUserId, Integer depth) {\r\n        ArrayList<User> results = new ArrayList<User>();\r\n\r\n        Map<String, User> friendList = user.getFriends();\r\n        friendList.forEach((k, v) -> {\r\n            if (!checkedUserId.contains(k)) {\r\n                checkedUserId.add(k);\r\n                if (v.getFullName().contains(keyword)) {\r\n                    results.add(v);\r\n                }\r\n\r\n                if (depth < 3) {\r\n                    results.addAll(findFriendsByKeyWordInName(v, keyword, checkedUserId, depth + 1));\r\n                }\r\n            }\r\n        });\r\n        return results;\r\n    }\r\n\r\n    /* Send Message */\r\n    public boolean sendMessage(String senderId, String content, String receiverId) {\r\n        Message message = new Message(senderId, content, receiverId);\r\n        return false;\r\n    }\r\n\r\n    /* Send Invitation */\r\n\r\n    /* Send Code */\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/Services/UserService.java b/src/main/Services/UserService.java
+--- a/src/main/Services/UserService.java	(revision fc3861e467aa1eff215740c24feb283bfdde30a9)
++++ b/src/main/Services/UserService.java	(date 1659716942767)
+@@ -1,7 +1,9 @@
+ package main.Services;
+ 
+ import main.Data.DataStorage;
++import main.Models.Subjects.Group;
+ import main.Models.Subjects.Message;
++import main.Models.Subjects.File;
+ import main.Models.Subjects.User;
+ import main.Ulities.BryctEncoder;
+ import main.Ulities.UserException;
+@@ -80,12 +82,42 @@
+     }
+ 
+     /* Send Message */
+-    public boolean sendMessage(String senderId, String content, String receiverId) {
+-        Message message = new Message(senderId, content, receiverId);
+-        return false;
++    public boolean sendMessageToUser(String senderId, String content, String receiverId) {
++        Message message = new Message(senderId, content);
++        if (receiverId == null) {
++            return false;
++        }
++        message.setReceiverId(receiverId);
++        return true;
++    }
++    public boolean sendMessageToGroup(String senderId, String content, String receiverGroupId) {
++        Message message = new Message(senderId, content);
++        if (receiverGroupId == null) {
++            return false;
++        }
++        message.setGroupId(receiverGroupId);
++        return true;
++    }
++
++    /* Send File */
++    public boolean sendFileToUser(String senderId, File file, String receiverId) {
++        if (receiverId == null) {
++            return false;
++        }
++        file.setReceiverId(receiverId);
++        return true;
++    }
++    public boolean sendFileToGroup(String senderId, File file, String receiverGroupId) {
++        if (receiverGroupId == null) {
++            return false;
++        }
++        file.setGroupId(receiverGroupId);
++        return true;
+     }
+-
+     /* Send Invitation */
++    public boolean sendInvitation() {
++        return true;
++    }
+ 
+     /* Send Code */
+ }
+Index: src/main/Models/Subjects/Message.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Models.Subjects;\r\n\r\nimport main.Ulities.GenerateNumber;\r\n\r\nimport java.util.*;\r\n\r\npublic class Message {\r\n    private String messageId;\r\n    private String senderId;\r\n    private String receiverId;\r\n    private String groupId;\r\n    private String content;\r\n    private Date sentAt;\r\n    private User sender, receiver;\r\n    private Group group;\r\n    private List<File> files;\r\n\r\n    public Message(String senderId,String content, String receiverId){\r\n        this.messageId = GenerateNumber.generateMessageId();\r\n        this.senderId = senderId;\r\n        this.content = content;\r\n        this.receiverId = receiverId;\r\n    }\r\n\r\n    public String getMessageId() {\r\n        return messageId;\r\n    }\r\n\r\n    public String getSenderId() {\r\n        return senderId;\r\n    }\r\n\r\n    public void setSenderId(String senderId) {\r\n        this.senderId = senderId;\r\n    }\r\n\r\n    public String getReceiverId() {\r\n        return receiverId;\r\n    }\r\n\r\n    public void setReceiverId(String receiverId) {\r\n        this.receiverId = receiverId;\r\n    }\r\n\r\n    public String getGroupId() {\r\n        return groupId;\r\n    }\r\n\r\n    public void setGroupId(String groupId) {\r\n        this.groupId = groupId;\r\n    }\r\n\r\n    public String getContent() {\r\n        return content;\r\n    }\r\n\r\n    public void setContent(String content) {\r\n        this.content = content;\r\n    }\r\n\r\n    public Date getSentAt() {\r\n        return sentAt;\r\n    }\r\n\r\n    public void setSentAt(Date sentAt) {\r\n        this.sentAt = sentAt;\r\n    }\r\n\r\n    public User getSender() {\r\n        return sender;\r\n    }\r\n\r\n    public void setSender(User sender) {\r\n        this.sender = sender;\r\n    }\r\n\r\n    public User getReceiver() {\r\n        return receiver;\r\n    }\r\n\r\n    public void setReceiver(User receiver) {\r\n        this.receiver = receiver;\r\n    }\r\n\r\n    public Group getGroup() {\r\n        return group;\r\n    }\r\n\r\n    public void setGroup(Group group) {\r\n        this.group = group;\r\n    }\r\n\r\n    public List<File> getFiles() {\r\n        return files;\r\n    }\r\n\r\n    public void setFiles(List<File> files) {\r\n        this.files = files;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/Models/Subjects/Message.java b/src/main/Models/Subjects/Message.java
+--- a/src/main/Models/Subjects/Message.java	(revision fc3861e467aa1eff215740c24feb283bfdde30a9)
++++ b/src/main/Models/Subjects/Message.java	(date 1659714213177)
+@@ -15,11 +15,10 @@
+     private Group group;
+     private List<File> files;
+ 
+-    public Message(String senderId,String content, String receiverId){
++    public Message(String senderId,String content){
+         this.messageId = GenerateNumber.generateMessageId();
+         this.senderId = senderId;
+         this.content = content;
+-        this.receiverId = receiverId;
+     }
+ 
+     public String getMessageId() {
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bd99f69e-d16f-4f8b-96ec-72b7eda77f03\" name=\"Changes\" comment=\"Build Design pattern group\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Application/Application.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Application/Application.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Data/DataStorage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Data/DataStorage.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/RemoveMembers.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/RemoveMembers.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Interfaces/IRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Interfaces/IRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Services/GroupService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Services/GroupService.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JUnit5 Test Class\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <favorite-branches>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"DanhDev\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </favorite-branches>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GithubProjectSettings\">\r\n    <option name=\"branchProtectionPatterns\">\r\n      <list>\r\n        <option value=\"master\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/ChatApplication.iml\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Application/Application.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Ulities/BryctEncoder.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/test/PasswordEncoderTest.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Bw3pDW75aliqJSjL1TX57VXgyH\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"Downloaded.Files.Path.Enabled\" value=\"false\" />\r\n    <property name=\"Repository.Attach.Annotations\" value=\"false\" />\r\n    <property name=\"Repository.Attach.JavaDocs\" value=\"false\" />\r\n    <property name=\"Repository.Attach.Sources\" value=\"false\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"test\" />\r\n      <recent name=\"Models\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.main.Application.Application\">\r\n    <configuration name=\"Application\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Application.Application\" />\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Application.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"main.Application.Application\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.Application.Application\" />\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.Application.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PasswordEncoderTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"test.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"test\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"test.PasswordEncoderTest\" />\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserTest.testCreateUser\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.Models.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"Models\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Models.UserTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testCreateUser\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.main.Application.Application\" />\r\n        <item itemvalue=\"JUnit.UserTest.testCreateUser\" />\r\n        <item itemvalue=\"JUnit.PasswordEncoderTest\" />\r\n        <item itemvalue=\"JUnit.UserTest.testCreateUser\" />\r\n        <item itemvalue=\"Application.Application\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bd99f69e-d16f-4f8b-96ec-72b7eda77f03\" name=\"Changes\" comment=\"\" />\r\n      <created>1657803505258</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1657803505258</updated>\r\n      <workItem from=\"1659279749945\" duration=\"4178000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"CREATE\">\r\n      <created>1657803537766</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657803537766</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"CREATE\">\r\n      <created>1657803923584</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657803923584</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"CREATE\">\r\n      <created>1657804011674</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657804011674</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"CREATE\">\r\n      <created>1657804035949</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657804035949</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Add Bcryt Password\">\r\n      <created>1658032051511</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658032051511</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"Add Bcryt Jar\">\r\n      <created>1658033636906</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658033636906</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Add Test for PasswordEncoder\">\r\n      <created>1658037182223</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658037182223</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Update User Service\">\r\n      <created>1658106602551</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658106602551</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"update file, group, private group, public group model\">\r\n      <created>1659160157927</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1659160157927</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"10\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"CREATE\" />\r\n    <MESSAGE value=\"test branch\" />\r\n    <MESSAGE value=\"Add Bcryt Password\" />\r\n    <MESSAGE value=\"Add Bcryt Jar\" />\r\n    <MESSAGE value=\"Add Test for PasswordEncoder\" />\r\n    <MESSAGE value=\"Update User Service\" />\r\n    <MESSAGE value=\"Add Enum Class\" />\r\n    <MESSAGE value=\"update file, group, private group, public group model\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"update file, group, private group, public group model\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision fc3861e467aa1eff215740c24feb283bfdde30a9)
++++ b/.idea/workspace.xml	(date 1659713880385)
+@@ -4,15 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Build Design pattern group">
++    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Update - 1">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Data/DataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Data/DataStorage.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/RemoveMembers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/RemoveMembers.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/IRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/IRepository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Services/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/GroupService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/File.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/Message.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -23,11 +19,26 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="JUnit5 Test Class" />
++        <option value="Enum" />
++        <option value="Interface" />
+         <option value="Class" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <excluded-from-favorite>
++      <branch-storage>
++        <map>
++          <entry type="LOCAL">
++            <value>
++              <list>
++                <branch-info repo="$PROJECT_DIR$" source="master" />
++              </list>
++            </value>
++          </entry>
++        </map>
++      </branch-storage>
++    </excluded-from-favorite>
+     <favorite-branches>
+       <branch-storage>
+         <map>
+@@ -59,6 +70,8 @@
+     <setting file="file://$PROJECT_DIR$/ChatApplication.iml" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/File.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/User.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/Ulities/BryctEncoder.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/test/PasswordEncoderTest.java" root0="FORCE_HIGHLIGHTING" />
+   </component>
+@@ -73,19 +86,30 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">
+-    <property name="Downloaded.Files.Path.Enabled" value="false" />
+-    <property name="Repository.Attach.Annotations" value="false" />
+-    <property name="Repository.Attach.JavaDocs" value="false" />
+-    <property name="Repository.Attach.Sources" value="false" />
+-    <property name="WebServerToolWindowFactoryState" value="false" />
+-    <property name="aspect.path.notification.shown" value="true" />
+-  </component>
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
++    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
++    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
++    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
++    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
++    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admins/IdeaProjects/ChatApplication/jbcrypt-0.3.jar&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.filetypes.JAVA&quot;
++  }
++}</component>
+   <component name="RecentsManager">
+     <key name="CreateTestDialog.Recents.Supers">
+       <recent name="" />
+     </key>
+     <key name="CreateTestDialog.RecentsKey">
++      <recent name="main.Services" />
+       <recent name="test" />
+       <recent name="Models" />
+     </key>
+@@ -136,7 +160,7 @@
+       <module name="ChatApplication" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.Models.*" />
++          <option name="PATTERN" value="main.Models.Subjects.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -151,9 +175,9 @@
+     <recent_temporary>
+       <list>
+         <item itemvalue="Application.main.Application.Application" />
+-        <item itemvalue="JUnit.UserTest.testCreateUser" />
+         <item itemvalue="JUnit.PasswordEncoderTest" />
+         <item itemvalue="JUnit.UserTest.testCreateUser" />
++        <item itemvalue="JUnit.UserTest.testCreateUser" />
+         <item itemvalue="Application.Application" />
+       </list>
+     </recent_temporary>
+@@ -166,7 +190,6 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1657803505258</updated>
+-      <workItem from="1659279749945" duration="4178000" />
+     </task>
+     <task id="LOCAL-00001" summary="CREATE">
+       <created>1657803537766</created>
+@@ -233,9 +256,6 @@
+     </task>
+     <option name="localTasksCounter" value="10" />
+     <servers />
+-  </component>
+-  <component name="TypeScriptGeneratedFilesManager">
+-    <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="TAB_STATES">

@@ -1,0 +1,107 @@
+Index: src/main/Models/Group.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Models;\r\n\r\nimport main.Models.Enums.GroupType;\r\n\r\nimport java.util.HashMap;\r\nimport java.util.*;\r\n\r\npublic abstract class Group {\r\n    private ArrayList<User> memberList = new ArrayList<User>();\r\n    private User admin;\r\n    private String groupName;\r\n    private String groupType;\r\n    private String groupCode;\r\n    //status: active, disband\r\n    private String groupStatus;\r\n\r\n    public Group(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {\r\n        this.memberList = memberList;\r\n        this.admin = admin;\r\n        this.groupName = groupName;\r\n        this.groupType = groupType;\r\n        this.groupCode = groupCode;\r\n        this.groupStatus = groupStatus;\r\n\r\n    }\r\n\r\n    public User getAdmin() {\r\n        return admin;\r\n    }\r\n\r\n    public void setAdmin(User admin) {\r\n        this.admin = admin;\r\n    }\r\n\r\n    public String getGroupName() {\r\n        return groupName;\r\n    }\r\n\r\n    public void setGroupName(String groupName) {\r\n        this.groupName = groupName;\r\n    }\r\n    public String getGroupStatus() {\r\n        return groupStatus;\r\n    }\r\n\r\n    public void setGroupStatus(String groupStatus) {\r\n        this.groupStatus = groupStatus;\r\n    }\r\n\r\n    public String getGroupType() {\r\n        return groupType;\r\n    }\r\n\r\n    public void setGroupType(String groupType) {\r\n        this.groupType = groupType;\r\n    }\r\n\r\n    public ArrayList<User> getMemberList() {\r\n        return memberList;\r\n    }\r\n\r\n    public String getGroupCode() {\r\n        return groupCode;\r\n    }\r\n\r\n    public void showMessage() {\r\n\r\n    }\r\n\r\n    public void showSentFiles() {\r\n\r\n    }\r\n\r\n    public void showMembers() {\r\n\r\n    }\r\n\r\n    public void updateGroupAdministrator() {\r\n\r\n    }\r\n\r\n    public void removeMember() {\r\n\r\n    }\r\n\r\n}\r\n
+===================================================================
+diff --git a/src/main/Models/Group.java b/src/main/Models/Group.java
+--- a/src/main/Models/Group.java	
++++ b/src/main/Models/Group.java	
+@@ -9,12 +9,12 @@
+     private ArrayList<User> memberList = new ArrayList<User>();
+     private User admin;
+     private String groupName;
+-    private String groupType;
++    private GroupType groupType;
+     private String groupCode;
+     //status: active, disband
+     private String groupStatus;
+ 
+-    public Group(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {
++    public Group(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String groupCode, String groupStatus) {
+         this.memberList = memberList;
+         this.admin = admin;
+         this.groupName = groupName;
+@@ -47,11 +47,11 @@
+         this.groupStatus = groupStatus;
+     }
+ 
+-    public String getGroupType() {
++    public GroupType getGroupType() {
+         return groupType;
+     }
+ 
+-    public void setGroupType(String groupType) {
++    public void setGroupType(GroupType groupType) {
+         this.groupType = groupType;
+     }
+ 
+Index: src/main/Models/PublicGroup.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Models;\r\n\r\nimport main.Models.Enums.GroupType;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class PublicGroup extends Group{\r\n    public PublicGroup(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {\r\n        super(memberList, admin, groupName, groupType, groupCode, groupStatus);\r\n    }\r\n\r\n    @Override\r\n    public void showMessage() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void showSentFiles() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void showMembers() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void updateGroupAdministrator() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void removeMember() {\r\n\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/Models/PublicGroup.java b/src/main/Models/PublicGroup.java
+--- a/src/main/Models/PublicGroup.java	
++++ b/src/main/Models/PublicGroup.java	
+@@ -5,7 +5,7 @@
+ import java.util.ArrayList;
+ 
+ public class PublicGroup extends Group{
+-    public PublicGroup(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {
++    public PublicGroup(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String groupCode, String groupStatus) {
+         super(memberList, admin, groupName, groupType, groupCode, groupStatus);
+     }
+ 
+Index: src/main/Models/PrivateGroup.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Models;\r\n\r\nimport main.Models.Enums.GroupType;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class PrivateGroup extends Group{\r\n    public PrivateGroup(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {\r\n        super(memberList, admin, groupName, groupType, groupCode, groupStatus);\r\n    }\r\n\r\n    @Override\r\n    public void showMessage() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void showSentFiles() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void showMembers() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void updateGroupAdministrator() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void removeMember() {\r\n\r\n    }\r\n\r\n    /*\r\n    * Methods incoming\r\n    * */\r\n}\r\n
+===================================================================
+diff --git a/src/main/Models/PrivateGroup.java b/src/main/Models/PrivateGroup.java
+--- a/src/main/Models/PrivateGroup.java	
++++ b/src/main/Models/PrivateGroup.java	
+@@ -5,7 +5,7 @@
+ import java.util.ArrayList;
+ 
+ public class PrivateGroup extends Group{
+-    public PrivateGroup(ArrayList<User> memberList, User admin, String groupName, String groupType, String groupCode, String groupStatus) {
++    public PrivateGroup(ArrayList<User> memberList, User admin, String groupName, GroupType groupType, String groupCode, String groupStatus) {
+         super(memberList, admin, groupName, groupType, groupCode, groupStatus);
+     }
+ 
+Index: src/main/Models/File.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Models;\r\n\r\nimport main.Models.Enums.FileType;\r\n\r\nimport java.util.Date;\r\n\r\npublic class File {\r\n    private String id;\r\n    private String fileName;\r\n    private FileType fileType;\r\n    private Date createdAt;\r\n\r\n    public File(String id, String fileName, FileType fileType, Date createdAt) {\r\n        this.id = id;\r\n        this.fileName = fileName;\r\n        this.fileType = fileType;\r\n        this.createdAt = createdAt;\r\n    }\r\n\r\n    public String getFileName() {\r\n        return fileName;\r\n    }\r\n\r\n    public String getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setFileName(String fileName) {\r\n        this.fileName = fileName;\r\n    }\r\n\r\n    public FileType getFileType() {\r\n        return fileType;\r\n    }\r\n\r\n    public void setFileType(FileType fileType) {\r\n        this.fileType = fileType;\r\n    }\r\n\r\n    public Date getCreatedAt() {\r\n        return createdAt;\r\n    }\r\n\r\n    public void setCreatedAt(Date createdAt) {\r\n        this.createdAt = createdAt;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/Models/File.java b/src/main/Models/File.java
+--- a/src/main/Models/File.java	
++++ b/src/main/Models/File.java	
+@@ -5,13 +5,13 @@
+ import java.util.Date;
+ 
+ public class File {
+-    private String id;
++    private String fileId;
+     private String fileName;
+     private FileType fileType;
+     private Date createdAt;
+ 
+-    public File(String id, String fileName, FileType fileType, Date createdAt) {
+-        this.id = id;
++    public File(String fileId, String fileName, FileType fileType, Date createdAt) {
++        this.fileId = fileId;
+         this.fileName = fileName;
+         this.fileType = fileType;
+         this.createdAt = createdAt;
+@@ -21,8 +21,8 @@
+         return fileName;
+     }
+ 
+-    public String getId() {
+-        return id;
++    public String getFileId() {
++        return fileId;
+     }
+ 
+     public void setFileName(String fileName) {
