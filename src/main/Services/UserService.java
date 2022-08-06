@@ -1,6 +1,7 @@
 package main.Services;
 
 import main.Data.DataStorage;
+import main.Models.Enums.Gender;
 import main.Models.Subjects.Group;
 import main.Models.Subjects.Message;
 import main.Models.Subjects.File;
@@ -9,6 +10,7 @@ import main.Ulities.BryctEncoder;
 import main.Ulities.UserException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -29,7 +31,9 @@ public class UserService {
         return dataStorage.users.find(user -> user.getUserId().equals(userId));
     }
 
-    public boolean addUser(User user) throws UserException {
+    public boolean addNewUser(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) throws UserException {
+
+        User user = new User(firstName, lastName, userName, BryctEncoder.hashPassword(password), gender, dateOfBirth);
         if (getUserExistedByUserName(user.getUserName()) != null) {
             throw new UserException("This User have existed!");
         }
