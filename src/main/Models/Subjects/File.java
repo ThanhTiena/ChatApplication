@@ -1,6 +1,7 @@
 package main.Models.Subjects;
 
 import main.Models.Enums.FileType;
+import main.Ulities.GenerateNumber;
 
 import java.util.Date;
 
@@ -9,9 +10,12 @@ public class File {
     private String fileName;
     private FileType fileType;
     private Date createdAt;
+    private String senderId;
+    private String receiverId;
+    private String groupId;
 
-    public File(String id, String fileName, FileType fileType, Date createdAt) {
-        this.id = id;
+    public File(String fileName, FileType fileType, Date createdAt) {
+        this.id = GenerateNumber.generateFileId();
         this.fileName = fileName;
         this.fileType = fileType;
         this.createdAt = createdAt;
@@ -43,5 +47,28 @@ public class File {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 }
