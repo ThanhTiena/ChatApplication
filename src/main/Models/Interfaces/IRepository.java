@@ -13,7 +13,7 @@ public interface IRepository<TEntity> {
 
     void insert(TEntity entity);
 
-    void update(TEntity entity);
+    void update(TEntity oldEntity,TEntity entity);
 
     void delete(TEntity entity);
 }

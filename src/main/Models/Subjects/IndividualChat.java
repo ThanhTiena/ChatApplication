@@ -25,8 +25,8 @@ public class IndividualChat extends Group implements JoinGroupAction {
     @Override
     public Protocol requestForJoiningGroup(User user) {
         if (user != null) {
-            if (!super.getMembers().contains(user)) {
-                super.getMembers().add(user);
+            if (super.findUserInGroup(user) != null) {
+//                super.getMembers().add(user);
                 return new Protocol(ActionType.ASK_TO_JOIN_CHAT);
             }
         }

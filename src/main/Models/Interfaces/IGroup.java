@@ -11,4 +11,5 @@ public interface IGroup {
     public abstract List<File> showSentFiles();
     public abstract List<User> showMembers();
     public abstract boolean addMember(User user);
+    public abstract User findUserInGroup(User user);
 }
