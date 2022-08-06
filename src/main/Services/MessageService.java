@@ -2,6 +2,7 @@ package main.Services;
 
 import main.Data.DataStorage;
 import main.Models.Subjects.File;
+import main.Models.Subjects.Group;
 import main.Models.Subjects.Message;
 
 import java.util.*;
@@ -24,7 +25,8 @@ public class MessageService {
             return false;
         }
         message.setReceiverId(receiverId);
-        dataStorage.messages.insert(message);
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(receiverId));
+        group.sendMessage(message);
         return true;
     }
 
@@ -34,11 +36,12 @@ public class MessageService {
             return false;
         }
         file.setReceiverId(receiverId);
-        dataStorage.files.insert(file);
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(receiverId));
+        group.sendFile(file);
         return true;
     }
 
-//    Delete Message
+    //    Delete Message
     public boolean deleteMessage (String messageId){
         if(messageId == null || messageId.equals("")){
             return false;
@@ -47,11 +50,12 @@ public class MessageService {
         if(deleteMessage == null){
             return false;
         }
-        dataStorage.messages.delete(deleteMessage);
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(deleteMessage.getReceiverId()));
+        group.deleteMessage(deleteMessage);
         return true;
     }
 
-//    Delete File
+    //    Delete File
     public boolean deleteFile(String fileId){
         if(fileId == null || fileId.equals("")){
             return false;
@@ -60,33 +64,32 @@ public class MessageService {
         if(deleteFile == null){
             return false;
         }
-
-        dataStorage.files.delete(deleteFile);
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(deleteFile.getReceiverId()));
+        group.deleteFile(deleteFile);
         return true;
     }
 
-//    Show all files sent to group
+    //    Show all files sent to group
     public List<File> showAllFilesSentToGroup(String groupId){
         if(groupId == null || groupId.equals("")){
             return null;
         }
 
-        List<File> filesToGroup = dataStorage.files.get(file -> file.getReceiverId().equals(groupId),file -> false).stream().toList();
-
+        List<File> filesToGroup = dataStorage.groups.find(g -> g.getGroupId().equals(groupId)).getFiles() ;
         return filesToGroup;
     }
 
-//    Find K lastest message not include M lastest message
+    //    Find K lastest message not include M lastest message
     public List<Message> findKLatestNotIncludeMLastestMessage(String senderId,String receiverId, int k, int m){
         List<Message> kLatestMessage = new ArrayList<>();
         try{
-            List<Message> messageToReceivers = dataStorage.messages.get(mess -> mess.getReceiverId().equals(receiverId) && mess.getSenderId().equals(senderId),message -> false).stream().toList();
+            List<Message> messageToReceivers = dataStorage.groups.find(g -> g.getGroupId().equals(receiverId)).getMessages();
             int startPoint = messageToReceivers.size() - m;
             for(int i = startPoint ; i >= 0; i--){
                 kLatestMessage.add(messageToReceivers.get(i));
                 k--;
                 if(k == 0){
-                   break;
+                    break;
                 }
             }
             return kLatestMessage;
@@ -96,11 +99,11 @@ public class MessageService {
         }
     }
 
-//    Find messages which contains the keyword
+    //    Find messages which contains the keyword
     public List<Message> findMessageByKeyword(String senderId, String receiverId, String keywords){
         List<Message> messagesList = new ArrayList<>();
         try{
-            List<Message> messageToReceivers = dataStorage.messages.get(mess -> mess.getReceiverId().equals(receiverId) && mess.getSenderId().equals(senderId),message -> false).stream().toList();
+            List<Message> messageToReceivers = dataStorage.groups.find(g -> g.getGroupId().equals(receiverId)).getMessages();
             messageToReceivers.forEach(m -> {
                 if(m.getContent().contains(keywords)){
                     messagesList.add(m);
