@@ -12,13 +12,22 @@ public class File {
     private Date createdAt;
     private String senderId;
     private String receiverId;
-    private String groupId;
-
-    public File(String fileName, FileType fileType, Date createdAt) {
-        this.id = GenerateNumber.generateFileId();
+    private String filePath;
+    
+    public File(String id, String fileName, Date createdAt, String receiverId, String senderId, String filePath) {
+        this.id = id;
         this.fileName = fileName;
-        this.fileType = fileType;
         this.createdAt = createdAt;
+        this.filePath = filePath;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        if (filePath.endsWith("mp4")) {
+            fileType = FileType.VIDEO;
+        } else if (filePath.endsWith("mp3")) {
+            fileType = FileType.AUDIO;
+        } else if (filePath.endsWith("png") || filePath.endsWith("jpg")) {
+            fileType = FileType.IMAGE;
+        }
     }
 
     public String getFileName() {
@@ -48,27 +57,16 @@ public class File {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    public String getSenderId() {
-        return senderId;
-    }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
+    public String getSenderId() { return senderId; }
 
-    public String getReceiverId() {
-        return receiverId;
-    }
+    public void setSenderId(String senderId) { this.senderId = senderId; }
 
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
-    }
+    public String getReceiverId() { return receiverId; }
 
-    public String getGroupId() {
-        return groupId;
-    }
+    public void setReceiverId(String receiverId) { this.receiverId = receiverId; }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
+    public String getFilePath() { return filePath; }
+
+    public void setFilePath(String filePath) { this.filePath = filePath; }
 }
