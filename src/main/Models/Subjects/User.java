@@ -1,5 +1,6 @@
 package main.Models.Subjects;
 
+import main.Models.Enums.Gender;
 import main.Models.Stuff.Protocol;
 import main.Ulities.GenerateNumber;
 
@@ -11,7 +12,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String fullName;
-    private String gender;
+    private Gender gender;
     private Date dateOfBirth;
 
     /* User Account Information*/
@@ -28,11 +29,12 @@ public class User {
     private Map<String, User> friends;
     private Map<String, String> alias; // 1st String value present for groupId, 2nd is the alias name
 
-    public User(String firstName, String lastName, String hashPassword, String gender, Date dateOfBirth) {
+    public User(String firstName, String lastName, String userName, String hashPassword, Gender gender, Date dateOfBirth) {
         this.userId = GenerateNumber.generateUserId();
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullName = firstName + " " + lastName;
+        this.userName = userName;
         this.hashPassword = hashPassword;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -98,11 +100,11 @@ public class User {
         this.hashPassword = hashPassword;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
