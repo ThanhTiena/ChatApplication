@@ -31,19 +31,18 @@ public class UserService {
         return dataStorage.users.find(user -> user.getUserId().equals(userId));
     }
 
-    public boolean addNewUser(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) throws UserException {
-
+    public boolean addNewUser(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) {
         User user = new User(firstName, lastName, userName, BryctEncoder.hashPassword(password), gender, dateOfBirth);
         if (getUserExistedByUserName(user.getUserName()) != null) {
-            throw new UserException("This User have existed!");
+            return false;
         }
         dataStorage.users.insert(user);
         return true;
     }
 
-    public boolean removeUser(User user) throws UserException {
+    public boolean removeUser(User user) {
         if (getUserExistedByUserName(user.getUserName()) == null) {
-            throw new UserException("This user is not existed in the system!");
+            return false;
         }
         dataStorage.users.delete(user);
         return true;
@@ -88,45 +87,6 @@ public class UserService {
         return results;
     }
 
-    /* Send Message */
-    public boolean sendMessageToUser(String senderId, String content, String receiverId) {
-        Message message = new Message(senderId, content);
-        if (receiverId == null) {
-            return false;
-        }
-        message.setReceiverId(receiverId);
-        return true;
-    }
-    public boolean sendMessageToGroup(String senderId, String content, String receiverGroupId) {
-        Message message = new Message(senderId, content);
-        if (receiverGroupId == null) {
-            return false;
-        }
-        message.setGroupId(receiverGroupId);
-        return true;
-    }
-
-    /* Send File */
-    public boolean sendFileToUser(String senderId, File file, String receiverId) {
-        if (receiverId == null) {
-            return false;
-        }
-        file.setReceiverId(receiverId);
-        return true;
-    }
-    public boolean sendFileToGroup(String senderId, File file, String receiverGroupId) {
-        if (receiverGroupId == null) {
-            return false;
-        }
-        file.setGroupId(receiverGroupId);
-        return true;
-    }
-    /* Send Invitation */
-    public boolean sendInvitation() {
-        return true;
-    }
-
-    /* Send Code */
     /* Set Alias */
     public boolean setAlias(String setterId, String userId, String alias) {
         boolean flag = false;
