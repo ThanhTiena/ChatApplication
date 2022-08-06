@@ -23,14 +23,15 @@ public class Application {
 //        chatMediator.doTask();
         try {
             UserService userService = new UserService();
-            userService.addNewUser("danh","123456","Danh","Dang", Gender.MALE, new Date());
-            userService.addNewUser("tien","123456","Tien","Nguyen", Gender.MALE, new Date());
-            userService.addNewUser("nhan","123456","Nhan","Nguyen", Gender.MALE, new Date());
+            userService.addNewUser("danh", "123456", "Danh", "Dang", Gender.MALE, new Date());
+            userService.addNewUser("tien", "123456", "Tien", "Nguyen", Gender.MALE, new Date());
+            userService.addNewUser("tien", "123456", "Tien", "Nguyen", Gender.MALE, new Date());
+            userService.addNewUser("nhan", "123456", "Nhan", "Nguyen", Gender.MALE, new Date());
 
             DataStorage dataStorage = DataStorage.getInstance();
-            dataStorage.users.findAll().stream().toList().forEach(user -> {
-                System.out.println(user.getFullName());
-            });
+            User user = dataStorage.users.find(u -> u.getUserName().equals("tien"));
+            System.out.println(user.getFullName());
+            System.out.println(dataStorage.users.find(u -> u.getUserName().equals("tien")).getFullName());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

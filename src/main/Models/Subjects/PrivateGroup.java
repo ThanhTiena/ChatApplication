@@ -17,7 +17,7 @@ public class PrivateGroup extends Group implements RemoveMembers, UpdateMemberRo
 
     @Override
     public boolean removeMember(User user) {
-        if(user == null || !super.getMembers().contains(user)){
+        if(user == null || super.findUserInGroup(user) == null){
             return false;
         }
         super.getMembers().remove(user);
@@ -28,7 +28,7 @@ public class PrivateGroup extends Group implements RemoveMembers, UpdateMemberRo
     public boolean updateRoleInGroup(User user, RoleGroupChat role) {
         boolean flag = false;
         if(user != null){
-            if(super.getMembers().contains(user)){
+            if(super.findUserInGroup(user) != null){
                 if(!user.getRoleInGroupChats().get(super.getGroupId()).equals(role.toString())){
                     user.getRoleInGroupChats().replace(super.getGroupId(),role.toString());
                     flag = true;

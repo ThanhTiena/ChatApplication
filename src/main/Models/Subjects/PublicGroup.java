@@ -23,8 +23,8 @@ public class PublicGroup extends Group implements InviteGroupAction, RemoveMembe
     @Override
     public Protocol requestForJoiningGroup(User user) {
         if (user != null) {
-            if (!super.getMembers().contains(user)) {
-                super.getMembers().add(user);
+            if (super.findUserInGroup(user) != null) {
+//                super.getMembers().add(user);
                 Protocol protocol = new Protocol((ActionType.ASK_TO_JOIN_CHAT));
                 protocol.request(user,super.getAdmins().get(0),"Join group");
                 return protocol;

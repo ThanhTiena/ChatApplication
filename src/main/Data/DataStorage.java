@@ -11,7 +11,6 @@ public class DataStorage {
     public Repository<User> users;
     public Repository<Group> groups;
     public Repository<File> files;
-
     public Repository<Message> messages;
     private static DataStorage instance = new DataStorage();
 

@@ -51,6 +51,11 @@ public abstract class Group implements IGroup {
     }
 
     @Override
+    public User findUserInGroup(User user) {
+        return this.members.stream().filter(u-> u.getUserId().equals(user.getUserId())).findFirst().get();
+    }
+
+    @Override
     public boolean addMember(User user) {
         if (this.members.contains(user)) {
             return false;

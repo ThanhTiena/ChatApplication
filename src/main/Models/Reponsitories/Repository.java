@@ -31,8 +31,9 @@ public class Repository<TEntity> implements IRepository<TEntity> {
     }
 
     @Override
-    public void update(Object o) {
-        
+    public void update(TEntity oldEntity,TEntity updatedEntity) {
+        delete(oldEntity);
+        insert(updatedEntity);
     }
 
     @Override
