@@ -19,31 +19,32 @@ public class MessageService {
     }
 
     /* Send Message */
-    public boolean sendMessageToChat(String senderId, String content, String receiverId) {
-        Message message = new Message(senderId,receiverId, content);
-        if (receiverId == null) {
+    public boolean sendMessageToChat(Message message) {
+
+        if (message == null) {
             return false;
         }
-        message.setReceiverId(receiverId);
-        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(receiverId));
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(message.getReceiverId()));
         group.sendMessage(message);
+        dataStorage.messages.insert(message);
         return true;
     }
 
     /* Send File */
-    public boolean sendFileToChat(String senderId, File file, String receiverId) {
-        if (receiverId == null) {
+    public boolean sendFileToChat( File file) {
+        if (file == null) {
             return false;
         }
-        file.setReceiverId(receiverId);
-        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(receiverId));
+
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(file.getReceiverId()));
         group.sendFile(file);
+        dataStorage.files.insert(file);
         return true;
     }
 
     //    Delete Message
     public boolean deleteMessage (String messageId){
-        if(messageId == null || messageId.equals("")){
+        if(messageId == null || messageId.isBlank()){
             return false;
         }
         Message deleteMessage = dataStorage.messages.find(message -> message.getMessageId().equals(messageId));
@@ -52,6 +53,7 @@ public class MessageService {
         }
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(deleteMessage.getReceiverId()));
         group.deleteMessage(deleteMessage);
+        dataStorage.messages.delete(deleteMessage);
         return true;
     }
 
@@ -66,6 +68,7 @@ public class MessageService {
         }
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(deleteFile.getReceiverId()));
         group.deleteFile(deleteFile);
+        dataStorage.files.delete(deleteFile);
         return true;
     }
 
@@ -84,7 +87,7 @@ public class MessageService {
         List<Message> kLatestMessage = new ArrayList<>();
         try{
             List<Message> messageToReceivers = dataStorage.groups.find(g -> g.getGroupId().equals(receiverId)).getMessages();
-            int startPoint = messageToReceivers.size() - m;
+            int startPoint = messageToReceivers.size() - m - 1;
             for(int i = startPoint ; i >= 0; i--){
                 kLatestMessage.add(messageToReceivers.get(i));
                 k--;
