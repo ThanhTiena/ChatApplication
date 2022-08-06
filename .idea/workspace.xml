@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/Group.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/GroupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/UserServiceTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="67a2f48b-8ed7-4818-86a6-48c0fd567372" name="Default Changelist" comment="Update - Nhan - 2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,13 +49,13 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/ChatApplication.iml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/File.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/User.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Ulities/BryctEncoder.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/test/PasswordEncoderTest.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/File.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Ulities/BryctEncoder.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/User.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ChatApplication.iml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -97,7 +85,20 @@
       <recent name="Models" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceTest.getUserExistedByUserNameTest">
+  <component name="RunManager" selected="Application.main.Application.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Application.Application" />
+      <module name="ChatApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="main.Application.Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Application.Application" />
       <module name="ChatApplication" />
@@ -111,7 +112,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PasswordEncoderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatApplication" />
       <extension name="coverage">
         <pattern>
@@ -120,24 +121,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test" />
-      <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="test.PasswordEncoderTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest.addUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChatApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test" />
-      <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
-      <option name="METHOD_NAME" value="addUser" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -176,11 +161,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserServiceTest.getUserExistedByUserNameTest" />
-        <item itemvalue="Application.main.Application.Application" />
-        <item itemvalue="JUnit.UserServiceTest.addUser" />
-        <item itemvalue="JUnit.UserServiceTest" />
         <item itemvalue="JUnit.UserTest.testCreateUser" />
+        <item itemvalue="JUnit.PasswordEncoderTest" />
+        <item itemvalue="Application.main.Application.Application" />
+        <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.UserServiceTest.getUserExistedByUserNameTest" />
       </list>
     </recent_temporary>
   </component>
@@ -285,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659717624061</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Update - Nhan - 2">
+      <created>1659765527152</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1659765527152</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,6 +293,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="CREATE" />
@@ -315,6 +308,7 @@
     <MESSAGE value="Update - 13" />
     <MESSAGE value="Update - 14" />
     <MESSAGE value="Update - 15" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update - 15" />
+    <MESSAGE value="Update - Nhan - 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update - Nhan - 2" />
   </component>
 </project>
