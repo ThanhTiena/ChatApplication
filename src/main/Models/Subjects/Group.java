@@ -136,20 +136,4 @@ public abstract class Group implements IGroup {
     public void setMessages(ArrayList<Message> messages) {
         this.messages = messages;
     }
-
-    public void sendMessage(Message message){
-        this.messages.add(message);
-    }
-
-    public void deleteMessage(Message message){
-        this.messages.remove(message);
-    }
-
-    public void sendFile(File file){
-        this.files.add(file);
-    }
-
-    public void deleteFile(File file){
-        this.files.remove(file);
-    }
 }
