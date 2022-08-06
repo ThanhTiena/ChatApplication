@@ -2,6 +2,8 @@ package test;
 
 import main.Data.DataStorage;
 import main.Models.Enums.Gender;
+import main.Models.Subjects.Group;
+import main.Models.Subjects.PublicGroup;
 import main.Models.Subjects.User;
 import main.Services.UserService;
 import main.Ulities.BryctEncoder;
@@ -13,8 +15,10 @@ import org.mindrot.BCrypt;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserServiceTest {
     DataStorage dataStorage;
@@ -35,7 +39,9 @@ public class UserServiceTest {
         User actualUser1 = userService.getUserExistedByUserName("danh");
         //Invalid username
         User actualUser2 = userService.getUserExistedByUserName("Hoang");
+
         assertEquals(expectedUser.getUserName(),actualUser1.getUserName());
+        assertEquals("danh",actualUser1.getUserName());
         assertNull(actualUser2);
     }
 
@@ -46,7 +52,9 @@ public class UserServiceTest {
         User actualUser1 = userService.getUserExistedByUserId("101");
         //Valid Id
         User actualUser2 = userService.getUserExistedByUserId(expectedUser.getUserId());
+
         assertNull(actualUser1);
+        assertEquals("Danh Dang", actualUser2.getFullName());
         assertEquals(expectedUser.getFullName(), actualUser2.getFullName());
     }
 
@@ -56,6 +64,7 @@ public class UserServiceTest {
         Boolean actualResult1 = userService.addNewUser("danh","123456","Danh","Dang", Gender.MALE, new Date());
         //different username
         Boolean actualResult2 = userService.addNewUser("huy","123456","Huy","Pham", Gender.MALE, new Date());
+
         assertFalse(actualResult1);
         assertTrue(actualResult2);
     }
@@ -68,17 +77,57 @@ public class UserServiceTest {
         Boolean actualResult1 = userService.removeUser(expectedUser1);
         //User can not find
         Boolean actualResult2 = userService.removeUser(expectedUser2);
+
         assertTrue(actualResult1);
         assertFalse(actualResult2);
     }
+    @Test
+    public void addRoleGroupChatTest() {
+        User user = userService.getUserExistedByUserName("nhan");
+        PublicGroup publicGroup = new PublicGroup(user,"nhanGroup");
+        HashMap<String, String> expectedResult = new HashMap<String, String>();
+        expectedResult.put(publicGroup.getGroupId(),"member");
+        userService.addRoleGroupChat(user.getUserId(), publicGroup.getGroupId(), "member");
 
+        assertEquals(expectedResult.values().toString(), user.getRoleInGroupChats().values().toString());
+        assertNotEquals(expectedResult.values().toString(),"admin");
+    }
+
+    @Test
+    public void addFriendTest() {
+        User user = userService.getUserExistedByUserName("nhan");
+        User friend = userService.getUserExistedByUserName("tien");
+        userService.addFriend(user.getUserId(),friend.getUserId());
+
+        assertEquals("Tien Nguyen",user.getFriends().get(friend.getUserId()).getFullName());
+        assertNotEquals("Tien Nguyenn",user.getFriends().get(friend.getUserId()).getFullName());
+    }
     @Test
     public void login() {
 
     }
 
     @Test
-    public void findFriendsByKeyWordInName() {
+    public void findFriendsByKeyWordInNameTest() {
+        User user = userService.getUserExistedByUserName("danh");
+        User friend1 = userService.getUserExistedByUserName("tien");
+        User friend2 = userService.getUserExistedByUserName("nhan");
+        userService.addFriend(user.getUserId(),friend1.getUserId());
+        userService.addFriend(user.getUserId(),friend2.getUserId());
+        ArrayList<User> friendList = userService.findFriendsByKeyWordInName(user,"Nhan",new ArrayList<String>(),3 );
 
+        assertEquals("Nhan Nguyen",friendList.get(0).getFullName());
+        assertEquals(friend2.getFullName(),friendList.get(0).getFullName());
+        assertNotEquals("Tien",friendList.get(0).getFullName());
+    }
+
+    @Test
+    public void setAliasTest() {
+        User setter = userService.getUserExistedByUserName("tien");
+        User user = userService.getUserExistedByUserName("nhan");
+        userService.setAlias(setter.getUserId(),user.getUserId(),"nhannhan");
+
+        assertEquals("nhannhan", user.getAlias().get(setter.getUserId()));
+        assertNotEquals("nhandanh", user.getAlias().get(setter.getUserId()));
     }
 }

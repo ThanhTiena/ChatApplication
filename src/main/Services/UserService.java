@@ -76,6 +76,16 @@ public class UserService {
 //        user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */
 
     }
+    //add friend method
+    public boolean addFriend(String userID, String friendId) {
+        User user = getUserExistedByUserId(userID);
+        User friend = getUserExistedByUserId(friendId);
+        if ((user == null) || (friend == null)){
+            return false;
+        }
+        user.getFriends().put(friendId,friend);
+        return true;
+    }
 
     /*In method findFriendsByKeyWordInName, we just find friends have the name contained the keyword, and we find with the 3rd layer.
     Example: Find in your friendlist -> friends' friendlist -> friends' friendlist of friends who are have friendship with your friends */
