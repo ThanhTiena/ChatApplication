@@ -60,7 +60,6 @@ public class MessageService {
         if(deleteFile == null){
             return false;
         }
-
         dataStorage.files.delete(deleteFile);
         return true;
     }
@@ -70,9 +69,9 @@ public class MessageService {
         if(groupId == null || groupId.equals("")){
             return null;
         }
-
-        List<File> filesToGroup = dataStorage.files.get(file -> file.getReceiverId().equals(groupId),file -> false).stream().toList();
-
+//        List<File> filesToGroup = dataStorage.files.get(file -> file.getReceiverId().equals(groupId),file -> false)
+//                                                    .stream().toList();
+        List<File> filesToGroup = dataStorage.groups.find(g -> g.getGroupId().equals(groupId)).showSentFiles();
         return filesToGroup;
     }
 
@@ -80,7 +79,8 @@ public class MessageService {
     public List<Message> findKLatestNotIncludeMLastestMessage(String senderId,String receiverId, int k, int m){
         List<Message> kLatestMessage = new ArrayList<>();
         try{
-            List<Message> messageToReceivers = dataStorage.messages.get(mess -> mess.getReceiverId().equals(receiverId) && mess.getSenderId().equals(senderId),message -> false).stream().toList();
+            List<Message> messageToReceivers = dataStorage.messages.get(mess -> mess.getReceiverId().equals(receiverId)
+                                            && mess.getSenderId().equals(senderId),message -> false).stream().toList();
             int startPoint = messageToReceivers.size() - m;
             for(int i = startPoint ; i >= 0; i--){
                 kLatestMessage.add(messageToReceivers.get(i));
@@ -100,7 +100,8 @@ public class MessageService {
     public List<Message> findMessageByKeyword(String senderId, String receiverId, String keywords){
         List<Message> messagesList = new ArrayList<>();
         try{
-            List<Message> messageToReceivers = dataStorage.messages.get(mess -> mess.getReceiverId().equals(receiverId) && mess.getSenderId().equals(senderId),message -> false).stream().toList();
+            List<Message> messageToReceivers = dataStorage.messages.get(mess -> mess.getReceiverId().equals(receiverId)
+                                            && mess.getSenderId().equals(senderId),message -> false).stream().toList();
             messageToReceivers.forEach(m -> {
                 if(m.getContent().contains(keywords)){
                     messagesList.add(m);

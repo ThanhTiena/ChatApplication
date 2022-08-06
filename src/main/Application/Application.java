@@ -29,9 +29,7 @@ public class Application {
             userService.addNewUser("nhan", "123456", "Nhan", "Nguyen", Gender.MALE, new Date());
 
             DataStorage dataStorage = DataStorage.getInstance();
-            User user = dataStorage.users.find(u -> u.getUserName().equals("tien"));
-            System.out.println(user.getFullName());
-            System.out.println(dataStorage.users.find(u -> u.getUserName().equals("tien")).getFullName());
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

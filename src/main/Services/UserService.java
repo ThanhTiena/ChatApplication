@@ -65,14 +65,15 @@ public class UserService {
         return dataStorage.users.find(predicate) != null;
     }
 
-    public void addRoleGroupChat(String groupId, String role) {
-        Map<String, String> roleInGroups = this.user.getRoleInGroupChats();
+    public void addRoleGroupChat(String userId,String groupId, String role) {
+        user = dataStorage.users.find(u -> u.getUserId().equals(userId));
+        Map<String, String> roleInGroups = user.getRoleInGroupChats();
         if (roleInGroups.containsKey(groupId) && roleInGroups.get(groupId).equalsIgnoreCase(role)) {
             roleInGroups.replace(groupId, role);
         } else {
             roleInGroups.put(groupId, role);
         }
-        this.user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */
+//        user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */
 
     }
 

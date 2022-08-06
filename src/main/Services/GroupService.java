@@ -28,7 +28,7 @@ public class GroupService {
         try {
             /* group name can be same, so do not check */
             Group group = initGroupChat(admin, groupName, groupType);
-            userService.addRoleGroupChat(admin.getUserId(), RoleGroupChat.ADMIN.toString());
+            userService.addRoleGroupChat(admin.getUserId(),group.getGroupId(), RoleGroupChat.ADMIN.toString());
             dataStorage.groups.insert(group);
             return true;
         } catch (GroupException exception) {
@@ -121,6 +121,4 @@ public class GroupService {
                 throw new GroupException("Group Type Invalid, Initial Group Chat Failed");
         }
     }
-
-
 }

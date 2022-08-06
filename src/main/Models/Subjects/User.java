@@ -163,4 +163,17 @@ public class User {
     public void setAlias(Map<String, String> alias) {
         this.alias = alias;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", gender=" + gender +
+                ", dateOfBirth=" + dateOfBirth +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }
