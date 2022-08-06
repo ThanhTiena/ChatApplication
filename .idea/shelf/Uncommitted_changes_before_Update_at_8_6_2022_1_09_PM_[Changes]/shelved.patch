@@ -1,0 +1,284 @@
+Index: src/test/UserServiceTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package test;\r\n\r\nimport main.Data.DataStorage;\r\nimport main.Models.Enums.Gender;\r\nimport main.Models.Subjects.User;\r\nimport main.Services.UserService;\r\nimport main.Ulities.BryctEncoder;\r\nimport main.Ulities.UserException;\r\nimport org.junit.jupiter.api.BeforeAll;\r\nimport org.junit.jupiter.api.BeforeEach;\r\nimport org.junit.jupiter.api.Test;\r\nimport org.mindrot.BCrypt;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\n\r\nimport static org.junit.jupiter.api.Assertions.*;\r\n\r\npublic class UserServiceTest {\r\n    UserService userService = new UserService();\r\n\r\n    @BeforeEach\r\n    public void setUp() {\r\n        userService.addNewUser(\"danh\",\"123456\",\"Danh\",\"Dang\", Gender.MALE, new Date());\r\n        userService.addNewUser(\"tien\",\"123456\",\"Tien\",\"Nguyen\", Gender.MALE, new Date());\r\n        userService.addNewUser(\"nhan\",\"123456\",\"Nhan\",\"Nguyen\", Gender.MALE, new Date());\r\n    }\r\n\r\n    @Test\r\n    public void getUserExistedByUserNameTest() {\r\n        User expectedUser = new User(\"Danh\",\"Dang\",\"Danh\", BryctEncoder.hashPassword(\"123456\"), Gender.MALE, new Date());\r\n        User actualUser = userService.getUserExistedByUserName(\"danh\");\r\n        assertEquals(expectedUser.getFullName(),actualUser.getFullName());\r\n    }\r\n\r\n    @Test\r\n    public void addUser() {\r\n        assertEquals(DataStorage.getInstance().users.findAll().size(),3);\r\n    }\r\n\r\n    @Test\r\n    public void removeUser() {\r\n    }\r\n\r\n    @Test\r\n    public void login() {\r\n    }\r\n\r\n    @Test\r\n    public void findFriendsByKeyWordInName() {\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/UserServiceTest.java b/src/test/UserServiceTest.java
+--- a/src/test/UserServiceTest.java	(revision feec7a371b697df2aa601eb86c4951d4d6ac051e)
++++ b/src/test/UserServiceTest.java	(date 1659765038902)
+@@ -17,10 +17,12 @@
+ import static org.junit.jupiter.api.Assertions.*;
+ 
+ public class UserServiceTest {
++    DataStorage dataStorage;
+     UserService userService = new UserService();
+ 
+     @BeforeEach
+     public void setUp() {
++        //generate data for user service
+         userService.addNewUser("danh","123456","Danh","Dang", Gender.MALE, new Date());
+         userService.addNewUser("tien","123456","Tien","Nguyen", Gender.MALE, new Date());
+         userService.addNewUser("nhan","123456","Nhan","Nguyen", Gender.MALE, new Date());
+@@ -28,25 +30,55 @@
+ 
+     @Test
+     public void getUserExistedByUserNameTest() {
+-        User expectedUser = new User("Danh","Dang","Danh", BryctEncoder.hashPassword("123456"), Gender.MALE, new Date());
+-        User actualUser = userService.getUserExistedByUserName("danh");
+-        assertEquals(expectedUser.getFullName(),actualUser.getFullName());
++        User expectedUser = new User("Danh","Dang","danh", BryctEncoder.hashPassword("123456"), Gender.MALE, new Date());
++        //Valid username
++        User actualUser1 = userService.getUserExistedByUserName("danh");
++        //Invalid username
++        User actualUser2 = userService.getUserExistedByUserName("Hoang");
++        assertEquals(expectedUser.getUserName(),actualUser1.getUserName());
++        assertNull(actualUser2);
+     }
+ 
+     @Test
+-    public void addUser() {
+-        assertEquals(DataStorage.getInstance().users.findAll().size(),3);
++    public void getUserExistedByUserIdTest() {
++        User expectedUser = userService.getUserExistedByUserName("danh");
++        //Invalid Id
++        User actualUser1 = userService.getUserExistedByUserId("101");
++        //Valid Id
++        User actualUser2 = userService.getUserExistedByUserId(expectedUser.getUserId());
++        assertNull(actualUser1);
++        assertEquals(expectedUser.getFullName(), actualUser2.getFullName());
+     }
+ 
+     @Test
+-    public void removeUser() {
++    public void addNewUserTest() {
++        //same username
++        Boolean actualResult1 = userService.addNewUser("danh","123456","Danh","Dang", Gender.MALE, new Date());
++        //different username
++        Boolean actualResult2 = userService.addNewUser("huy","123456","Huy","Pham", Gender.MALE, new Date());
++        assertFalse(actualResult1);
++        assertTrue(actualResult2);
++    }
++
++    @Test
++    public void removeUserTest() {
++        User expectedUser1 = userService.getUserExistedByUserName("danh");
++        User expectedUser2 = new User("Quan","Dang","quan", BryctEncoder.hashPassword("123456"), Gender.MALE, new Date());
++        //User can find
++        Boolean actualResult1 = userService.removeUser(expectedUser1);
++        //User can not find
++        Boolean actualResult2 = userService.removeUser(expectedUser2);
++        assertTrue(actualResult1);
++        assertFalse(actualResult2);
+     }
+ 
+     @Test
+     public void login() {
++
+     }
+ 
+     @Test
+     public void findFriendsByKeyWordInName() {
++
+     }
+ }
+\ No newline at end of file
+Index: src/main/Services/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.Services;\r\n\r\nimport main.Data.DataStorage;\r\nimport main.Models.Enums.Gender;\r\nimport main.Models.Subjects.Group;\r\nimport main.Models.Subjects.Message;\r\nimport main.Models.Subjects.File;\r\nimport main.Models.Subjects.User;\r\nimport main.Ulities.BryctEncoder;\r\nimport main.Ulities.UserException;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.Map;\r\nimport java.util.function.Predicate;\r\n\r\npublic class UserService {\r\n\r\n    private User user;\r\n    private final DataStorage dataStorage;\r\n\r\n    public UserService() {\r\n        this.dataStorage = DataStorage.getInstance();\r\n    }\r\n\r\n    public User getUserExistedByUserName(String userName) {\r\n        try {\r\n            User user = dataStorage.users.find(u -> u.getUserName().equals(userName));\r\n            return user;\r\n        } catch (Exception exception) {\r\n            return null;\r\n        }\r\n    }\r\n\r\n    public User getUserExistedByUserId(String userId) {\r\n        try {\r\n            User user = dataStorage.users.find(u -> u.getUserId().equals(userId));\r\n            return user;\r\n        } catch (Exception exception) {\r\n            return null;\r\n        }\r\n    }\r\n\r\n    public boolean addNewUser(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) {\r\n        User user = new User(firstName, lastName, userName, BryctEncoder.hashPassword(password), gender, dateOfBirth);\r\n        if (getUserExistedByUserName(user.getUserName()) != null) {\r\n            return false;\r\n        }\r\n        dataStorage.users.insert(user);\r\n        return true;\r\n    }\r\n\r\n    public boolean removeUser(User user) {\r\n        if (getUserExistedByUserName(user.getUserName()) == null) {\r\n            return false;\r\n        }\r\n        dataStorage.users.delete(user);\r\n        return true;\r\n    }\r\n\r\n    public boolean login(String username, String password) {\r\n        String passwordHashed = BryctEncoder.hashPassword(password);\r\n        Predicate<User> predicate = user -> user.getUserName().equals(username) && user.getHashPassword().equals(passwordHashed);\r\n\r\n        return dataStorage.users.find(predicate) != null;\r\n    }\r\n\r\n    public void addRoleGroupChat(String groupId, String role) {\r\n        Map<String, String> roleInGroups = this.user.getRoleInGroupChats();\r\n        if (roleInGroups.containsKey(groupId) && roleInGroups.get(groupId).equalsIgnoreCase(role)) {\r\n            roleInGroups.replace(groupId, role);\r\n        } else {\r\n            roleInGroups.put(groupId, role);\r\n        }\r\n        this.user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */\r\n\r\n    }\r\n\r\n    /*In method findFriendsByKeyWordInName, we just find friends have the name contained the keyword, and we find with the 3rd layer.\r\n    Example: Find in your friendlist -> friends' friendlist -> friends' friendlist of friends who are have friendship with your friends */\r\n    public ArrayList<User> findFriendsByKeyWordInName(User user, String keyword, ArrayList<String> checkedUserId, Integer depth) {\r\n        ArrayList<User> results = new ArrayList<User>();\r\n\r\n        Map<String, User> friendList = user.getFriends();\r\n        friendList.forEach((k, v) -> {\r\n            if (!checkedUserId.contains(k)) {\r\n                checkedUserId.add(k);\r\n                if (v.getFullName().contains(keyword)) {\r\n                    results.add(v);\r\n                }\r\n\r\n                if (depth < 3) {\r\n                    results.addAll(findFriendsByKeyWordInName(v, keyword, checkedUserId, depth + 1));\r\n                }\r\n            }\r\n        });\r\n        return results;\r\n    }\r\n\r\n    /* Set Alias */\r\n    public boolean setAlias(String setterId, String userId, String alias) {\r\n        boolean flag = false;\r\n        if (!alias.equals(\"\") || !userId.equals(\"\") || !setterId.equals(\"\")) {\r\n            User user = getUserExistedByUserId(userId);\r\n            if (user.getAlias().containsKey(setterId)) {\r\n                user.getAlias().replace(setterId, alias);\r\n            } else {\r\n                user.getAlias().put(setterId, alias);\r\n            }\r\n            flag = true;\r\n        }\r\n        return flag;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/Services/UserService.java b/src/main/Services/UserService.java
+--- a/src/main/Services/UserService.java	(revision feec7a371b697df2aa601eb86c4951d4d6ac051e)
++++ b/src/main/Services/UserService.java	(date 1659765227623)
+@@ -73,7 +73,6 @@
+             roleInGroups.put(groupId, role);
+         }
+         this.user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */
+-
+     }
+ 
+     /*In method findFriendsByKeyWordInName, we just find friends have the name contained the keyword, and we find with the 3rd layer.
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bd99f69e-d16f-4f8b-96ec-72b7eda77f03\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Application/Application.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Application/Application.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Subjects/Group.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/Group.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Services/GroupService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Services/GroupService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Services/UserService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Services/UserService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/test/UserServiceTest.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/test/UserServiceTest.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JUnit5 Test Class\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"Enum\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <favorite-branches>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"DanhDev\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </favorite-branches>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GithubProjectSettings\">\r\n    <option name=\"branchProtectionPatterns\">\r\n      <list>\r\n        <option value=\"master\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/ChatApplication.iml\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Application/Application.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Models/Subjects/File.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Models/Subjects/User.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Ulities/BryctEncoder.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/test/PasswordEncoderTest.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Bw3pDW75aliqJSjL1TX57VXgyH\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"Downloaded.Files.Path.Enabled\" value=\"false\" />\r\n    <property name=\"Repository.Attach.Annotations\" value=\"false\" />\r\n    <property name=\"Repository.Attach.JavaDocs\" value=\"false\" />\r\n    <property name=\"Repository.Attach.Sources\" value=\"false\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"test\" />\r\n      <recent name=\"Models\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"JUnit.UserServiceTest.getUserExistedByUserNameTest\">\r\n    <configuration name=\"main.Application.Application\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.Application.Application\" />\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.Application.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserServiceTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"test.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"test\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"test.UserServiceTest\" />\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserServiceTest.addUser\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"test.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"test\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"test.UserServiceTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"addUser\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserServiceTest.getUserExistedByUserNameTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"test.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"test\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"test.UserServiceTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"getUserExistedByUserNameTest\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserTest.testCreateUser\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.Models.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"Models\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Models.UserTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testCreateUser\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JUnit.UserServiceTest.getUserExistedByUserNameTest\" />\r\n        <item itemvalue=\"Application.main.Application.Application\" />\r\n        <item itemvalue=\"JUnit.UserServiceTest.addUser\" />\r\n        <item itemvalue=\"JUnit.UserServiceTest\" />\r\n        <item itemvalue=\"JUnit.UserTest.testCreateUser\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bd99f69e-d16f-4f8b-96ec-72b7eda77f03\" name=\"Changes\" comment=\"\" />\r\n      <created>1657803505258</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1657803505258</updated>\r\n      <workItem from=\"1659279749945\" duration=\"4178000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"CREATE\">\r\n      <created>1657803537766</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657803537766</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"CREATE\">\r\n      <created>1657803923584</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657803923584</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"CREATE\">\r\n      <created>1657804011674</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657804011674</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"CREATE\">\r\n      <created>1657804035949</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657804035949</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Add Bcryt Password\">\r\n      <created>1658032051511</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658032051511</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"Add Bcryt Jar\">\r\n      <created>1658033636906</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658033636906</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Add Test for PasswordEncoder\">\r\n      <created>1658037182223</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658037182223</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Update User Service\">\r\n      <created>1658106602551</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658106602551</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"update file, group, private group, public group model\">\r\n      <created>1659160157927</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1659160157927</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"Update - 12\">\r\n      <created>1659708653981</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1659708653981</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"Update - 13\">\r\n      <created>1659713279974</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1659713279974</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"Update - 14\">\r\n      <created>1659713588852</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1659713588852</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"Update - 15\">\r\n      <created>1659717624061</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1659717624061</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"14\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"CREATE\" />\r\n    <MESSAGE value=\"test branch\" />\r\n    <MESSAGE value=\"Add Bcryt Password\" />\r\n    <MESSAGE value=\"Add Bcryt Jar\" />\r\n    <MESSAGE value=\"Add Test for PasswordEncoder\" />\r\n    <MESSAGE value=\"Update User Service\" />\r\n    <MESSAGE value=\"Add Enum Class\" />\r\n    <MESSAGE value=\"update file, group, private group, public group model\" />\r\n    <MESSAGE value=\"Update - 12\" />\r\n    <MESSAGE value=\"Update - 13\" />\r\n    <MESSAGE value=\"Update - 14\" />\r\n    <MESSAGE value=\"Update - 15\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Update - 15\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision feec7a371b697df2aa601eb86c4951d4d6ac051e)
++++ b/.idea/workspace.xml	(date 1659766171780)
+@@ -6,14 +6,6 @@
+   <component name="ChangeListManager">
+     <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/Group.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Services/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/GroupService.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/test/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/UserServiceTest.java" afterDir="false" />
+     </list>
+@@ -48,18 +40,11 @@
+     </favorite-branches>
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="master" />
++        <entry key="$PROJECT_DIR$" value="reviewCode" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GithubProjectSettings">
+-    <option name="branchProtectionPatterns">
+-      <list>
+-        <option value="master" />
+-      </list>
+-    </option>
+-  </component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="file://$PROJECT_DIR$/ChatApplication.iml" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
+@@ -97,21 +82,23 @@
+       <recent name="Models" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="JUnit.UserServiceTest.getUserExistedByUserNameTest">
+-    <configuration name="main.Application.Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="main.Application.Application" />
++  <component name="RunManager" selected="JUnit.UserServiceTest">
++    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="ChatApplication" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.Application.*" />
++          <option name="PATTERN" value="test.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
++      <option name="PACKAGE_NAME" value="test" />
++      <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
++      <option name="TEST_OBJECT" value="class" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="UserServiceTest.findFriendsByKeyWordInName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="ChatApplication" />
+       <extension name="coverage">
+         <pattern>
+@@ -121,12 +108,13 @@
+       </extension>
+       <option name="PACKAGE_NAME" value="test" />
+       <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
+-      <option name="TEST_OBJECT" value="class" />
++      <option name="METHOD_NAME" value="findFriendsByKeyWordInName" />
++      <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="UserServiceTest.addUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="UserServiceTest.getUserExistedByUserIdTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="ChatApplication" />
+       <extension name="coverage">
+         <pattern>
+@@ -136,13 +124,13 @@
+       </extension>
+       <option name="PACKAGE_NAME" value="test" />
+       <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
+-      <option name="METHOD_NAME" value="addUser" />
++      <option name="METHOD_NAME" value="getUserExistedByUserIdTest" />
+       <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="UserServiceTest.getUserExistedByUserNameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="UserServiceTest.login" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="ChatApplication" />
+       <extension name="coverage">
+         <pattern>
+@@ -152,23 +140,23 @@
+       </extension>
+       <option name="PACKAGE_NAME" value="test" />
+       <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
+-      <option name="METHOD_NAME" value="getUserExistedByUserNameTest" />
++      <option name="METHOD_NAME" value="login" />
+       <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="UserTest.testCreateUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="UserServiceTest.removeUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="ChatApplication" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.Models.*" />
++          <option name="PATTERN" value="test.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+-      <option name="PACKAGE_NAME" value="Models" />
+-      <option name="MAIN_CLASS_NAME" value="Models.UserTest" />
+-      <option name="METHOD_NAME" value="testCreateUser" />
++      <option name="PACKAGE_NAME" value="test" />
++      <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
++      <option name="METHOD_NAME" value="removeUserTest" />
+       <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+@@ -176,11 +164,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="JUnit.UserServiceTest.getUserExistedByUserNameTest" />
+-        <item itemvalue="Application.main.Application.Application" />
+-        <item itemvalue="JUnit.UserServiceTest.addUser" />
+         <item itemvalue="JUnit.UserServiceTest" />
+-        <item itemvalue="JUnit.UserTest.testCreateUser" />
++        <item itemvalue="JUnit.UserServiceTest.findFriendsByKeyWordInName" />
++        <item itemvalue="JUnit.UserServiceTest.login" />
++        <item itemvalue="JUnit.UserServiceTest.removeUserTest" />
++        <item itemvalue="JUnit.UserServiceTest.getUserExistedByUserIdTest" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -285,7 +273,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1659717624061</updated>
+     </task>
+-    <option name="localTasksCounter" value="14" />
++    <task id="LOCAL-00014" summary="Update - 14">
++      <created>1659755262515</created>
++      <option name="number" value="00014" />
++      <option name="presentableId" value="LOCAL-00014" />
++      <option name="project" value="LOCAL" />
++      <updated>1659755262515</updated>
++    </task>
++    <option name="localTasksCounter" value="15" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -313,8 +308,8 @@
+     <MESSAGE value="update file, group, private group, public group model" />
+     <MESSAGE value="Update - 12" />
+     <MESSAGE value="Update - 13" />
+-    <MESSAGE value="Update - 14" />
+     <MESSAGE value="Update - 15" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Update - 15" />
++    <MESSAGE value="Update - 14" />
++    <option name="LAST_COMMIT_MESSAGE" value="Update - 14" />
+   </component>
+ </project>
+\ No newline at end of file

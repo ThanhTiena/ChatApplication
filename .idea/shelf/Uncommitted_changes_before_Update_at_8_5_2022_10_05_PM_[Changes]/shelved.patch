@@ -1,0 +1,157 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bd99f69e-d16f-4f8b-96ec-72b7eda77f03\" name=\"Changes\" comment=\"Update - 1\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Application/Application.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Application/Application.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Application/ChatMediator.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Application/ChatMediator.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Data/DataStorage.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Data/DataStorage.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Enums/GroupType.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Enums/GroupType.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/File.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/File.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Group.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/Group.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/Message.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/Message.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/PrivateGroup.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/PublicGroup.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Models/User.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Models/Subjects/User.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Services/GroupService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Services/GroupService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Services/UserService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Services/UserService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/Ulities/GenerateNumber.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/Ulities/GenerateNumber.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JUnit5 Test Class\" />\r\n        <option value=\"Enum\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <excluded-from-favorite>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"master\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </excluded-from-favorite>\r\n    <favorite-branches>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"DanhDev\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </favorite-branches>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GithubProjectSettings\">\r\n    <option name=\"branchProtectionPatterns\">\r\n      <list>\r\n        <option value=\"master\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/ChatApplication.iml\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Application/Application.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Models/Subjects/File.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Models/Subjects/User.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/Ulities/BryctEncoder.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/test/PasswordEncoderTest.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Bw3pDW75aliqJSjL1TX57VXgyH\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\r\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,\r\n    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,\r\n    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admins/IdeaProjects/ChatApplication/jbcrypt-0.3.jar&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.filetypes.JAVA&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"main.Services\" />\r\n      <recent name=\"test\" />\r\n      <recent name=\"Models\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.main.Application.Application\">\r\n    <configuration name=\"Application\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Application.Application\" />\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Application.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"main.Application.Application\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.Application.Application\" />\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.Application.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PasswordEncoderTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"test.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"test\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"test.PasswordEncoderTest\" />\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserTest.testCreateUser\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"ChatApplication\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.Models.Subjects.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"Models\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Models.UserTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testCreateUser\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.main.Application.Application\" />\r\n        <item itemvalue=\"JUnit.PasswordEncoderTest\" />\r\n        <item itemvalue=\"JUnit.UserTest.testCreateUser\" />\r\n        <item itemvalue=\"JUnit.UserTest.testCreateUser\" />\r\n        <item itemvalue=\"Application.Application\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bd99f69e-d16f-4f8b-96ec-72b7eda77f03\" name=\"Changes\" comment=\"\" />\r\n      <created>1657803505258</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1657803505258</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"CREATE\">\r\n      <created>1657803537766</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657803537766</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"CREATE\">\r\n      <created>1657803923584</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657803923584</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"CREATE\">\r\n      <created>1657804011674</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657804011674</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"CREATE\">\r\n      <created>1657804035949</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1657804035949</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Add Bcryt Password\">\r\n      <created>1658032051511</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658032051511</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"Add Bcryt Jar\">\r\n      <created>1658033636906</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658033636906</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Add Test for PasswordEncoder\">\r\n      <created>1658037182223</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658037182223</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Update User Service\">\r\n      <created>1658106602551</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1658106602551</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"update file, group, private group, public group model\">\r\n      <created>1659160157927</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1659160157927</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"10\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"CREATE\" />\r\n    <MESSAGE value=\"test branch\" />\r\n    <MESSAGE value=\"Add Bcryt Password\" />\r\n    <MESSAGE value=\"Add Bcryt Jar\" />\r\n    <MESSAGE value=\"Add Test for PasswordEncoder\" />\r\n    <MESSAGE value=\"Update User Service\" />\r\n    <MESSAGE value=\"Add Enum Class\" />\r\n    <MESSAGE value=\"update file, group, private group, public group model\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"update file, group, private group, public group model\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 75d8f23457e4a5639de8986418db802a867135eb)
++++ b/.idea/workspace.xml	(date 1659708351179)
+@@ -4,21 +4,8 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Update - 1">
++    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="update file, group, private group, public group model">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Application/ChatMediator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/ChatMediator.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Data/DataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Data/DataStorage.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Enums/GroupType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Enums/GroupType.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/File.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/Group.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/Message.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/PrivateGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/PublicGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/User.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Services/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/GroupService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/Ulities/GenerateNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Ulities/GenerateNumber.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -29,26 +16,11 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="JUnit5 Test Class" />
+-        <option value="Enum" />
+-        <option value="Interface" />
+         <option value="Class" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
+-    <excluded-from-favorite>
+-      <branch-storage>
+-        <map>
+-          <entry type="LOCAL">
+-            <value>
+-              <list>
+-                <branch-info repo="$PROJECT_DIR$" source="master" />
+-              </list>
+-            </value>
+-          </entry>
+-        </map>
+-      </branch-storage>
+-    </excluded-from-favorite>
+     <favorite-branches>
+       <branch-storage>
+         <map>
+@@ -69,20 +41,10 @@
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GithubProjectSettings">
+-    <option name="branchProtectionPatterns">
+-      <list>
+-        <option value="master" />
+-      </list>
+-    </option>
+-  </component>
+   <component name="HighlightingSettingsPerFile">
+     <setting file="file://$PROJECT_DIR$/ChatApplication.iml" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/Application/Application.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/Models/Enums/FileType.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/File.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/Models/Subjects/User.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/Ulities/BryctEncoder.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/test/PasswordEncoderTest.java" root0="FORCE_HIGHLIGHTING" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+@@ -96,30 +58,19 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admins/IdeaProjects/ChatApplication/jbcrypt-0.3.jar&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.filetypes.JAVA&quot;
+-  }
+-}</component>
++  <component name="PropertiesComponent">
++    <property name="Downloaded.Files.Path.Enabled" value="false" />
++    <property name="Repository.Attach.Annotations" value="false" />
++    <property name="Repository.Attach.JavaDocs" value="false" />
++    <property name="Repository.Attach.Sources" value="false" />
++    <property name="WebServerToolWindowFactoryState" value="false" />
++    <property name="aspect.path.notification.shown" value="true" />
++  </component>
+   <component name="RecentsManager">
+     <key name="CreateTestDialog.Recents.Supers">
+       <recent name="" />
+     </key>
+     <key name="CreateTestDialog.RecentsKey">
+-      <recent name="main.Services" />
+       <recent name="test" />
+       <recent name="Models" />
+     </key>
+@@ -170,7 +121,7 @@
+       <module name="ChatApplication" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.Models.Subjects.*" />
++          <option name="PATTERN" value="main.Models.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -185,8 +136,8 @@
+     <recent_temporary>
+       <list>
+         <item itemvalue="Application.main.Application.Application" />
+-        <item itemvalue="JUnit.PasswordEncoderTest" />
+         <item itemvalue="JUnit.UserTest.testCreateUser" />
++        <item itemvalue="JUnit.PasswordEncoderTest" />
+         <item itemvalue="JUnit.UserTest.testCreateUser" />
+         <item itemvalue="Application.Application" />
+       </list>
+@@ -200,6 +151,7 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1657803505258</updated>
++      <workItem from="1659279749945" duration="4178000" />
+     </task>
+     <task id="LOCAL-00001" summary="CREATE">
+       <created>1657803537766</created>
+@@ -266,6 +218,9 @@
+     </task>
+     <option name="localTasksCounter" value="10" />
+     <servers />
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="TAB_STATES">
