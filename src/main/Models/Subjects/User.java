@@ -26,6 +26,7 @@ public class User {
 
     /* Can change  */
     private Map<String, User> friends;
+    private Map<String, String> alias; // 1st String value present for groupId, 2nd is the alias name
 
     public User(String firstName, String lastName, String hashPassword, String gender, Date dateOfBirth) {
         this.userId = GenerateNumber.generateUserId();
@@ -38,7 +39,11 @@ public class User {
 
         this.isActivated = true;
         this.isOnline = true;
-        this.roleInGroupChats = new HashMap<>();
+
+        this.roleInGroupChats = new HashMap<String, String>();
+        this.actions = new HashMap<String, Protocol>();
+        this.friends = new HashMap<String, User>();
+        this.alias = new HashMap<String, String>();
     }
 
     public User() {
@@ -147,5 +152,13 @@ public class User {
 
     public void setRoleInGroupChats(Map<String, String> roleInGroupChats) {
         this.roleInGroupChats = roleInGroupChats;
+    }
+
+    public Map<String, String> getAlias() {
+        return alias;
+    }
+
+    public void setAlias(Map<String, String> alias) {
+        this.alias = alias;
     }
 }

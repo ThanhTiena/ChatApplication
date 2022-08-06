@@ -4,15 +4,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Build Design pattern group">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Data/DataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Data/DataStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/RemoveMembers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/RemoveMembers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/IRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/IRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Reponsitories/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Services/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/GroupService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +222,6 @@
       <option name="project" value="LOCAL" />
       <updated>1659160157927</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +247,5 @@
     <MESSAGE value="Update User Service" />
     <MESSAGE value="Add Enum Class" />
     <MESSAGE value="update file, group, private group, public group model" />
-    <option name="LAST_COMMIT_MESSAGE" value="update file, group, private group, public group model" />
   </component>
 </project>

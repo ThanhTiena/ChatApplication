@@ -21,12 +21,16 @@ public class UserService {
         this.dataStorage = DataStorage.getInstance();
     }
 
-    public User getUserExisted(User user) {
-        return dataStorage.users.find((Predicate<User>) u -> u.getUserName().equals(user.getUserName()));
+    public User getUserExistedByUserName(String userName) {
+        return dataStorage.users.find(user -> user.getUserName().equals(userName));
+    }
+
+    public User getUserExistedByUserId(String userId) {
+        return dataStorage.users.find(user -> user.getUserId().equals(userId));
     }
 
     public boolean addUser(User user) throws UserException {
-        if (getUserExisted(user) != null) {
+        if (getUserExistedByUserName(user.getUserName()) != null) {
             throw new UserException("This User have existed!");
         }
         dataStorage.users.insert(user);
@@ -34,7 +38,7 @@ public class UserService {
     }
 
     public boolean removeUser(User user) throws UserException {
-        if (getUserExisted(user) == null) {
+        if (getUserExistedByUserName(user.getUserName()) == null) {
             throw new UserException("This user is not existed in the system!");
         }
         dataStorage.users.delete(user);
@@ -55,9 +59,8 @@ public class UserService {
         } else {
             roleInGroups.put(groupId, role);
         }
-        this.user.setRoleInGroupChats(roleInGroups);
+        this.user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */
 
-        /* Need to update user in data storage factory */
     }
 
     /*In method findFriendsByKeyWordInName, we just find friends have the name contained the keyword, and we find with the 3rd layer.
@@ -120,4 +123,18 @@ public class UserService {
     }
 
     /* Send Code */
+    /* Set Alias */
+    public boolean setAlias(String setterId, String userId, String alias) {
+        boolean flag = false;
+        if (!alias.equals("") || !userId.equals("") || !setterId.equals("")) {
+            User user = getUserExistedByUserId(userId);
+            if (user.getAlias().containsKey(setterId)) {
+                user.getAlias().replace(setterId, alias);
+            } else {
+                user.getAlias().put(setterId, alias);
+            }
+            flag = true;
+        }
+        return flag;
+    }
 }
