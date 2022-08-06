@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="Update - 15">
+    <list default="true" id="bd99f69e-d16f-4f8b-96ec-72b7eda77f03" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Application/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/GroupActions/JoinGroupAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Interfaces/IGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/Group.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/IndividualChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PrivateGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Services/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/GroupService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/UserServiceTest.java" afterDir="false" />
     </list>
@@ -169,9 +177,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.UserServiceTest.getUserExistedByUserNameTest" />
-        <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.UserServiceTest.addUser" />
         <item itemvalue="Application.main.Application.Application" />
+        <item itemvalue="JUnit.UserServiceTest.addUser" />
+        <item itemvalue="JUnit.UserServiceTest" />
         <item itemvalue="JUnit.UserTest.testCreateUser" />
       </list>
     </recent_temporary>

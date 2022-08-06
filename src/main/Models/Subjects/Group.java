@@ -34,12 +34,30 @@ public abstract class Group implements IGroup {
     }
 
     /* ############ GROUP METHOD ################ */
-    public abstract List<Message> showMessage();
 
-    public abstract List<File> showSentFiles();
+    @Override
+    public List<Message> showMessage() {
+        return this.messages;
+    }
 
-    public abstract List<User> showMembers();
+    @Override
+    public List<File> showSentFiles() {
+        return this.files;
+    }
 
+    @Override
+    public List<User> showMembers() {
+        return this.members;
+    }
+
+    @Override
+    public boolean addMember(User user) {
+        if (this.members.contains(user)) {
+            return false;
+        }
+        this.members.add(user);
+        return true;
+    }
     /* ################################################ */
 
     public String getGroupId() {

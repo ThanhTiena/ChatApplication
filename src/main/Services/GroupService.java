@@ -4,11 +4,7 @@ import main.Data.DataStorage;
 import main.Models.Enums.GroupType;
 import main.Models.Enums.RoleGroupChat;
 import main.Models.Subjects.*;
-import main.Ulities.GenerateNumber;
 import main.Ulities.GroupException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GroupService {
     private DataStorage dataStorage;
@@ -28,10 +24,6 @@ public class GroupService {
         return dataStorage.groups.find(group -> group.getGroupId().equals(groupId));
     }
 
-    public Group findGroupByGroupName(String groupName) {
-        return dataStorage.groups.find(group -> group.getGroupName().equals(groupName));
-    }
-
     public boolean createChat(User admin, String groupName, String groupType) throws GroupException {
         try {
             /* group name can be same, so do not check */
@@ -46,25 +38,75 @@ public class GroupService {
 
     public void groupMemberDetails(String groupId) {
         stringBuilder = new StringBuilder();
-        group.showMembers().stream().forEach(member -> {
-            stringBuilder.append(member.getFullName()).append("\n");
-        });
+        dataStorage.groups.find(group -> group.getGroupId().equals(groupId))
+                .showMembers()
+                .stream()
+                .forEach(member -> {
+                    stringBuilder.append(member.getFullName()).append("\n");
+                });
         System.out.println(stringBuilder);
     }
 
-    public boolean addMember(User invitor, User user, String groupName) {
+    public void groupMessageDetails(String groupId) {
+        stringBuilder = new StringBuilder();
+        dataStorage.groups.find(group -> group.getGroupId().equals(groupId))
+                .showMessage()
+                .stream()
+                .forEach(message -> {
+                    stringBuilder.append(message.getSender().getFullName());
+                    stringBuilder.append(message.getContent());
+                    stringBuilder.append(message.getSentAt());
+                    stringBuilder.append("\n");
+                });
+        System.out.println(stringBuilder);
+    }
+
+    public void groupFileDetails(String groupId) {
+        stringBuilder = new StringBuilder();
+        dataStorage.groups.find(group -> group.getGroupId().equals(groupId))
+                .showSentFiles()
+                .stream()
+                .forEach(file -> {
+                    stringBuilder.append(file.getFileName());
+                    stringBuilder.append(file.getCreatedAt());
+                    stringBuilder.append("\n");
+                });
+        System.out.println(stringBuilder);
+    }
+
+    public boolean addMember(User invitor, User user, String groupId) throws GroupException {
         boolean flag = false;
-        if (!groupName.equals("")) {
-
-        }
-        if (invitor != null) {
-
+        group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        if (group.getGroupType().equals(GroupType.INDIVIDUAL)) {
+            individualChat = (IndividualChat) group;
+            individualChat.addMember(user);
+            flag = true;
+        } else if (group.getGroupType().equals(GroupType.PRIVATE_GROUP)) {
+            privateGroup = (PrivateGroup) group;
+            if (!invitor.getRoleInGroupChats().get(groupId).equals(RoleGroupChat.ADMIN)) {
+                throw new GroupException("This Group need to administrator's permission to join");
+            }
+            privateGroup.addMember(user);
+            flag = true;
+        } else {
+            publicGroup = (PublicGroup) group;
+            publicGroup.addMember(user);
+            flag = true;
         }
         return flag;
     }
-    public User checkUserIsAdmin(String userId){
 
-        return null;
+    public boolean joinGroupByCode(String groupCode, String groupId,User user) {
+        boolean flag = false;
+        group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        if (group != null) {
+            if(group.getGroupCode().equals(groupCode)){
+                publicGroup = (PublicGroup) group;
+                publicGroup.addMember(user);
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     private Group initGroupChat(User admin, String groupName, String groupType) throws GroupException {

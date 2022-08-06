@@ -24,11 +24,21 @@ public class UserService {
     }
 
     public User getUserExistedByUserName(String userName) {
-        return dataStorage.users.find(user -> user.getUserName().equals(userName));
+        try {
+            User user = dataStorage.users.find(u -> u.getUserName().equals(userName));
+            return user;
+        } catch (Exception exception) {
+            return null;
+        }
     }
 
     public User getUserExistedByUserId(String userId) {
-        return dataStorage.users.find(user -> user.getUserId().equals(userId));
+        try {
+            User user = dataStorage.users.find(u -> u.getUserId().equals(userId));
+            return user;
+        } catch (Exception exception) {
+            return null;
+        }
     }
 
     public boolean addNewUser(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) {

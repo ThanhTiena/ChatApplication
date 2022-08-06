@@ -14,21 +14,6 @@ public class PublicGroup extends Group implements InviteGroupAction, RemoveMembe
     }
 
     @Override
-    public List<Message> showMessage() {
-        return super.getMessages();
-    }
-
-    @Override
-    public List<File> showSentFiles() {
-        return super.getFiles();
-    }
-
-    @Override
-    public List<User> showMembers() {
-        return super.getMembers();
-    }
-
-    @Override
     public Protocol sendInvitationToGroup(User user, Group group) {
         Protocol protocol = new Protocol(ActionType.INVITE_JOIN_CHAT);
         protocol.request(super.getAdmins().get(0),user,"Invite to join");
@@ -36,7 +21,7 @@ public class PublicGroup extends Group implements InviteGroupAction, RemoveMembe
     }
 
     @Override
-    public Protocol joinGroup(User user) {
+    public Protocol requestForJoiningGroup(User user) {
         if (user != null) {
             if (!super.getMembers().contains(user)) {
                 super.getMembers().add(user);

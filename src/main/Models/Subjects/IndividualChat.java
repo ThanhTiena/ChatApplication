@@ -14,22 +14,16 @@ public class IndividualChat extends Group implements JoinGroupAction {
     }
 
     @Override
-    public List<Message> showMessage() {
-        return super.getMessages();
+    public boolean addMember(User user) {
+        if(super.getMembers().size() < 2){
+            super.addMember(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public List<File> showSentFiles() {
-        return super.getFiles();
-    }
-
-    @Override
-    public List<User> showMembers() {
-        return super.getMembers();
-    }
-
-    @Override
-    public Protocol joinGroup(User user) {
+    public Protocol requestForJoiningGroup(User user) {
         if (user != null) {
             if (!super.getMembers().contains(user)) {
                 super.getMembers().add(user);

@@ -3,34 +3,16 @@ package main.Models.Subjects;
 import main.Models.Enums.ActionType;
 import main.Models.Enums.GroupType;
 import main.Models.Enums.RoleGroupChat;
-import main.Models.Interfaces.GroupActions.JoinGroupAction;
-import main.Models.Interfaces.GroupActions.RemoveMembers;
-import main.Models.Interfaces.GroupActions.SendGroupCodeAction;
-import main.Models.Interfaces.GroupActions.UpdateMemberRole;
+import main.Models.Interfaces.GroupActions.*;
 import main.Models.Stuff.Protocol;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrivateGroup extends Group implements RemoveMembers, SendGroupCodeAction, UpdateMemberRole {
+public class PrivateGroup extends Group implements RemoveMembers, UpdateMemberRole, InviteGroupAction {
     public PrivateGroup(User admin, String groupName) {
         super(admin, groupName);
         super.setGroupType(GroupType.PRIVATE_GROUP);
-    }
-
-    @Override
-    public List<Message> showMessage() {
-        return super.getMessages();
-    }
-
-    @Override
-    public List<File> showSentFiles() {
-        return super.getFiles();
-    }
-
-    @Override
-    public List<User> showMembers() {
-        return super.getMembers();
     }
 
     @Override
@@ -40,13 +22,6 @@ public class PrivateGroup extends Group implements RemoveMembers, SendGroupCodeA
         }
         super.getMembers().remove(user);
         return true;
-    }
-
-    @Override
-    public Protocol sendGroupCode(User sender, User receiver) {
-        Protocol protocol = new Protocol(ActionType.SEND_GROUP_CODE);
-        protocol.request(sender,receiver,this.getGroupCode());
-        return protocol;
     }
 
     @Override
@@ -61,5 +36,10 @@ public class PrivateGroup extends Group implements RemoveMembers, SendGroupCodeA
             }
         }
         return flag;
+    }
+
+    @Override
+    public Protocol sendInvitationToGroup(User user, Group group) {
+        return null;
     }
 }
