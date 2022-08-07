@@ -20,9 +20,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MessageServiceTest {
-    static UserService userService = new UserService();
-    static GroupService groupService = new GroupService();
-    static MessageService messageService = new MessageService();
+    private UserService userService = new UserService();
+    private GroupService groupService = new GroupService();
+    private MessageService messageService = new MessageService();
 
     @BeforeEach
     public void setUp() throws GroupException {
@@ -35,7 +35,7 @@ class MessageServiceTest {
     public void sendMessageToChatTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
+        Group group = groupService.createGroup(user1,"Test Group Chat","INDIVIDUAL");
         groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         Message message = new Message(user1.getUserId(),group.getGroupId(),"AHAHAHA");
@@ -51,7 +51,7 @@ class MessageServiceTest {
     public void sendFileToChatTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
+        Group group = groupService.createGroup(user1,"Test Group Chat","INDIVIDUAL");
         groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
         File file = new File("Test",new Date(),group.getGroupId(),user2.getUserId(),"D:/Desktop/Test/abc.png");
 
@@ -68,7 +68,7 @@ class MessageServiceTest {
     public void deleteMessageTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
+        Group group = groupService.createGroup(user1,"Test Group Chat","INDIVIDUAL");
         groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
         Message message = new Message(user1.getUserId(),group.getGroupId(),"AHAHAHA");
         messageService.sendMessageToChat(message);
@@ -86,7 +86,7 @@ class MessageServiceTest {
     public void deleteFileTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
+        Group group = groupService.createGroup(user1,"Test Group Chat","INDIVIDUAL");
         groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
         File file = new File("Test",new Date(),group.getGroupId(),user2.getUserId(),"D:/Desktop/Test/abc.png");
         messageService.sendFileToChat(file);
@@ -101,7 +101,7 @@ class MessageServiceTest {
     public void showAllFilesSentToGroupTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
+        Group group = groupService.createGroup(user1,"Test Group Chat","INDIVIDUAL");
         groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         ArrayList<String> fileIds = new ArrayList<>();
@@ -123,7 +123,7 @@ class MessageServiceTest {
     public void findKLatestNotIncludeMLastestMessageTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
+        Group group = groupService.createGroup(user1,"Test Group Chat","INDIVIDUAL");
         groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         Message message = new Message(user1.getUserId(),group.getGroupId(),"ABCD");
@@ -142,7 +142,7 @@ class MessageServiceTest {
     public void findMessageByKeywordTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
+        Group group = groupService.createGroup(user1,"Test Group Chat","INDIVIDUAL");
         groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         Message message = new Message(user1.getUserId(),group.getGroupId(),"ABCD");

@@ -2,11 +2,15 @@ package test;
 
 import main.Data.DataStorage;
 import main.Models.Enums.Gender;
+import main.Models.Enums.RoleGroupChat;
 import main.Models.Subjects.Alias;
+import main.Models.Subjects.Group;
 import main.Models.Subjects.PublicGroup;
 import main.Models.Subjects.User;
 import main.Services.UserService;
 import main.Ulities.BryctEncoder;
+import main.Ulities.GroupException;
+import main.Ulities.UserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -102,7 +106,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void login() {
+    public void loginTest() {
         boolean login1stTime = userService.login("nhan", "1234");
         boolean login2ndTime = userService.login("nhan", "123456");
 
@@ -140,4 +144,5 @@ public class UserServiceTest {
         assertEquals("nhannhan", alias.getAliasName());
         assertNotEquals("nhandanh", alias.getAliasName());
     }
+
 }
