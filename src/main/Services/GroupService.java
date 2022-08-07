@@ -6,6 +6,10 @@ import main.Models.Enums.RoleGroupChat;
 import main.Models.Subjects.*;
 import main.Ulities.GroupException;
 
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class GroupService {
     private DataStorage dataStorage;
     private Group group;
@@ -29,7 +33,7 @@ public class GroupService {
         try {
             /* group name can be same, so do not check */
             Group group = initGroupChat(admin, groupName, groupType);
-            userService.addRoleGroupChat(admin.getUserId(),group.getGroupId(), RoleGroupChat.ADMIN.toString());
+            userService.addRoleGroupChat(admin.getUserId(), group.getGroupId(), RoleGroupChat.ADMIN.toString());
             dataStorage.groups.insert(group);
             return group;
         } catch (GroupException exception) {
@@ -37,45 +41,22 @@ public class GroupService {
         }
     }
 
-    public void groupMemberDetails(String groupId) {
-        stringBuilder = new StringBuilder();
-        dataStorage.groups.find(group -> group.getGroupId().equals(groupId))
-                .showMembers()
-                .stream()
-                .forEach(member -> {
-                    stringBuilder.append(member.getFullName()).append("\n");
-                });
-        System.out.println(stringBuilder);
+    public List<User> groupMemberDetails(String groupId) {
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        return group.showMembers();
     }
 
-    public void groupMessageDetails(String groupId) {
-        stringBuilder = new StringBuilder();
-        dataStorage.groups.find(group -> group.getGroupId().equals(groupId))
-                .showMessage()
-                .stream()
-                .forEach(message -> {
-                    stringBuilder.append(message.getSender().getFullName());
-                    stringBuilder.append(message.getContent());
-                    stringBuilder.append(message.getSentAt());
-                    stringBuilder.append("\n");
-                });
-        System.out.println(stringBuilder);
+    public List<Message> groupMessageDetails(String groupId) {
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        return group.showMessage();
     }
 
-    public void groupFileDetails(String groupId) {
-        stringBuilder = new StringBuilder();
-        dataStorage.groups.find(group -> group.getGroupId().equals(groupId))
-                .showSentFiles()
-                .stream()
-                .forEach(file -> {
-                    stringBuilder.append(file.getFileName());
-                    stringBuilder.append(file.getCreatedAt());
-                    stringBuilder.append("\n");
-                });
-        System.out.println(stringBuilder);
+    public List<File> groupFileDetails(String groupId) {
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        return group.showSentFiles();
     }
 
-    public boolean addMember(User invitor, User user, String groupId) throws GroupException {
+    public boolean inviteToJoinGroup(User invitor, User user, String groupId) throws GroupException {
         boolean flag = false;
         group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
         if (group.getGroupType().equals(GroupType.INDIVIDUAL)) {
@@ -97,17 +78,59 @@ public class GroupService {
         return flag;
     }
 
-    public boolean joinGroupByCode(String groupCode, String groupId,User user) {
+    public boolean joinGroupByCode(String groupCode, String groupId, User user) throws GroupException {
         boolean flag = false;
         group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
         if (group != null) {
-            if(group.getGroupCode().equals(groupCode)){
+            if (!group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
+                throw new GroupException("Action only valid with public group");
+            }
+            if (group.getGroupCode().equals(groupCode)) {
                 publicGroup = (PublicGroup) group;
                 publicGroup.addMember(user);
                 flag = true;
             }
         }
         return flag;
+    }
+
+    public List<String> getGroupsOfUser(User user) {
+        List<String> groups = new ArrayList<>();
+        for (Group group : dataStorage.groups.findAll()) {
+            if (group.findUserInGroup(user) != null) {
+                groups.add(group.getGroupId());
+            }
+        }
+        return groups;
+    }
+
+    public List<String> getContactsOfUser(User user) {
+        List<Message> messages = dataStorage.messages.get(
+                m -> m.getReceiverId().equals(user.getUserId()),
+                m -> m.getSenderId().equals(user.getUserId()));
+        List<String> messageIds = new ArrayList<>();
+        messages.forEach(message -> {
+            messageIds.add(message.getMessageId());
+        });
+        return messageIds;
+    }
+
+    public List<String> getConversations(User user) {
+        List<String> userJoinedGroups = getGroupsOfUser(user);
+        List<String> userContacts = getContactsOfUser(user);
+
+        List<String> conservations = Stream.concat(userJoinedGroups.stream(), userContacts.stream())
+                .collect(Collectors.toList());
+        return conservations;
+    }
+
+    public boolean removeUserFromGroup(String userId, String groupId) {
+        if (userId.equals("") || groupId.equals("")) {
+            return false;
+        }
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        User user = dataStorage.users.find(u -> u.getUserId().equals(userId));
+        return group.removeMember(user);
     }
 
     private Group initGroupChat(User admin, String groupName, String groupType) throws GroupException {

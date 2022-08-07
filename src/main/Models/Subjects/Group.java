@@ -65,6 +65,17 @@ public abstract class Group implements IGroup {
     }
 
     @Override
+    public boolean removeMember(User user) {
+        if(findUserInGroup(user) != null){
+            this.members.remove(user);
+            if(user.getRoleInGroupChats().get(this.groupId).equals(RoleGroupChat.ADMIN)){
+                this.admins.remove(user);
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void sendMessage(Message message) {
         this.messages.add(message);
     }

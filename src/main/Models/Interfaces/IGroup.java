@@ -14,6 +14,7 @@ public interface IGroup {
     public abstract List<User> showMembers();
 
     public abstract boolean addMember(User user);
+    public abstract boolean removeMember(User user);
 
     public abstract User findUserInGroup(User user);
 
