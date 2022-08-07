@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a2f48b-8ed7-4818-86a6-48c0fd567372" name="Default Changelist" comment="Update - Nhan - 2">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_6_2022_1_25_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_6_2022_1_25_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_6_2022_1_43_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_6_2022_1_43_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Models/Subjects/PublicGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/MessageServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/MessageServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/UserServiceTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="67a2f48b-8ed7-4818-86a6-48c0fd567372" name="Default Changelist" comment="group service test" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +36,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="update_testclass" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -68,13 +61,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -179,11 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GroupServiceTest" />
-        <item itemvalue="JUnit.GroupServiceTest.groupMemberDetailsTest" />
         <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.GroupServiceTest.addMemberTest" />
+        <item itemvalue="JUnit.GroupServiceTest.groupMemberDetailsTest" />
         <item itemvalue="JUnit.GroupServiceTest.createChatTest" />
+        <item itemvalue="JUnit.GroupServiceTest.addMemberTest" />
+        <item itemvalue="JUnit.GroupServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -296,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659765527152</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="group service test">
+      <created>1659844496194</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1659844496194</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +327,8 @@
     <MESSAGE value="Update - 14" />
     <MESSAGE value="Update - 15" />
     <MESSAGE value="Update - Nhan - 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update - Nhan - 2" />
+    <MESSAGE value="group service test" />
+    <option name="LAST_COMMIT_MESSAGE" value="group service test" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ChatApplication$MessageServiceTest_sendFileToChat.ic" NAME="MessageServiceTest.sendFileToChat Coverage Results" MODIFIED="1659773740731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
