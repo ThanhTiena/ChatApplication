@@ -1,10 +1,7 @@
 package main.Data;
 
-import main.Models.Subjects.File;
-import main.Models.Subjects.Group;
+import main.Models.Subjects.*;
 import main.Models.Reponsitories.Repository;
-import main.Models.Subjects.Message;
-import main.Models.Subjects.User;
 
 public class DataStorage {
 
@@ -12,6 +9,7 @@ public class DataStorage {
     public Repository<Group> groups;
     public Repository<File> files;
     public Repository<Message> messages;
+    public Repository<Alias> alias;
     private static DataStorage instance = new DataStorage();
 
     private DataStorage() {
@@ -19,10 +17,11 @@ public class DataStorage {
         groups = new Repository<Group>();
         files = new Repository<File>();
         messages = new Repository<Message>();
+        alias = new Repository<Alias>();
     }
 
     public static DataStorage getInstance() {
-        return instance != null? instance : new DataStorage();
+        return instance != null ? instance : new DataStorage();
     }
 }
 

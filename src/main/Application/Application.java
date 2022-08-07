@@ -19,17 +19,10 @@ import java.util.function.Predicate;
 
 public class Application {
     public static void main(String[] args) {
-//        ChatMediator chatMediator = new ChatMediator();
-//        chatMediator.doTask();
+
         try {
-            UserService userService = new UserService();
-            userService.addNewUser("danh", "123456", "Danh", "Dang", Gender.MALE, new Date());
-            userService.addNewUser("tien", "123456", "Tien", "Nguyen", Gender.MALE, new Date());
-            userService.addNewUser("tien", "123456", "Tien", "Nguyen", Gender.MALE, new Date());
-            userService.addNewUser("nhan", "123456", "Nhan", "Nguyen", Gender.MALE, new Date());
-
-            DataStorage dataStorage = DataStorage.getInstance();
-
+            ChatMediator chatMediator = new ChatMediator();
+            chatMediator.doTask();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

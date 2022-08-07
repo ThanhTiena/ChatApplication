@@ -1,12 +1,14 @@
 package main.Models.Subjects;
 
 import main.Models.Enums.Gender;
+import main.Models.Interfaces.IUser;
 import main.Models.Stuff.Protocol;
+import main.Ulities.BryctEncoder;
 import main.Ulities.GenerateNumber;
 
 import java.util.*;
 
-public class User {
+public class User implements IUser {
     /* User Information */
     private String userId;
     private String firstName;
@@ -24,18 +26,16 @@ public class User {
     private boolean isActivated;
     private Map<String, String> roleInGroupChats;
     private Map<String, Protocol> actions;
-
     /* Can change  */
     private Map<String, User> friends;
-    private Map<String, String> alias; // 1st String value present for groupId, 2nd is the alias name
 
-    public User(String firstName, String lastName, String userName, String hashPassword, Gender gender, Date dateOfBirth) {
+    public User(String firstName, String lastName, String userName, String password, Gender gender, Date dateOfBirth) {
         this.userId = GenerateNumber.generateUserId();
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullName = firstName + " " + lastName;
         this.userName = userName;
-        this.hashPassword = hashPassword;
+        this.hashPassword = hashPassword(password);
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
 
@@ -45,12 +45,23 @@ public class User {
         this.roleInGroupChats = new HashMap<String, String>();
         this.actions = new HashMap<String, Protocol>();
         this.friends = new HashMap<String, User>();
-        this.alias = new HashMap<String, String>();
     }
 
-    public User() {
-        this.userId = GenerateNumber.generateUserId();
+    /* USER METHOD */
+    @Override
+    public String hashPassword(String rawPassword) {
+        return BryctEncoder.hashPassword(rawPassword);
     }
+
+    @Override
+    public boolean checkAccount(String userName, String password) {
+        if (this.userName.equals(userName) && BryctEncoder.checkPassword(password, this.hashPassword)) {
+            return true;
+        }
+        return false;
+    }
+
+    /*#############*/
 
     public String getUserId() {
         return userId;
@@ -147,9 +158,4 @@ public class User {
     public Map<String, String> getRoleInGroupChats() {
         return roleInGroupChats;
     }
-
-    public Map<String, String> getAlias() {
-        return alias;
-    }
-
 }

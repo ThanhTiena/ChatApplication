@@ -2,10 +2,7 @@ package main.Services;
 
 import main.Data.DataStorage;
 import main.Models.Enums.Gender;
-import main.Models.Subjects.Group;
-import main.Models.Subjects.Message;
-import main.Models.Subjects.File;
-import main.Models.Subjects.User;
+import main.Models.Subjects.*;
 import main.Ulities.BryctEncoder;
 import main.Ulities.UserException;
 
@@ -42,7 +39,7 @@ public class UserService {
     }
 
     public boolean addNewUser(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) {
-        User user = new User(firstName, lastName, userName, BryctEncoder.hashPassword(password), gender, dateOfBirth);
+        User user = new User(firstName, lastName, userName, password, gender, dateOfBirth);
         if (getUserExistedByUserName(user.getUserName()) != null) {
             return false;
         }
@@ -58,14 +55,15 @@ public class UserService {
         return true;
     }
 
-    public boolean login(String username, String password) {
-        String passwordHashed = BryctEncoder.hashPassword(password);
-        Predicate<User> predicate = user -> user.getUserName().equals(username) && user.getHashPassword().equals(passwordHashed);
-
-        return dataStorage.users.find(predicate) != null;
+    public boolean login(String userName, String password) {
+        User user = dataStorage.users.find(u -> u.getUserName().equals(userName));
+        if (user == null) {
+            return false;
+        }
+        return user.checkAccount(userName, password);
     }
 
-    public void addRoleGroupChat(String userId,String groupId, String role) {
+    public void addRoleGroupChat(String userId, String groupId, String role) {
         user = dataStorage.users.find(u -> u.getUserId().equals(userId));
         Map<String, String> roleInGroups = user.getRoleInGroupChats();
         if (roleInGroups.containsKey(groupId) && roleInGroups.get(groupId).equalsIgnoreCase(role)) {
@@ -76,14 +74,15 @@ public class UserService {
 //        user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */
 
     }
+
     //add friend method
     public boolean addFriend(String userID, String friendId) {
         User user = getUserExistedByUserId(userID);
         User friend = getUserExistedByUserId(friendId);
-        if ((user == null) || (friend == null)){
+        if ((user == null) || (friend == null)) {
             return false;
         }
-        user.getFriends().put(friendId,friend);
+        user.getFriends().put(friendId, friend);
         return true;
     }
 
@@ -109,17 +108,12 @@ public class UserService {
     }
 
     /* Set Alias */
-    public boolean setAlias(String setterId, String userId, String alias) {
-        boolean flag = false;
-        if (!alias.equals("") || !userId.equals("") || !setterId.equals("")) {
-            User user = getUserExistedByUserId(userId);
-            if (user.getAlias().containsKey(setterId)) {
-                user.getAlias().replace(setterId, alias);
-            } else {
-                user.getAlias().put(setterId, alias);
-            }
-            flag = true;
+    public boolean setAlias(User assignor, User assignee, String aliasName) {
+        if (!aliasName.equals("") || assignee != null || assignor != null) {
+            Alias alias = new Alias(aliasName, assignor, assignee);
+            dataStorage.alias.insert(alias);
+            return true;
         }
-        return flag;
+        return false;
     }
 }
