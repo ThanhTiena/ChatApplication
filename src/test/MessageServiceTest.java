@@ -36,7 +36,7 @@ class MessageServiceTest {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
         Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         Message message = new Message(user1.getUserId(),group.getGroupId(),"AHAHAHA");
 //        Valid parameter
@@ -52,7 +52,7 @@ class MessageServiceTest {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
         Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
         File file = new File("Test",new Date(),group.getGroupId(),user2.getUserId(),"D:/Desktop/Test/abc.png");
 
 //        Valid input
@@ -69,7 +69,7 @@ class MessageServiceTest {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
         Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
         Message message = new Message(user1.getUserId(),group.getGroupId(),"AHAHAHA");
         messageService.sendMessageToChat(message);
 
@@ -87,7 +87,7 @@ class MessageServiceTest {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
         Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
         File file = new File("Test",new Date(),group.getGroupId(),user2.getUserId(),"D:/Desktop/Test/abc.png");
         messageService.sendFileToChat(file);
 
@@ -102,7 +102,7 @@ class MessageServiceTest {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
         Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         ArrayList<String> fileIds = new ArrayList<>();
         for(int i = 0; i < 5;i++){
@@ -124,7 +124,7 @@ class MessageServiceTest {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
         Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         Message message = new Message(user1.getUserId(),group.getGroupId(),"ABCD");
         messageService.sendMessageToChat(message);
@@ -143,7 +143,7 @@ class MessageServiceTest {
         User user1 = userService.getUserExistedByUserName("tien");
         User user2 = userService.getUserExistedByUserName("danh");
         Group group = groupService.createChat(user1,"Test Group Chat","INDIVIDUAL");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
 
         Message message = new Message(user1.getUserId(),group.getGroupId(),"ABCD");
         messageService.sendMessageToChat(message);

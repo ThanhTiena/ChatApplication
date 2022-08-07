@@ -57,7 +57,7 @@ class GroupServiceTest {
         User user1 = userService.getUserExistedByUserName("danh");
         User user2 = userService.getUserExistedByUserName("tien");
         Group group = groupService.createChat(user1,"Test Public Group Chat","PUBLIC_GROUP");
-        groupService.addMember(user1,user2,group.getGroupId());
+        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
         groupService.groupMemberDetails(group.getGroupId());
     }
 
@@ -76,9 +76,9 @@ class GroupServiceTest {
             User user2 = userService.getUserExistedByUserName("tien");
             Group group1 = groupService.createChat(user1,"Test Public Group Chat","PUBLIC_GROUP");
             Group group2 = groupService.createChat(user1,"Test Private Group Chat","PRIVATE_GROUP");
-            Boolean result = groupService.addMember(user1,user2,group1.getGroupId());
+            Boolean result = groupService.inviteToJoinGroup(user1,user2,group1.getGroupId());
             //catch exception
-            groupService.addMember(user1,user2,group2.getGroupId());
+            groupService.inviteToJoinGroup(user1,user2,group2.getGroupId());
 
             assertTrue(result);
         } catch (Exception ex){
