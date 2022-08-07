@@ -56,16 +56,16 @@ public class GroupService {
         return group.showSentFiles();
     }
 
-    public boolean sendInvitation(User invitor, User receiver, String groupId) {
+    public boolean sendInvitation(User invitor, User invitee, String groupId) {
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
-        if (group != null) {
+        if (group != null && !group.checkUserJoined(invitee)) {
             Protocol protocol = null;
             if (group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
                 publicGroup = (PublicGroup) group;
-                protocol = publicGroup.sendInvitationToGroup(invitor, receiver);
+                protocol = publicGroup.sendInvitationToGroup(invitor, invitee);
             } else if (group.getGroupType().equals(GroupType.PRIVATE_GROUP)){
                 privateGroup = (PrivateGroup) group;
-                protocol = privateGroup.sendInvitationToGroup(invitor, receiver);
+                protocol = privateGroup.sendInvitationToGroup(invitor, invitee);
             }
             if (protocol != null) {
                 dataStorage.protocols.insert(protocol);
@@ -186,7 +186,7 @@ public class GroupService {
     public List<String> getGroupsOfUser(User user) {
         List<String> groups = new ArrayList<>();
         for (Group group : dataStorage.groups.findAll()) {
-            if (group.findUserInGroup(user) != null) {
+            if (group.getUserInGroup(user) != null) {
                 groups.add(group.getGroupId());
             }
         }

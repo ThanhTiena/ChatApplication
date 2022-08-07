@@ -51,8 +51,17 @@ public abstract class Group implements IGroup {
     }
 
     @Override
-    public User findUserInGroup(User user) {
+    public User getUserInGroup(User user) {
         return this.members.stream().filter(u -> u.getUserId().equals(user.getUserId())).findFirst().get();
+    }
+
+    @Override
+    public boolean checkUserJoined(User user) {
+        try {
+            return getUserInGroup(user) != null;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
     }
 
     @Override
@@ -66,9 +75,9 @@ public abstract class Group implements IGroup {
 
     @Override
     public boolean removeMember(User user) {
-        if(findUserInGroup(user) != null){
+        if (getUserInGroup(user) != null) {
             this.members.remove(user);
-            if(user.getRoleInGroupChats().get(this.groupId).equals(RoleGroupChat.ADMIN)){
+            if (user.getRoleInGroupChats().get(this.groupId).equals(RoleGroupChat.ADMIN)) {
                 this.admins.remove(user);
             }
         }

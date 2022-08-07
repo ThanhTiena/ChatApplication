@@ -7,9 +7,6 @@ import main.Models.Enums.RoleGroupChat;
 import main.Models.Interfaces.GroupActions.*;
 import main.Models.Stuff.Protocol;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PrivateGroup extends Group implements UpdateMemberRole, InviteGroupAction, JoinGroupAction {
     public PrivateGroup(User admin, String groupName) {
         super(admin, groupName);
@@ -20,7 +17,7 @@ public class PrivateGroup extends Group implements UpdateMemberRole, InviteGroup
     public boolean updateRoleInGroup(User user, RoleGroupChat role) {
         boolean flag = false;
         if (user != null) {
-            if (super.findUserInGroup(user) != null) {
+            if (super.getUserInGroup(user) != null) {
                 if (!user.getRoleInGroupChats()
                         .get(super.getGroupId()).equals(role.toString())) {
                     user.getRoleInGroupChats().replace(super.getGroupId(), role.toString());
@@ -33,7 +30,7 @@ public class PrivateGroup extends Group implements UpdateMemberRole, InviteGroup
 
     @Override
     public Protocol sendInvitationToGroup(User invitor, User user) {
-        if (super.findUserInGroup(invitor) != null) {
+        if (super.getUserInGroup(invitor) != null) {
             if (invitor.getRoleInGroupChats().get(super.getGroupId()).equals(RoleGroupChat.ADMIN)) {
                 Protocol protocol = new Protocol(ActionType.INVITE_JOIN_CHAT);
                 protocol.request(invitor, user, super.getGroupId(), "Invite to join");

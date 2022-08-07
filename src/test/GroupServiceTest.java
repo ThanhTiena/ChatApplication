@@ -125,14 +125,19 @@ class GroupServiceTest {
     public void sendInvitationTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("danh");
         User user2 = userService.getUserExistedByUserName("tien");
+        User user3 = userService.getUserExistedByUserName("nhan");
 
         Group group1 = groupService.createGroup(user1,"Test Public Group Chat","PUBLIC_GROUP");
         Group group2 = groupService.createGroup(user1,"Test Private Group Chat", GroupType.PRIVATE_GROUP.toString());
-        Boolean result1 = groupService.sendInvitation(user1,user2,group1.getGroupId());
-        Boolean result2 = groupService.sendInvitation(user1,user2,group2.getGroupId());
+        group2.addMember(user3);
+
+        boolean result1 = groupService.sendInvitation(user1,user2,group1.getGroupId());
+        boolean result2 = groupService.sendInvitation(user1,user2,group2.getGroupId());
+        boolean result3 = groupService.sendInvitation(user1,user3,group2.getGroupId());
 
         assertTrue(result1);
         assertFalse(result2);
+        assertFalse(result3);
         assertThrows(NoSuchElementException.class,() -> {
             groupService.sendInvitation(user1,user2,"this group invalid");
         });

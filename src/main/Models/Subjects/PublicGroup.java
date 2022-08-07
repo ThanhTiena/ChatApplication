@@ -7,9 +7,6 @@ import main.Models.Enums.RoleGroupChat;
 import main.Models.Interfaces.GroupActions.*;
 import main.Models.Stuff.Protocol;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PublicGroup extends Group implements InviteGroupAction, UpdateMemberRole, JoinGroupAction, SendGroupCodeAction {
     public PublicGroup(User admin, String groupName) {
         super(admin, groupName);
@@ -18,7 +15,7 @@ public class PublicGroup extends Group implements InviteGroupAction, UpdateMembe
 
     @Override
     public Protocol sendInvitationToGroup(User invitor, User user) {
-        if (super.findUserInGroup(invitor) != null) {
+        if (super.getUserInGroup(invitor) != null) {
             Protocol protocol = new Protocol(ActionType.INVITE_JOIN_CHAT);
             protocol.request(invitor, user, super.getGroupId(),"Invite to join");
             protocol.setActionStatus(ActionStatus.WAITING);
@@ -30,7 +27,7 @@ public class PublicGroup extends Group implements InviteGroupAction, UpdateMembe
 
     @Override
     public Protocol sendGroupCode(User invitor, User receiver) {
-        if (super.findUserInGroup(invitor) != null) {
+        if (super.getUserInGroup(invitor) != null) {
             Protocol protocol = new Protocol(ActionType.SEND_GROUP_CODE);
             protocol.request(invitor, receiver,super.getGroupId(), this.getGroupCode());
             protocol.setActionStatus(ActionStatus.WAITING);

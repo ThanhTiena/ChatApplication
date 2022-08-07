@@ -16,7 +16,8 @@ public interface IGroup {
     public abstract boolean addMember(User user);
     public abstract boolean removeMember(User user);
 
-    public abstract User findUserInGroup(User user);
+    public abstract User getUserInGroup(User user);
+    public abstract boolean checkUserJoined(User user);
 
     public abstract void sendMessage(Message message);
 
