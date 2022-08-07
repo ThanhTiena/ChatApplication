@@ -1,15 +1,16 @@
 package main.Services;
 
 import main.Data.DataStorage;
+import main.Models.Enums.ActionStatus;
+import main.Models.Enums.ActionType;
 import main.Models.Enums.Gender;
+import main.Models.Stuff.Protocol;
 import main.Models.Subjects.*;
-import main.Ulities.BryctEncoder;
 import main.Ulities.UserException;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
-import java.util.function.Predicate;
 
 public class UserService {
 
@@ -71,8 +72,36 @@ public class UserService {
         } else {
             roleInGroups.put(groupId, role);
         }
-//        user.setRoleInGroupChats(roleInGroups); /* Need to update user in data storage factory */
+    }
 
+    public boolean sendFriendRequest(User invitor, User user, String note) {
+        if (invitor != null || user != null) {
+            Protocol protocol = new Protocol(ActionType.INVITATION_FRIEND);
+            protocol.request(invitor, user, note);
+            protocol.setActionStatus(ActionStatus.WAITING);
+            dataStorage.protocols.insert(protocol);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean responseFriendRequest(User user, String reponse) throws UserException {
+        Protocol protocol = dataStorage.protocols.find(p -> p.getReceiver().getUserId().equals(user.getUserId()));
+        Protocol newResponseProtocol = null;
+        if (user == null) {
+            return false;
+        }
+        if (reponse.equalsIgnoreCase("accepted")) {
+            newResponseProtocol = protocol.response(protocol.getReceiver(), protocol.getSender(), ActionStatus.ACCEPTED);
+            /* Accepted -> addFriend() function is called */
+            addFriend(protocol.getSender().getUserId(), user.getUserId());
+        } else if (reponse.equalsIgnoreCase("rejected")) {
+            newResponseProtocol = protocol.response(protocol.getReceiver(), protocol.getSender(), ActionStatus.REJECTED);
+        } else {
+            throw new UserException("Response is only Accepted or Rejected");
+        }
+        dataStorage.protocols.insert(newResponseProtocol);
+        return true;
     }
 
     //add friend method
@@ -83,6 +112,7 @@ public class UserService {
             return false;
         }
         user.getFriends().put(friendId, friend);
+        friend.getFriends().put(userID, user);
         return true;
     }
 

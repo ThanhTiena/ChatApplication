@@ -32,7 +32,7 @@ public class PrivateGroup extends Group implements UpdateMemberRole, InviteGroup
     }
 
     @Override
-    public Protocol sendInvitationToGroup(User user, Group group) {
+    public Protocol sendInvitationToGroup(User user) {
         return null;
     }
 }
