@@ -52,7 +52,7 @@ public abstract class Group implements IGroup {
 
     @Override
     public User findUserInGroup(User user) {
-        return this.members.stream().filter(u-> u.getUserId().equals(user.getUserId())).findFirst().get();
+        return this.members.stream().filter(u -> u.getUserId().equals(user.getUserId())).findFirst().get();
     }
 
     @Override
@@ -63,14 +63,30 @@ public abstract class Group implements IGroup {
         this.members.add(user);
         return true;
     }
+
+    @Override
+    public void sendMessage(Message message) {
+        this.messages.add(message);
+    }
+
+    @Override
+    public void deleteMessage(Message message) {
+        this.messages.remove(message);
+    }
+
+    @Override
+    public void sendFile(File file) {
+        this.files.add(file);
+    }
+
+    @Override
+    public void deleteFile(File file) {
+        this.files.remove(file);
+    }
     /* ################################################ */
 
     public String getGroupId() {
         return groupId;
-    }
-
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
     }
 
     public String getGroupName() {
@@ -81,6 +97,7 @@ public abstract class Group implements IGroup {
         this.groupName = groupName;
     }
 
+    /* If user want, they can change the group type by altering the GroupType attribute */
     public GroupType getGroupType() {
         return groupType;
     }
@@ -91,10 +108,6 @@ public abstract class Group implements IGroup {
 
     public String getGroupCode() {
         return groupCode;
-    }
-
-    public void setGroupCode(String groupCode) {
-        this.groupCode = groupCode;
     }
 
     public GroupStatus getGroupStatus() {
@@ -109,47 +122,15 @@ public abstract class Group implements IGroup {
         return members;
     }
 
-    public void setMembers(ArrayList<User> members) {
-        this.members = members;
-    }
-
     public List<User> getAdmins() {
         return admins;
-    }
-
-    public void setAdmins(List<User> admins) {
-        this.admins = admins;
     }
 
     public ArrayList<File> getFiles() {
         return files;
     }
 
-    public void setFiles(ArrayList<File> files) {
-        this.files = files;
-    }
-
     public ArrayList<Message> getMessages() {
         return messages;
-    }
-
-    public void setMessages(ArrayList<Message> messages) {
-        this.messages = messages;
-    }
-
-    public void sendMessage(Message message){
-        this.messages.add(message);
-    }
-
-    public void deleteMessage(Message message){
-        this.messages.remove(message);
-    }
-
-    public void sendFile(File file){
-        this.files.add(file);
-    }
-
-    public void deleteFile(File file){
-        this.files.remove(file);
     }
 }

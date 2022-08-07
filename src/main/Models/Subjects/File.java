@@ -13,14 +13,15 @@ public class File {
     private String senderId;
     private String receiverId;
     private String filePath;
-    
-    public File( String fileName, Date createdAt, String receiverId, String senderId, String filePath) {
+
+    public File(String fileName, Date createdAt, String receiverId, String senderId, String filePath) {
         this.id = GenerateNumber.generateFileId();
         this.fileName = fileName;
         this.createdAt = createdAt;
         this.filePath = filePath;
         this.senderId = senderId;
         this.receiverId = receiverId;
+
         if (filePath.endsWith("mp4")) {
             fileType = FileType.VIDEO;
         } else if (filePath.endsWith("mp3")) {
@@ -29,7 +30,8 @@ public class File {
             fileType = FileType.IMAGE;
         }
     }
-
+    /* Once A File is sent, its sender, receiver and time can not change */
+    /* So the set method of these attributes will be private */
     public String getFileName() {
         return fileName;
     }
@@ -38,7 +40,7 @@ public class File {
         return id;
     }
 
-    public void setFileName(String fileName) {
+    private void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
@@ -54,19 +56,31 @@ public class File {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    private void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getSenderId() { return senderId; }
+    public String getSenderId() {
+        return senderId;
+    }
 
-    public void setSenderId(String senderId) { this.senderId = senderId; }
+    private void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
 
-    public String getReceiverId() { return receiverId; }
+    public String getReceiverId() {
+        return receiverId;
+    }
 
-    public void setReceiverId(String receiverId) { this.receiverId = receiverId; }
+    private void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
 
-    public String getFilePath() { return filePath; }
+    public String getFilePath() {
+        return filePath;
+    }
 
-    public void setFilePath(String filePath) { this.filePath = filePath; }
+    private void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 }
