@@ -63,7 +63,7 @@ public class GroupService {
             if (group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
                 publicGroup = (PublicGroup) group;
                 protocol = publicGroup.sendInvitationToGroup(invitor, receiver);
-            } else {
+            } else if (group.getGroupType().equals(GroupType.PRIVATE_GROUP)){
                 privateGroup = (PrivateGroup) group;
                 protocol = privateGroup.sendInvitationToGroup(invitor, receiver);
             }
@@ -195,8 +195,7 @@ public class GroupService {
 
     public List<String> getContactsOfUser(User user) {
         List<Message> messages = dataStorage.messages.get(
-                m -> m.getReceiverId().equals(user.getUserId()) ||
-                        m.getSenderId().equals(user.getUserId()));
+                m -> m.getReceiverId().equals(user.getUserId()) || m.getSenderId().equals(user.getUserId()));
         List<String> messageIds = new ArrayList<>();
         messages.forEach(message -> {
             messageIds.add(message.getMessageId());

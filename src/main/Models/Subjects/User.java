@@ -28,7 +28,7 @@ public class User implements IUser {
     /* Can change  */
     private Map<String, User> friends;
 
-    public User(String firstName, String lastName, String userName, String password, Gender gender, Date dateOfBirth) {
+    public User(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) {
         this.userId = GenerateNumber.generateUserId();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -57,6 +57,11 @@ public class User implements IUser {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isFriend(User user) {
+        return this.friends.containsKey(user.getUserId());
     }
 
     /*#############*/

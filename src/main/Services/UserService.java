@@ -39,8 +39,7 @@ public class UserService {
         }
     }
 
-    public boolean addNewUser(String userName, String password, String firstName, String lastName, Gender gender, Date dateOfBirth) {
-        User user = new User(firstName, lastName, userName, password, gender, dateOfBirth);
+    public boolean addNewUser(User user) {
         if (getUserExistedByUserName(user.getUserName()) != null) {
             return false;
         }
@@ -75,12 +74,14 @@ public class UserService {
     }
 
     public boolean sendFriendRequest(User invitor, User user, String note) {
-        if (invitor != null || user != null) {
-            Protocol protocol = new Protocol(ActionType.INVITATION_FRIEND);
-            protocol.request(invitor, user,"", note);
-            protocol.setActionStatus(ActionStatus.WAITING);
-            dataStorage.protocols.insert(protocol);
-            return true;
+        if (invitor != null && user != null) {
+            if (!user.isFriend(invitor) && !invitor.isFriend(user)) {
+                Protocol protocol = new Protocol(ActionType.INVITATION_FRIEND);
+                protocol.request(invitor, user, "", note);
+                protocol.setActionStatus(ActionStatus.WAITING);
+                dataStorage.protocols.insert(protocol);
+                return true;
+            }
         }
         return false;
     }
