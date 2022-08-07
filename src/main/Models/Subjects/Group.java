@@ -80,6 +80,7 @@ public abstract class Group implements IGroup {
             if (user.getRoleInGroupChats().get(this.groupId).equals(RoleGroupChat.ADMIN)) {
                 this.admins.remove(user);
             }
+            return true;
         }
         return false;
     }

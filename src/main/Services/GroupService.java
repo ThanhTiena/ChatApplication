@@ -63,7 +63,7 @@ public class GroupService {
             if (group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
                 publicGroup = (PublicGroup) group;
                 protocol = publicGroup.sendInvitationToGroup(invitor, invitee);
-            } else if (group.getGroupType().equals(GroupType.PRIVATE_GROUP)){
+            } else if (group.getGroupType().equals(GroupType.PRIVATE_GROUP)) {
                 privateGroup = (PrivateGroup) group;
                 protocol = privateGroup.sendInvitationToGroup(invitor, invitee);
             }
@@ -75,11 +75,12 @@ public class GroupService {
         return false;
     }
 
-    public boolean sendGroupCode(User invitor, User receiver, String groupId) {
+    public boolean sendGroupCode(User invitor, User invitee, String groupId) {
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
-        if (group != null && group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
+        if (group != null && group.getGroupType().equals(GroupType.PUBLIC_GROUP)
+                && !group.checkUserJoined(invitee)) {
             publicGroup = (PublicGroup) group;
-            Protocol protocol = publicGroup.sendGroupCode(invitor, receiver);
+            Protocol protocol = publicGroup.sendGroupCode(invitor, invitee);
             if (protocol != null) {
                 dataStorage.protocols.insert(protocol);
                 return true;
@@ -100,7 +101,7 @@ public class GroupService {
                 if (action.equalsIgnoreCase("accept")) {
                     acceptResponse(group, user);
                     dataStorage.protocols.delete(protocol);
-                    break;
+                    return true;
                 } else if (action.equalsIgnoreCase("reject")) {
 //                    rejectReponse(group);
                     dataStorage.protocols.delete(protocol);
@@ -186,7 +187,7 @@ public class GroupService {
     public List<String> getGroupsOfUser(User user) {
         List<String> groups = new ArrayList<>();
         for (Group group : dataStorage.groups.findAll()) {
-            if (group.getUserInGroup(user) != null) {
+            if (group.checkUserJoined(user)) {
                 groups.add(group.getGroupId());
             }
         }

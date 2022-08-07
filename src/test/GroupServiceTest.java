@@ -121,26 +121,75 @@ class GroupServiceTest {
             assertEquals("This Group need to administrator's permission to join", exception.getMessage());
         }
     }
+
     @Test
     public void sendInvitationTest() throws GroupException {
         User user1 = userService.getUserExistedByUserName("danh");
         User user2 = userService.getUserExistedByUserName("tien");
         User user3 = userService.getUserExistedByUserName("nhan");
 
-        Group group1 = groupService.createGroup(user1,"Test Public Group Chat","PUBLIC_GROUP");
-        Group group2 = groupService.createGroup(user1,"Test Private Group Chat", GroupType.PRIVATE_GROUP.toString());
+        Group group1 = groupService.createGroup(user1, "Test Public Group Chat", "PUBLIC_GROUP");
+        Group group2 = groupService.createGroup(user1, "Test Private Group Chat", GroupType.PRIVATE_GROUP.toString());
         group2.addMember(user3);
 
-        boolean result1 = groupService.sendInvitation(user1,user2,group1.getGroupId());
-        boolean result2 = groupService.sendInvitation(user1,user2,group2.getGroupId());
-        boolean result3 = groupService.sendInvitation(user1,user3,group2.getGroupId());
+        boolean result1 = groupService.sendInvitation(user1, user2, group1.getGroupId());
+        boolean result2 = groupService.sendInvitation(user1, user2, group2.getGroupId());
+        boolean result3 = groupService.sendInvitation(user1, user3, group2.getGroupId());
 
         assertTrue(result1);
         assertFalse(result2);
         assertFalse(result3);
-        assertThrows(NoSuchElementException.class,() -> {
-            groupService.sendInvitation(user1,user2,"this group invalid");
+        assertThrows(NoSuchElementException.class, () -> {
+            groupService.sendInvitation(user1, user2, "this group invalid");
         });
+    }
+
+    @Test
+    public void sendGroupCodeTest() throws GroupException {
+        User user1 = userService.getUserExistedByUserName("danh");
+        User user2 = userService.getUserExistedByUserName("tien");
+
+        Group group1 = groupService.createGroup(user1, "Test Public Group Chat", "PUBLIC_GROUP");
+        Group group2 = groupService.createGroup(user1, "Test Private Group Chat", GroupType.PRIVATE_GROUP.toString());
+
+        boolean result1 = groupService.sendGroupCode(user1, user2, group1.getGroupId());
+        boolean result2 = groupService.sendGroupCode(user1, user2, group2.getGroupId());
+        assertAll("Result",
+                () -> {
+                    assertTrue(result1);
+                },
+                () -> {
+                    assertFalse(result2);
+                }
+        );
+    }
+
+    @Test
+    public void responseRequest() throws GroupException {
+        User user1 = userService.getUserExistedByUserName("danh");
+        User user2 = userService.getUserExistedByUserName("tien");
+
+        Group group1 = groupService.createGroup(user1, "Test Public Group Chat", "PUBLIC_GROUP");
+        Group group2 = groupService.createGroup(user1, "Test Private Group Chat", GroupType.PRIVATE_GROUP.toString());
+
+        groupService.sendInvitation(user1, user2, group1.getGroupId());
+        groupService.sendInvitation(user1, user2, group2.getGroupId());
+
+        boolean result1 = groupService.responseRequest(user2, group1.getGroupId(), "accept");
+        boolean result2 = groupService.responseRequest(user2, group1.getGroupId(), "reject");
+        boolean result3 = groupService.responseRequest(user2, group2.getGroupId(), "accept");
+
+        assertAll("Result",
+                () -> {
+                    assertTrue(result1);
+                },
+                () -> {
+                    assertFalse(result2);
+                },
+                () -> {
+                    assertFalse(result3);
+                }
+        );
     }
 
     @Test
@@ -172,9 +221,11 @@ class GroupServiceTest {
 
     @Test
     public void getGroupsOfUserTest() throws GroupException {
-        User user = userService.getUserExistedByUserName("danh");
-        Group group = groupService.createGroup(user, "Test Public Group Chat", "PUBLIC_GROUP");
-        List<String> groupList = groupService.getGroupsOfUser(user);
+        User user1 = new User("tester1", "123456", "Danh", "Dang", Gender.MALE, new Date());
+        userService.addNewUser(user1);
+
+        Group group = groupService.createGroup(user1, "Test Public Group Chat", "PUBLIC_GROUP");
+        List<String> groupList = groupService.getGroupsOfUser(user1);
 
         assertEquals(group.getGroupId(), groupList.get(groupList.size() - 1));
         assertNotEquals("1001", groupList.get(0));
@@ -203,15 +254,27 @@ class GroupServiceTest {
         List<String> conservations = groupService.getConversations(user);
 
         assertEquals(group.getGroupId(), conservations.get(0));
-        assertEquals(message.getMessageId(), conservations.get(conservations.size()-1));
-        assertNotEquals("101", conservations.get(conservations.size()-1));
+        assertEquals(message.getMessageId(), conservations.get(conservations.size() - 1));
+        assertNotEquals("101", conservations.get(conservations.size() - 1));
     }
 
-//    @Test
-//    public void removeUserFromGroupTest() throws GroupException {
-//        User user1 = userService.getUserExistedByUserName("danh");
-//        User user2 = userService.getUserExistedByUserName("tien");
-//        Group group = groupService.createGroup(user1,"Test Public Group Chat","PUBLIC_GROUP");
-//        groupService.inviteToJoinGroup(user1,user2,group.getGroupId());
-//    }
+    @Test
+    public void removeUserFromGroupTest() throws GroupException {
+        User user1 = userService.getUserExistedByUserName("danh");
+        User user2 = userService.getUserExistedByUserName("tien");
+        Group group = groupService.createGroup(user1, "Test Public Group Chat", "PUBLIC_GROUP");
+        group.addMember(user1);
+        group.addMember(user2);
+
+        /* Before removing User */
+        assertEquals(2, group.getMembers().size());
+
+        /* After removing User */
+        boolean actual1 = groupService.removeUserFromGroup(user1.getUserId(), group.getGroupId());
+        assertTrue(actual1);
+
+        /* Remove this user one more time */
+        assertThrows(NoSuchElementException.class,
+                () -> groupService.removeUserFromGroup(user1.getUserId(), group.getGroupId()));
+    }
 }

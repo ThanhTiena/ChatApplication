@@ -1,20 +1,30 @@
 package main.Application;
 
 import main.Data.DataStorage;
+import main.Services.GroupService;
+import main.Services.MessageService;
+import main.Services.UserService;
 
 import java.util.Scanner;
 
 public class ChatMediator {
     private DataStorage dataStorage;
     private Scanner scanner = new Scanner(System.in);
-    public ChatMediator(){
+    private GroupService groupService;
+    private UserService userService;
+    private MessageService messageService;
+
+    public ChatMediator() {
         dataStorage = DataStorage.getInstance();
     }
 
-    public void openConversation(){
-
+    public void openConversation() {
+        groupService = new GroupService();
+        userService = new UserService();
+        messageService = new MessageService();
     }
-    private void getUserInterface(){
+
+    private void getUserInterface() {
         String userInterface;
         userInterface = "######################## \n";
         userInterface += "1. Login \n";
@@ -24,6 +34,7 @@ public class ChatMediator {
         userInterface += "Your choice: ";
         System.out.println(userInterface);
     }
+
     public void doTask() {
         int choice;
         do {
@@ -48,9 +59,11 @@ public class ChatMediator {
     private void doLogin() {
         System.out.println("Login is loading");
     }
+
     private void doLogout() {
         System.out.println("Logout is loading");
     }
+
     private void doOpenChat() {
         System.out.println("OpenChat is loading");
     }

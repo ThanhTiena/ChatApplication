@@ -22,7 +22,7 @@ public class Application {
 
         try {
             ChatMediator chatMediator = new ChatMediator();
-            chatMediator.doTask();
+            chatMediator.openConversation();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

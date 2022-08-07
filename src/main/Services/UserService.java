@@ -11,6 +11,7 @@ import main.Ulities.UserException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class UserService {
 
@@ -64,12 +65,16 @@ public class UserService {
     }
 
     public void addRoleGroupChat(String userId, String groupId, String role) {
-        user = dataStorage.users.find(u -> u.getUserId().equals(userId));
-        Map<String, String> roleInGroups = user.getRoleInGroupChats();
-        if (roleInGroups.containsKey(groupId) && roleInGroups.get(groupId).equalsIgnoreCase(role)) {
-            roleInGroups.replace(groupId, role);
-        } else {
-            roleInGroups.put(groupId, role);
+        try {
+            user = dataStorage.users.find(u -> u.getUserId().equals(userId));
+            Map<String, String> roleInGroups = user.getRoleInGroupChats();
+            if (roleInGroups.containsKey(groupId) && roleInGroups.get(groupId).equalsIgnoreCase(role)) {
+                roleInGroups.replace(groupId, role);
+            } else {
+                roleInGroups.put(groupId, role);
+            }
+        } catch (NoSuchElementException ex) {
+
         }
     }
 
