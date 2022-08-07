@@ -3,6 +3,7 @@ package main.Services;
 import main.Data.DataStorage;
 import main.Models.Enums.GroupType;
 import main.Models.Enums.RoleGroupChat;
+import main.Models.Stuff.Protocol;
 import main.Models.Subjects.*;
 import main.Ulities.GroupException;
 
@@ -55,20 +56,66 @@ public class GroupService {
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
         return group.showSentFiles();
     }
-    public boolean changeUserRoleInGroup(User user, String groupId, RoleGroupChat role){
+
+    public boolean sendInvitation(User invitor, User receiver, String groupId) {
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        if (group != null) {
+            Protocol protocol = null;
+            if (group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
+                publicGroup = (PublicGroup) group;
+                protocol = publicGroup.sendInvitationToGroup(invitor, receiver);
+            } else {
+                privateGroup = (PrivateGroup) group;
+                protocol = privateGroup.sendInvitationToGroup(invitor, receiver);
+            }
+            if (protocol != null) {
+                dataStorage.protocols.insert(protocol);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean sendGroupCode(User invitor, User receiver, String groupId) {
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        if (group != null && group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
+            publicGroup = (PublicGroup) group;
+            Protocol protocol = publicGroup.sendGroupCode(invitor, receiver);
+            if (protocol != null) {
+                dataStorage.protocols.insert(protocol);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean responseRequest(User user, String groupId, String action) {
+        List<Protocol> protocols = dataStorage.protocols.get(p -> p.getReceiver().getUserId()
+                        .equals(user.getUserId()))
+                        .stream().toList();
+        for(Protocol protocol: protocols){
+            if(protocol.getGroupId().equals(groupId)){
+
+            }
+        }
+        return false;
+    }
+
+    public boolean changeUserRoleInGroup(User user, String groupId, RoleGroupChat role) {
         boolean isUpdate = false;
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
-        if(!group.getGroupType().equals(GroupType.INDIVIDUAL)){
-            if(group.getGroupType().equals(GroupType.PUBLIC_GROUP)){
+        if (!group.getGroupType().equals(GroupType.INDIVIDUAL)) {
+            if (group.getGroupType().equals(GroupType.PUBLIC_GROUP)) {
                 publicGroup = (PublicGroup) group;
-                isUpdate = publicGroup.updateRoleInGroup(user,role);
-            }else{
+                isUpdate = publicGroup.updateRoleInGroup(user, role);
+            } else {
                 privateGroup = (PrivateGroup) group;
-                isUpdate = privateGroup.updateRoleInGroup(user,role);
+                isUpdate = privateGroup.updateRoleInGroup(user, role);
             }
         }
         return isUpdate;
     }
+
     public boolean inviteToJoinGroup(User invitor, User user, String groupId) throws GroupException {
         boolean flag = false;
         group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
@@ -119,8 +166,8 @@ public class GroupService {
 
     public List<String> getContactsOfUser(User user) {
         List<Message> messages = dataStorage.messages.get(
-                m -> m.getReceiverId().equals(user.getUserId()),
-                m -> m.getSenderId().equals(user.getUserId()));
+                m -> m.getReceiverId().equals(user.getUserId()) ||
+                        m.getSenderId().equals(user.getUserId()));
         List<String> messageIds = new ArrayList<>();
         messages.forEach(message -> {
             messageIds.add(message.getMessageId());

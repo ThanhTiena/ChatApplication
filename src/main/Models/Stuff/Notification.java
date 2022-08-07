@@ -12,7 +12,7 @@ public class Notification implements IAction<Message> {
     private Message message;
 
     @Override
-    public Message request(User fromUser, User toUser, String content) {
+    public Message request(User fromUser, User toUser, String groupId, String content) {
         content = "You have send a " + content.toLowerCase(Locale.ROOT);
         content += " to " + toUser.getFullName() + "\n";
         content += "Created by " + fromUser.getFullName();

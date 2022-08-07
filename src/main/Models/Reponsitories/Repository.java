@@ -16,8 +16,8 @@ public class Repository<TEntity> implements IRepository<TEntity> {
     }
 
     @Override
-    public List<TEntity> get(Predicate<TEntity> pre, Function<TEntity,Boolean> filter) {
-        return entity.stream().filter(pre).sorted(Comparator.comparing(filter)).toList();
+    public List<TEntity> get(Predicate<TEntity> pre) {
+        return entity.stream().filter(pre).sorted().toList();
     }
 
     @Override

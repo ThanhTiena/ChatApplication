@@ -13,9 +13,9 @@ public class Protocol implements IAction<Protocol> {
     private User sender;
     private User receiver;
     private ActionType actionType;
-
     private ActionStatus actionStatus;
     private String content;
+    private String groupId;
     private Date createdAt;
 
     public Protocol(ActionType actionType) {
@@ -26,17 +26,18 @@ public class Protocol implements IAction<Protocol> {
 
     /* ACTION METHOD */
     @Override
-    public Protocol request(User fromUser, User toUser, String content) {
+    public Protocol request(User fromUser, User toUser, String groupId, String content) {
         this.sender = fromUser;
         this.receiver = toUser;
         this.content = content;
+        this.groupId = groupId;
         return this;
     }
 
     @Override
     public Protocol response(User fromUser, User toUser, ActionStatus response) {
-        this.sender = fromUser;
-        this.receiver = toUser;
+        this.sender = toUser;
+        this.receiver = fromUser;
         return this;
     }
     /* ############# */
@@ -83,6 +84,10 @@ public class Protocol implements IAction<Protocol> {
 
     private void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getGroupId() {
+        return groupId;
     }
 
     public ActionStatus getActionStatus() {

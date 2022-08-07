@@ -5,5 +5,5 @@ import main.Models.Subjects.Group;
 import main.Models.Subjects.User;
 
 public interface InviteGroupAction {
-    abstract Protocol sendInvitationToGroup(User user);
+    abstract Protocol sendInvitationToGroup(User invitor,User user);
 }

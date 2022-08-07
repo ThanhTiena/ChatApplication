@@ -77,7 +77,7 @@ public class UserService {
     public boolean sendFriendRequest(User invitor, User user, String note) {
         if (invitor != null || user != null) {
             Protocol protocol = new Protocol(ActionType.INVITATION_FRIEND);
-            protocol.request(invitor, user, note);
+            protocol.request(invitor, user,"", note);
             protocol.setActionStatus(ActionStatus.WAITING);
             dataStorage.protocols.insert(protocol);
             return true;
@@ -92,11 +92,11 @@ public class UserService {
             return false;
         }
         if (reponse.equalsIgnoreCase("accepted")) {
-            newResponseProtocol = protocol.response(protocol.getReceiver(), protocol.getSender(), ActionStatus.ACCEPTED);
+            newResponseProtocol = protocol.response(protocol.getSender(), protocol.getReceiver(), ActionStatus.ACCEPTED);
             /* Accepted -> addFriend() function is called */
             addFriend(protocol.getSender().getUserId(), user.getUserId());
         } else if (reponse.equalsIgnoreCase("rejected")) {
-            newResponseProtocol = protocol.response(protocol.getReceiver(), protocol.getSender(), ActionStatus.REJECTED);
+            newResponseProtocol = protocol.response(protocol.getSender(), protocol.getReceiver(), ActionStatus.REJECTED);
         } else {
             throw new UserException("Response is only Accepted or Rejected");
         }
