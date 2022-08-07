@@ -1,18 +1,20 @@
 package main.Models.Stuff;
 
+import main.Models.Enums.ActionStatus;
 import main.Models.Enums.ActionType;
 import main.Models.Interfaces.IAction;
 import main.Models.Subjects.User;
 import main.Ulities.GenerateNumber;
 
 import java.util.Date;
-import java.util.Locale;
 
 public class Protocol implements IAction<Protocol> {
     private String Id;
     private User sender;
     private User receiver;
     private ActionType actionType;
+
+    private ActionStatus actionStatus;
     private String content;
     private Date createdAt;
 
@@ -24,27 +26,30 @@ public class Protocol implements IAction<Protocol> {
 
     /* ACTION METHOD */
     @Override
-    public Protocol request(User fromUser, User toUser, Object entity) {
+    public Protocol request(User fromUser, User toUser, String content) {
         this.sender = fromUser;
         this.receiver = toUser;
-        this.content = String.valueOf(entity);
+        this.content = content;
         return this;
     }
 
     @Override
-    public Protocol response(User fromUser, User toUser, Object entity) {
+    public Protocol response(User fromUser, User toUser, ActionStatus response) {
         this.sender = fromUser;
         this.receiver = toUser;
-        this.content = String.valueOf(entity).toUpperCase(Locale.ROOT);
         return this;
     }
     /* ############# */
+
+    public String getId() {
+        return Id;
+    }
 
     public User getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    private void setSender(User sender) {
         this.sender = sender;
     }
 
@@ -52,7 +57,7 @@ public class Protocol implements IAction<Protocol> {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    private void setReceiver(User receiver) {
         this.receiver = receiver;
     }
 
@@ -68,7 +73,7 @@ public class Protocol implements IAction<Protocol> {
         return content;
     }
 
-    public void setContent(String content) {
+    private void setContent(String content) {
         this.content = content;
     }
 
@@ -76,7 +81,15 @@ public class Protocol implements IAction<Protocol> {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    private void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public ActionStatus getActionStatus() {
+        return actionStatus;
+    }
+
+    public void setActionStatus(ActionStatus actionStatus) {
+        this.actionStatus = actionStatus;
     }
 }

@@ -1,5 +1,6 @@
 package main.Data;
 
+import main.Models.Stuff.Protocol;
 import main.Models.Subjects.*;
 import main.Models.Reponsitories.Repository;
 
@@ -9,6 +10,7 @@ public class DataStorage {
     public Repository<Group> groups;
     public Repository<File> files;
     public Repository<Message> messages;
+    public Repository<Protocol> protocols;
     public Repository<Alias> alias;
     private static DataStorage instance = new DataStorage();
 
@@ -17,6 +19,7 @@ public class DataStorage {
         groups = new Repository<Group>();
         files = new Repository<File>();
         messages = new Repository<Message>();
+        protocols = new Repository<Protocol>();
         alias = new Repository<Alias>();
     }
 

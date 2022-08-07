@@ -16,7 +16,7 @@ public class PublicGroup extends Group implements InviteGroupAction, UpdateMembe
     }
 
     @Override
-    public Protocol sendInvitationToGroup(User user, Group group) {
+    public Protocol sendInvitationToGroup(User user) {
         Protocol protocol = new Protocol(ActionType.INVITE_JOIN_CHAT);
         protocol.request(super.getAdmins().get(0),user,"Invite to join");
         return protocol;
@@ -27,7 +27,7 @@ public class PublicGroup extends Group implements InviteGroupAction, UpdateMembe
         if (user != null) {
             if (super.findUserInGroup(user) != null) {
 //                super.getMembers().add(user);
-                Protocol protocol = new Protocol((ActionType.ASK_TO_JOIN_CHAT));
+                Protocol protocol = new Protocol((ActionType.INVITE_JOIN_CHAT));
                 protocol.request(user,super.getAdmins().get(0),"Join group");
                 return protocol;
             }
