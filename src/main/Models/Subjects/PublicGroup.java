@@ -1,6 +1,7 @@
 package main.Models.Subjects;
 
 import main.Models.Enums.ActionType;
+import main.Models.Enums.GroupType;
 import main.Models.Enums.RoleGroupChat;
 import main.Models.Interfaces.GroupActions.*;
 import main.Models.Stuff.Protocol;
@@ -11,6 +12,7 @@ import java.util.List;
 public class PublicGroup extends Group implements InviteGroupAction, RemoveMembers, UpdateMemberRole, JoinGroupAction, SendGroupCodeAction {
     public PublicGroup(User admin, String groupName) {
         super( admin, groupName);
+        super.setGroupType(GroupType.PUBLIC_GROUP);
     }
 
     @Override

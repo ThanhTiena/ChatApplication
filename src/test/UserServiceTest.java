@@ -2,16 +2,12 @@ package test;
 
 import main.Data.DataStorage;
 import main.Models.Enums.Gender;
-import main.Models.Subjects.Group;
 import main.Models.Subjects.PublicGroup;
 import main.Models.Subjects.User;
 import main.Services.UserService;
 import main.Ulities.BryctEncoder;
-import main.Ulities.UserException;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mindrot.BCrypt;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserServiceTest {
-    DataStorage dataStorage;
-    UserService userService = new UserService();
+    static UserService userService = new UserService();
 
     @BeforeEach
     public void setUp() {
@@ -60,9 +55,9 @@ public class UserServiceTest {
 
     @Test
     public void addNewUserTest() {
-        //same username
+        //Input invalid(same username)
         Boolean actualResult1 = userService.addNewUser("danh","123456","Danh","Dang", Gender.MALE, new Date());
-        //different username
+        //Input valid
         Boolean actualResult2 = userService.addNewUser("huy","123456","Huy","Pham", Gender.MALE, new Date());
 
         assertFalse(actualResult1);
