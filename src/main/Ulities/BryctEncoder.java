@@ -17,7 +17,8 @@ public class BryctEncoder {
         }
         return BCrypt.checkpw(plainTextPassword, hashedPassword);
     }
-    public static String hashNumber(Integer number){
-        return BCrypt.hashpw(String.valueOf(number),"-1");
+
+    public static String hashNumber(Integer number) {
+        return BCrypt.hashpw(String.valueOf(number), BCrypt.gensalt());
     }
 }
