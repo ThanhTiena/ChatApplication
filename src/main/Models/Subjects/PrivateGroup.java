@@ -50,7 +50,7 @@ public class PrivateGroup extends Group implements UpdateMemberRole, InviteGroup
     }
 
     @Override
-    public boolean reject(User user) {
+    public boolean reject() {
         return false;
     }
 }

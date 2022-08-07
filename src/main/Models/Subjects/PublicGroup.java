@@ -60,7 +60,7 @@ public class PublicGroup extends Group implements InviteGroupAction, UpdateMembe
     }
 
     @Override
-    public boolean reject(User user) {
+    public boolean reject() {
         return false;
     }
 }

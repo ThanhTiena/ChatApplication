@@ -89,17 +89,47 @@ public class GroupService {
         return false;
     }
 
-    public boolean responseRequest(User user, String groupId, String action) {
+    public boolean responseRequest(User user, String groupId, String action) throws GroupException {
         List<Protocol> protocols = dataStorage.protocols.get(p -> p.getReceiver().getUserId()
                         .equals(user.getUserId()))
-                        .stream().toList();
-        for(Protocol protocol: protocols){
-            if(protocol.getGroupId().equals(groupId)){
-
+                .stream().toList();
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        for (Protocol protocol : protocols) {
+            boolean condition = protocol.getGroupId().equals(groupId) &&
+                    protocol.getReceiver().getUserId().equals(user.getUserId());
+            if (condition) {
+                if (action.equalsIgnoreCase("accept")) {
+                    acceptResponse(group, user);
+                    dataStorage.protocols.delete(protocol);
+                    break;
+                } else if (action.equalsIgnoreCase("reject")) {
+//                    rejectReponse(group);
+                    dataStorage.protocols.delete(protocol);
+                    break;
+                } else {
+                    throw new GroupException("Only Accept or Reject");
+                }
             }
         }
         return false;
     }
+
+    private boolean acceptResponse(Group group, User user) {
+        boolean isAccept = false;
+        if (group.getGroupType().equals(GroupType.PRIVATE_GROUP)) {
+            privateGroup = (PrivateGroup) group;
+            isAccept = privateGroup.accept(user);
+        } else {
+            publicGroup = (PublicGroup) group;
+            isAccept = publicGroup.accept(user);
+        }
+        return isAccept;
+    }
+
+//    private boolean rejectReponse(Group group) {
+//        return group.getGroupType().equals(GroupType.PUBLIC_GROUP) ?
+//                ((PublicGroup) group).reject() : ((PrivateGroup) group).reject();
+//    }
 
     public boolean changeUserRoleInGroup(User user, String groupId, RoleGroupChat role) {
         boolean isUpdate = false;
