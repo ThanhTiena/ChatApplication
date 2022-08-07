@@ -29,63 +29,48 @@ public class Message {
         return senderId;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
     public String getReceiverId() {
         return receiverId;
-    }
-
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public Date getSentAt() {
         return sentAt;
-    }
-
-    public void setSentAt(Date sentAt) {
-        this.sentAt = sentAt;
     }
 
     public User getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
     public User getReceiver() {
         return receiver;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+    /* User can edit a message that had been sent, morever they can forward to other user or group chat */
+    public List<File> getFiles() {
+        return files;
+    }
+    /* Allow User to edit again their message */
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setSentAt(Date sentAt) {
+        this.sentAt = sentAt;
     }
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
     public void setGroup(Group group) {
         this.group = group;
     }
 
-    public List<File> getFiles() {
-        return files;
-    }
-
-    public void setFiles(List<File> files) {
-        this.files = files;
-    }
 }

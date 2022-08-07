@@ -56,7 +56,7 @@ public class User {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    private void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -96,7 +96,7 @@ public class User {
         return hashPassword;
     }
 
-    public void setHashPassword(String hashPassword) {
+    protected void setHashPassword(String hashPassword) {
         this.hashPassword = hashPassword;
     }
 
@@ -136,10 +136,6 @@ public class User {
         return friends;
     }
 
-    public void setFriends(Map<String, User> friends) {
-        this.friends = friends;
-    }
-
     public boolean isActivated() {
         return isActivated;
     }
@@ -152,28 +148,8 @@ public class User {
         return roleInGroupChats;
     }
 
-    public void setRoleInGroupChats(Map<String, String> roleInGroupChats) {
-        this.roleInGroupChats = roleInGroupChats;
-    }
-
     public Map<String, String> getAlias() {
         return alias;
     }
 
-    public void setAlias(Map<String, String> alias) {
-        this.alias = alias;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", gender=" + gender +
-                ", dateOfBirth=" + dateOfBirth +
-                ", userName='" + userName + '\'' +
-                '}';
-    }
 }

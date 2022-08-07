@@ -15,7 +15,7 @@ public class IndividualChat extends Group implements JoinGroupAction {
 
     @Override
     public boolean addMember(User user) {
-        if(super.getMembers().size() < 2){
+        if (super.getMembers().size() < 2) {
             super.addMember(user);
             return true;
         }
