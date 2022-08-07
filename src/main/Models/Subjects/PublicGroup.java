@@ -9,7 +9,7 @@ import main.Models.Stuff.Protocol;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PublicGroup extends Group implements InviteGroupAction, RemoveMembers, UpdateMemberRole, JoinGroupAction, SendGroupCodeAction {
+public class PublicGroup extends Group implements InviteGroupAction, UpdateMemberRole, JoinGroupAction, SendGroupCodeAction {
     public PublicGroup(User admin, String groupName) {
         super( admin, groupName);
         super.setGroupType(GroupType.PUBLIC_GROUP);
@@ -33,16 +33,6 @@ public class PublicGroup extends Group implements InviteGroupAction, RemoveMembe
             }
         }
         return null;
-    }
-
-    @Override
-    public boolean removeMember(User user) {
-        boolean flag = false;
-        if(user != null || super.getMembers().contains(user)){
-            super.getMembers().remove(user);
-            flag = true;
-        }
-        return flag;
     }
 
     @Override

@@ -55,7 +55,20 @@ public class GroupService {
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
         return group.showSentFiles();
     }
-
+    public boolean changeUserRoleInGroup(User user, String groupId, RoleGroupChat role){
+        boolean isUpdate = false;
+        Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
+        if(!group.getGroupType().equals(GroupType.INDIVIDUAL)){
+            if(group.getGroupType().equals(GroupType.PUBLIC_GROUP)){
+                publicGroup = (PublicGroup) group;
+                isUpdate = publicGroup.updateRoleInGroup(user,role);
+            }else{
+                privateGroup = (PrivateGroup) group;
+                isUpdate = privateGroup.updateRoleInGroup(user,role);
+            }
+        }
+        return isUpdate;
+    }
     public boolean inviteToJoinGroup(User invitor, User user, String groupId) throws GroupException {
         boolean flag = false;
         group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));

@@ -7,7 +7,7 @@ import main.Models.Stuff.Protocol;
 
 import java.util.*;
 
-public class IndividualChat extends Group implements JoinGroupAction {
+public class IndividualChat extends Group {
     public IndividualChat(User admin, String groupName) {
         super(admin, groupName);
         super.setGroupType(GroupType.INDIVIDUAL);
@@ -20,16 +20,5 @@ public class IndividualChat extends Group implements JoinGroupAction {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public Protocol requestForJoiningGroup(User user) {
-        if (user != null) {
-            if (super.findUserInGroup(user) != null) {
-//                super.getMembers().add(user);
-                return new Protocol(ActionType.ASK_TO_JOIN_CHAT);
-            }
-        }
-        return null;
     }
 }

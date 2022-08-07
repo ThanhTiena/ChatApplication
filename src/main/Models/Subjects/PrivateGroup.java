@@ -9,19 +9,10 @@ import main.Models.Stuff.Protocol;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrivateGroup extends Group implements RemoveMembers, UpdateMemberRole, InviteGroupAction {
+public class PrivateGroup extends Group implements UpdateMemberRole, InviteGroupAction {
     public PrivateGroup(User admin, String groupName) {
         super(admin, groupName);
         super.setGroupType(GroupType.PRIVATE_GROUP);
-    }
-
-    @Override
-    public boolean removeMember(User user) {
-        if(user == null || super.findUserInGroup(user) == null){
-            return false;
-        }
-        super.getMembers().remove(user);
-        return true;
     }
 
     @Override
@@ -29,7 +20,9 @@ public class PrivateGroup extends Group implements RemoveMembers, UpdateMemberRo
         boolean flag = false;
         if(user != null){
             if(super.findUserInGroup(user) != null){
-                if(!user.getRoleInGroupChats().get(super.getGroupId()).equals(role.toString())){
+                if(!user.getRoleInGroupChats()
+                        .get(super.getGroupId()).equals(role.toString()))
+                {
                     user.getRoleInGroupChats().replace(super.getGroupId(),role.toString());
                     flag = true;
                 }
