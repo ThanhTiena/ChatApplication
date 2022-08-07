@@ -19,7 +19,6 @@ public class GroupService {
     private IndividualChat individualChat;
     private UserService userService;
 
-    private static StringBuilder stringBuilder;
 
     public GroupService() {
         this.dataStorage = DataStorage.getInstance();
@@ -30,7 +29,7 @@ public class GroupService {
         return dataStorage.groups.find(group -> group.getGroupId().equals(groupId));
     }
 
-    public Group createChat(User admin, String groupName, String groupType) throws GroupException {
+    public Group createGroup(User admin, String groupName, String groupType) throws GroupException {
         try {
             /* group name can be same, so do not check */
             Group group = initGroupChat(admin, groupName, groupType);
@@ -42,17 +41,17 @@ public class GroupService {
         }
     }
 
-    public List<User> groupMemberDetails(String groupId) {
+    public List<User> getGroupMemberDetails(String groupId) {
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
         return group.showMembers();
     }
 
-    public List<Message> groupMessageDetails(String groupId) {
+    public List<Message> getGroupMessageDetails(String groupId) {
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
         return group.showMessage();
     }
 
-    public List<File> groupFileDetails(String groupId) {
+    public List<File> getGroupFileDetails(String groupId) {
         Group group = dataStorage.groups.find(g -> g.getGroupId().equals(groupId));
         return group.showSentFiles();
     }

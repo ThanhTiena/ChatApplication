@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67a2f48b-8ed7-4818-86a6-48c0fd567372" name="Default Changelist" comment="group service test" />
+    <list default="true" id="67a2f48b-8ed7-4818-86a6-48c0fd567372" name="Default Changelist" comment="update group service test">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Services/GroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Services/GroupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/GroupServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/GroupServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/MessageServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/MessageServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/UserServiceTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +42,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Writing_group_service_test" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -78,7 +84,7 @@
       <recent name="Models" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.GroupServiceTest">
+  <component name="RunManager" selected="JUnit.GroupServiceTest.getGroupMemberDetailsTest">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -107,7 +113,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GroupServiceTest.addMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GroupServiceTest.getContactsOfUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatApplication" />
       <extension name="coverage">
         <pattern>
@@ -117,13 +123,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="test" />
       <option name="MAIN_CLASS_NAME" value="test.GroupServiceTest" />
-      <option name="METHOD_NAME" value="addMemberTest" />
+      <option name="METHOD_NAME" value="getContactsOfUserTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GroupServiceTest.createChatTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GroupServiceTest.getConversationsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatApplication" />
       <extension name="coverage">
         <pattern>
@@ -133,13 +139,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="test" />
       <option name="MAIN_CLASS_NAME" value="test.GroupServiceTest" />
-      <option name="METHOD_NAME" value="createChatTest" />
+      <option name="METHOD_NAME" value="getConversationsTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GroupServiceTest.groupMemberDetailsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GroupServiceTest.getGroupMemberDetailsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatApplication" />
       <extension name="coverage">
         <pattern>
@@ -149,13 +155,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="test" />
       <option name="MAIN_CLASS_NAME" value="test.GroupServiceTest" />
-      <option name="METHOD_NAME" value="groupMemberDetailsTest" />
+      <option name="METHOD_NAME" value="getGroupMemberDetailsTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GroupServiceTest.removeUserFromGroupTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatApplication" />
       <extension name="coverage">
         <pattern>
@@ -164,19 +170,20 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test" />
-      <option name="MAIN_CLASS_NAME" value="test.UserServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="test.GroupServiceTest" />
+      <option name="METHOD_NAME" value="removeUserFromGroupTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.GroupServiceTest.groupMemberDetailsTest" />
-        <item itemvalue="JUnit.GroupServiceTest.createChatTest" />
-        <item itemvalue="JUnit.GroupServiceTest.addMemberTest" />
+        <item itemvalue="JUnit.GroupServiceTest.getGroupMemberDetailsTest" />
         <item itemvalue="JUnit.GroupServiceTest" />
+        <item itemvalue="JUnit.GroupServiceTest.removeUserFromGroupTest" />
+        <item itemvalue="JUnit.GroupServiceTest.getConversationsTest" />
+        <item itemvalue="JUnit.GroupServiceTest.getContactsOfUserTest" />
       </list>
     </recent_temporary>
   </component>
@@ -296,7 +303,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659844496194</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="update group service test">
+      <created>1659846296326</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1659846296326</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,7 +342,8 @@
     <MESSAGE value="Update - 15" />
     <MESSAGE value="Update - Nhan - 2" />
     <MESSAGE value="group service test" />
-    <option name="LAST_COMMIT_MESSAGE" value="group service test" />
+    <MESSAGE value="update group service test" />
+    <option name="LAST_COMMIT_MESSAGE" value="update group service test" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ChatApplication$MessageServiceTest_sendFileToChat.ic" NAME="MessageServiceTest.sendFileToChat Coverage Results" MODIFIED="1659773740731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
