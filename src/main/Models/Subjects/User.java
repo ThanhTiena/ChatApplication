@@ -25,7 +25,6 @@ public class User implements IUser {
     private boolean isOnline;
     private boolean isActivated;
     private Map<String, String> roleInGroupChats;
-    private Map<String, Protocol> actions;
     /* Can change  */
     private Map<String, User> friends;
 
@@ -43,7 +42,6 @@ public class User implements IUser {
         this.isOnline = true;
 
         this.roleInGroupChats = new HashMap<String, String>();
-        this.actions = new HashMap<String, Protocol>();
         this.friends = new HashMap<String, User>();
     }
 
@@ -133,14 +131,6 @@ public class User implements IUser {
 
     public void setOnline(boolean online) {
         isOnline = online;
-    }
-
-    public Map<String, Protocol> getActions() {
-        return actions;
-    }
-
-    public void setActions(Map<String, Protocol> actions) {
-        this.actions = actions;
     }
 
     public Map<String, User> getFriends() {
